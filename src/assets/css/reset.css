@@ -53,12 +53,12 @@ body, textarea, select, input, button {
   overflow: hidden;
 }
 
-.wrap-v1 {
+.w1100 {
   width: 1100px;
   margin: 0 auto;
 }
 
-.wrap-v2 {
+.w980 {
   width: 980px;
   margin: 0 auto;
 }
