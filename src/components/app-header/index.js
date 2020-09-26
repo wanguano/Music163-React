@@ -16,7 +16,6 @@ export default memo(function JMAppHeader() {
           key={item.title}
           to={item.link}
           className="header-item"
-          exact
           activeClassName="link-active"
         >
           <em>{item.title}</em>
