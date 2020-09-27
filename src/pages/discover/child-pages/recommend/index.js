@@ -1,13 +1,15 @@
 import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { getTopBannersAction } from './store/actionCreator'
 
-function JMRecommend(props) {
+function JMRecommend() {
   // redux Hook 组件和redux关联: 获取数据和进行操作
   const { topBanners } = useSelector(state => ({
-    topBanners: state.recommend.topBanners,
-  }))
+    // topBanners: state.get('recommend').get('topBanners')
+    topBanners: state.getIn(['recommend', 'topBanners'])
+  }), shallowEqual)
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getTopBannersAction())
   }, [dispatch])

@@ -1,14 +1,17 @@
+import { Map } from "immutable";
 import * as actionTypes from './actionTypes'
-const defaultState = {
+
+// 使用Immutable管理redux中的state (修改的`state`不会修改原有数据结构, 而是返回修改后新的数据结构)
+const defaultState = Map({
   topBanners: [],
-}
+})
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case actionTypes.CHANGE_TOP_BANNER:
-      return { ...state, topBanners: action.topBanners }
+      return state.set('topBanners', action.topBanners)
     default:
-      return { ...state }
+      return state
   }
 }
 
