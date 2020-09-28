@@ -9,11 +9,11 @@ import { renderRoutes } from 'react-router-config'
 export default memo(function JMDiscover(props) {
   const { route } = props
   
-  // 1.通过redux-thunk发送网络请求
+  // 通过redux-thunk发送网络请求
   return (
     <HeaderCategory>
-      <div className="w1100 top">
-        <CategoryList>
+      <div className="top">
+        <CategoryList className="w1100">
           {dicoverMenu.map(item => {
             return (
               <li key={item.title} className="item">

@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 export const HeaderCategory = styled.div`
   width: 100%;
-  height: 35px;
-  background-color: #c20c0c;
+
+  .top {
+    height: 35px;
+    background-color: #c20c0c;
+    overflow: hidden;
+  }
 `
 export const CategoryList = styled.ul`
   display: flex;
@@ -13,7 +17,7 @@ export const CategoryList = styled.ul`
     a {
       display: inline-block;
       padding: 0 13px;
-      margin: 7px 17px 0;
+      margin: 8px 17px 0;
       border-radius: 20px;
       color: #fff;
       &:hover,
