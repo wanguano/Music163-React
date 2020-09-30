@@ -1,6 +1,7 @@
 const { default: styled } = require('styled-components')
 
 export const BannerWrapper = styled.div`
+  background: url('${props => props.bgImage}') center center/6000px;
   width: 100%;
   height: 270px;
 
@@ -38,8 +39,9 @@ export const BannerControl = styled.div`
     position: absolute;
     width: 37px;
     height: 63px;
+    background-image: url(${require("@/assets/img/banner_sprite.png")});
+    background-color: transparent;
     cursor: pointer;
-    background-image: url(${require('@/assets/img/banner_sprite.png')});
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
