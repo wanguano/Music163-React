@@ -5,10 +5,10 @@ export const RcmHeaderWrapper = styled.div`
   justify-content: space-between;
   height: 33px;
   padding: 0 10px 0 34px;
-  /* background-position: -225px -156px; */
   border-bottom: 2px solid #C10D0C;
   background: url('${require('@/assets/img/sprite_02.png')}') no-repeat center ;
   background-position: -225px -156px;
+  line-height: 33px;
 `
 
 export const RcmHeaderLeft = styled.div`
