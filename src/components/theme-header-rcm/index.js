@@ -1,22 +1,44 @@
 import React, { memo } from 'react'
+import propTypes from 'prop-types'
 import { RcmHeaderLeft, RcmHeaderRight, RcmHeaderWrapper } from './style'
 
-export default memo(function ThemeHeaderRmc() {
+const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
+  const { title, keywords } = props
   return (
     <RcmHeaderWrapper>
       <RcmHeaderLeft>
-        <div className="hot-title">
-          <i className="icon"></i>
-          <a href="/discover/recommend" className="hot-text">热门推荐</a>
-        </div>
+        <h2 className="hot-title">
+          <a href="/discover/recommend" className="hot-text">
+            {title}
+          </a>
+        </h2>
         <ul className="keywords">
-          <li className="item">华语</li>
-          <li className="item">| 流行</li>
+          {keywords.map(item => {
+            return (
+              <li className="item" key={item}>
+                <a href="/">{item}</a>
+                <span className="line">|</span>
+              </li>
+            )
+          })}
         </ul>
       </RcmHeaderLeft>
       <RcmHeaderRight>
-        <span className="more">更多</span>
+        <span>更多</span>
+        <i className="icon"></i>
       </RcmHeaderRight>
     </RcmHeaderWrapper>
   )
-})
+}
+
+ThemeHeaderRmc.propTypes = {
+  // title属性必填
+  title: propTypes.string.isRequired,
+  keywords: propTypes.array
+}
+
+ThemeHeaderRmc.defaultProps  = {
+  keywords: []
+}
+
+export default memo(ThemeHeaderRmc)
