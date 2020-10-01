@@ -21,7 +21,7 @@
 ## 技术栈
 前端
 
-- Vue：用于构建用户界面的 MVVM 框架
+- React：用于构建用户界面的 MVVM 框架
 - vue-router：为单页面应用提供的路由系统，使用了 Lazy Loading Routes 技术来实现异步加载优化性能
 - vuex：Vue 集中状态管理，在多个组件共享某些状态时非常便捷
 - vue-lazyload：实现图片懒加载，节省用户流量，优化页面加载速度
