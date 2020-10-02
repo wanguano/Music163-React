@@ -1,38 +1,45 @@
 import React, { memo, useEffect } from 'react'
-
-import { HOT_RECOMMEND_LIMIT } from "@/common/constants";
-
-import {
-  HotRecommendWrapper,
-} from './style'
-import ThemeHeaderRmc from 'components/theme-header-rcm'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+
+import { HOT_RECOMMEND_LIMIT } from '@/common/constants'
+
+import { HotRecommendWrapper } from './style'
+import ThemeHeaderRmc from 'components/theme-header-rcm'
 import { getHostBannersAction } from '../../store/actionCreator'
+import SongCover from 'components/song-cover'
 
 export default memo(function HotRecommend() {
   // state
-  
-  // redux 
+
+  // redux
   const dispatch = useDispatch()
-  const { hotRecommends } = useSelector(state => ({
-    hotRecommends: state.getIn(['recommend', 'hotRecommends'])
-  }), shallowEqual)
-  
+  const { hotRecommends } = useSelector(
+    state => ({
+      hotRecommends: state.getIn(['recommend', 'hotRecommends']),
+    }),
+    shallowEqual
+  )
+
   // other hooks
   useEffect(() => {
     dispatch(getHostBannersAction(HOT_RECOMMEND_LIMIT))
   }, [dispatch])
-  
+
   return (
     <HotRecommendWrapper>
-      <ThemeHeaderRmc  title="热门推荐" keywords={['华语','流行','摇滚','民谣','电子']}  />
-      {
-        hotRecommends.map((item) => {
+      <ThemeHeaderRmc
+        title="热门推荐"
+        keywords={['华语', '流行', '摇滚', '民谣', '电子']}
+      />
+      <div className="recommend-list">
+        {hotRecommends.map(item => {
           return (
-            <div className="recommend-list">{item.name}</div>
+            <SongCover key={item.id} info={item} className="recommend-list">
+              {item.name}
+            </SongCover>
           )
-        })
-      }
+        })}
+      </div>
     </HotRecommendWrapper>
   )
 })
