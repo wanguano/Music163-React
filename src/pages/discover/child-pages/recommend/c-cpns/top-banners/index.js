@@ -36,12 +36,12 @@ export default memo(function TopBanners() {
   }, [])
 
   // 其他的逻辑代码 memoize
-  const bgImage = topBanners[currentIndex] && (topBanners[currentIndex].imageUrl + "?imageView&blur=40x20")
+  const bgImage =
+    topBanners[currentIndex] &&
+    topBanners[currentIndex].imageUrl + '?imageView&blur=40x20'
 
   return (
-    <BannerWrapper
-      bgImage={bgImage}
-    >
+    <BannerWrapper bgImage={bgImage}>
       <div className="banner w980">
         <BannerLeft>
           <Carousel
