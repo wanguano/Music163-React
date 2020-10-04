@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
-import { getCount } from '@/utils/format-utils'
+import { getCount, getSizeImage } from '@/utils/format-utils'
 import { SongCoverWrapper } from './style'
-import { getSizeImage } from '@/utils/format-utils'
 
 // 歌曲封面组件
 function SongCover(props) {

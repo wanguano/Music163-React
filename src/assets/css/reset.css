@@ -100,7 +100,7 @@ body, textarea, select, input, button {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
 
-/* .image_cover {
+.image_cover {
   position: absolute;
   left: 0;
   right: 0;
@@ -112,4 +112,4 @@ body, textarea, select, input, button {
 
 .sprite_player {
   background: url(../img/playbar_sprite.png) no-repeat 0 9999px;
-} */
+}

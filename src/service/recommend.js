@@ -14,11 +14,32 @@ export function getTopBanners() {
 // 4.在组件中使用dispatch action 测试网络请求数据
 // 5.由于携带的query string是数字可以定义为常量(方便后期修改)
 // 6.在组件中使用useSelector展示数据
+// 热门推荐
 export function getHotRecommends(limit) {
   return request({
     url: "/personalized",
     params: {
       limit
+    }
+  })
+}
+
+// 新碟上架
+export function getNewAlbums(limit) {
+  return request({
+    url: '/top/album',
+    params: {
+      limit
+    }
+  })
+}
+
+// 榜单
+export function getTopList(idx) {
+  return request({
+    url: '/top/list',
+    params: {
+      idx
     }
   })
 }
