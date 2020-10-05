@@ -64,6 +64,10 @@ body, textarea, select, input, button {
   margin: 0 auto;
 }
 
+.text-indent {
+  text-indent: -9999px;
+}
+
 .inline-block {
   display: inline-block;
 }
