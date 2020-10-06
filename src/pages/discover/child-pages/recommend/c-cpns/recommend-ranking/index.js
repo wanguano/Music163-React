@@ -10,13 +10,15 @@ export default memo(function RecommendRanking() {
   // state/props
 
   // redux hook
-  const { upRaking } = useSelector(state => ({
-    upRaking: state.getIn(['recommend', 'upRaking']),
+  const { upRanking, originRanking, newRanking } = useSelector(state => ({
+    upRanking: state.getIn(['recommend', 'upRanking']),
+    originRanking: state.getIn(['recommend', 'originRanking']),
+    newRanking: state.getIn(['recommend', 'newRanking'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
   // other hook
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getTopListAction(0))
     dispatch(getTopListAction(2))
     dispatch(getTopListAction(3))
@@ -25,8 +27,10 @@ export default memo(function RecommendRanking() {
   return (
     <RankingWrapper>
       <ThemeHeaderRcm title="榜单" />
-      <div className="raking-info">
-        <TopList info={upRaking} />
+      <div className="ranking-info">
+        <TopList info={upRanking} />
+        <TopList info={originRanking} />
+        <TopList info={newRanking} />
       </div>
     </RankingWrapper>
   )

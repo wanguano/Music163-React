@@ -63,21 +63,24 @@ export const TopRankingWrapper = styled.div`
       }
 
       .song-name {
-        /* width: 185px; */
-        width: 96px;
+        width: 185px;
         font-size: 12px;
       }
 
+      &:hover .song-name {
+        width: 96px;
+      }
+
       &:hover .oper {
-        display: block;
-        /* width: 96px; */
+        visibility: visible;
+        width: 93px;
       }
 
       .oper {
         display: flex;
         align-items: center;
-        /* display: none; */
-        width: 82px;
+        visibility: hidden;
+        width: 0;
         text-indent: -9999px;
 
         .btn {
@@ -106,5 +109,11 @@ export const TopRankingWrapper = styled.div`
 
   .ranking-footer {
     height: 33px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .show-all {
+      margin-right: 15px;
+    }
   }
 `

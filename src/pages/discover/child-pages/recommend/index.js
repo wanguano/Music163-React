@@ -10,6 +10,9 @@ import TopBanners from './c-cpns/top-banners'
 import HotRecommend from './c-cpns/hot-recommend'
 import NewAlbum from './c-cpns/new-album'
 import RecommendRanking from './c-cpns/recommend-ranking'
+import HotArtist from './c-cpns/hot-artist'
+import UserLogin from './c-cpns/user-login'
+import SettleSinger from './c-cpns/settle-singer'
 
 function JMRecommend() {
   return (
@@ -28,7 +31,14 @@ function JMRecommend() {
           <RecommendRanking />
         </RecommendLeft>
         {/* 主体推荐页右侧 */}
-        <RecommendRight>RecommendRight</RecommendRight>
+        <RecommendRight>
+          {/* 登录 */}
+          <UserLogin />
+          {/* 入驻歌手 */}
+          <SettleSinger/>
+          {/* 热门主播 */}
+          <HotArtist />
+        </RecommendRight>
       </Content>
     </RecommendWrapper>
   )

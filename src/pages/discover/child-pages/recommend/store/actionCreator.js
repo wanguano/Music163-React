@@ -26,21 +26,22 @@ export const changeNewAlbumAction = res => ({
 })
 
 // 飙升榜单
-export const changeUpRaking = res => ({
-  type: actionTypes.CHANGE_UP_RAKING,
-  upRaking: res.playlist,
+export const changeUpRanking = res => ({
+  type: actionTypes.CHANGE_UP_RANKING,
+  upRanking: res.playlist,
 })
 // 新歌榜单
-export const changeNewRaking = res => ({
-  type: actionTypes.CHANGE_NEW_RAKING,
-  newRaking: res.playlist,
+export const changeNewRanking = res => ({
+  type: actionTypes.CHANGE_NEW_RANKING,
+  newRanking: res.playlist,
 })
 // 原创榜单
-export const changeOriginRaking = res => ({
-  type: actionTypes.CHANGE_ORIGIN_RAKING,
-  originRaking: res.playlist,
+export const changeOriginRanking = res => ({
+  type: actionTypes.CHANGE_ORIGIN_RANKING,
+  originRanking: res.playlist,
 })
 
+// --------------------------------------------------------------
 // 发送网络请求将结果传递给派发的Action中 (react-redux可以让该函数返回一个函数而不是返回一个对象: redux-thunk使用)
 // 轮播图network request
 export const getTopBannersAction = () => {
@@ -76,13 +77,13 @@ export const getTopListAction = idx => {
     getTopList(idx).then(res => {
       switch (idx) {
         case 0:
-          dispatch(changeUpRaking(res))
+          dispatch(changeUpRanking(res))
           break
         case 2:
-          dispatch(changeNewRaking(res))
+          dispatch(changeNewRanking(res))
           break
         case 3:
-          dispatch(changeOriginRaking(res))
+          dispatch(changeOriginRanking(res))
           break
         default:
       }

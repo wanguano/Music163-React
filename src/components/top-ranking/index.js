@@ -3,13 +3,13 @@ import React, { memo } from 'react'
 import { getSizeImage } from '@/utils/format-utils.js'
 
 import { TopRankingWrapper } from './style'
-import { PlayIcon } from 'components/theme-oper'
 
 export default memo(function TopRanking(props) {
   // ranking-list排行列表效果需求:
   // 鼠标放到一行item身上显示 播放按钮和添加播放列表和收藏的icons
   const { info } = props
   const { tracks = [] } = info
+  
   return (
     <TopRankingWrapper>
       <div className="ranking-header">
@@ -21,7 +21,7 @@ export default memo(function TopRanking(props) {
         </div>
         <div className="tit">
           <a href="/todo">
-            <h3>云音乐飙升榜</h3>
+            <h3>{info.name}</h3>
           </a>
           <div className="btn">
             <a href="/todo" className="sprite_02 text-indent play">
@@ -38,7 +38,7 @@ export default memo(function TopRanking(props) {
           return (
             <div key={item.id} className="list-item">
               <div className="number">{index + 1}</div>
-              <div className="song-name text-nowrap">{item.name}</div>
+              <a href="/todo" className="song-name text-nowrap">{item.name}</a>
               <div className="oper">
                 <a href="/todo" className="sprite_02 btn play">{item.name}</a>
                 <a href="/todo" className="sprite_icon2 btn addto">{item.name}</a>
@@ -48,7 +48,9 @@ export default memo(function TopRanking(props) {
           )
         })}
       </div>
-      <div className="ranking-footer"></div>
+      <div className="ranking-footer">
+        <a href="/all" className="show-all">查看全部&gt;</a>
+      </div>
     </TopRankingWrapper>
   )
 })
