@@ -5,6 +5,7 @@ import {
   getHotRecommends,
   getNewAlbums,
   getTopList,
+  getSettleSinger
 } from '@/service/recommend.js'
 
 // 轮播图Action
@@ -39,6 +40,12 @@ export const changeNewRanking = res => ({
 export const changeOriginRanking = res => ({
   type: actionTypes.CHANGE_ORIGIN_RANKING,
   originRanking: res.playlist,
+})
+
+// 入驻歌手
+export const changeSettleSinger = res => ({
+  type: actionTypes.CHANGE_SETTLE_SINGER,
+  settleSinger: res.artists
 })
 
 // --------------------------------------------------------------
@@ -89,4 +96,13 @@ export const getTopListAction = idx => {
       }
     })
   }
+}
+
+// 入驻歌手network request
+export  const getSettleSingerAction = limit => {
+  return dispatch => {
+    getSettleSinger(limit).then(res => {
+      dispatch(changeSettleSinger(res))
+    })
+  } 
 }

@@ -43,3 +43,13 @@ export function getTopList(idx) {
     }
   })
 }
+
+// 入驻歌手
+export function getSettleSinger(limit) {
+  return request({
+    url: '/artist/list',
+    params: {
+      limit
+    }
+  })
+}

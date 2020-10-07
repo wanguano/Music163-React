@@ -9,6 +9,7 @@ const HeaderLineWrapper = styled.div`
   border-bottom: 1px solid #ccc;
 
   .hot-artist {
+    font-weight: bold;
     color: #333;
   }
   .show-all {

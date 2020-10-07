@@ -7,7 +7,6 @@ import HotCoverInfo from '../artist-hot-composition/hot-cover-info'
 import { HotArtistWrapper } from './style'
 
 export default memo(function HotArtist() {
-  console.log(hotRadios)
   return (
     <HotArtistWrapper>
       <ArtistHeaderLine titleSlot="热门主播" />

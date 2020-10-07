@@ -12,6 +12,7 @@ const HotCoverInfoCover = styled.div`
 
   .artist-info {
     .artist-name {
+      display: block;
       position: relative;
       color: #000;
 
@@ -21,10 +22,14 @@ const HotCoverInfoCover = styled.div`
         content: '';
         width: 11px;
         height: 13px;
+        background: url(${require('@/assets/img/sprite_icon2.png')});
+        background-position: 0 1px;
       }
     }
 
     .artist-detail {
+      display: block;
+      width: 160px;
       color: #666;
     }
   }
@@ -38,8 +43,8 @@ export default memo(function HotCoverInfo(props) {
         <img src={getSizeImage(info.picUrl, 40)} alt="" />
       </div>
       <div className="artist-info">
-        <div className="artist-name">{info.name}</div>
-        <div className="artist-detail">{info.position}</div>
+        <a href={info.url} className="artist-name">{info.name}</a>
+        <a href={info.url} className="artist-detail text-nowrap">{info.position}</a>
       </div>
     </HotCoverInfoCover>
   )
