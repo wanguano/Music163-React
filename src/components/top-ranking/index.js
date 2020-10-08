@@ -34,7 +34,7 @@ export default memo(function TopRanking(props) {
         </div>
       </div>
       <div className="ranking-list">
-        {tracks.slice(0, 10).map((item, index) => {
+        {tracks && tracks.length > 0 && tracks.slice(0, 10).map((item, index) => {
           return (
             <div key={item.id} className="list-item">
               <div className="number">{index + 1}</div>
@@ -46,7 +46,7 @@ export default memo(function TopRanking(props) {
               </div>
             </div>
           )
-        })}
+        }) }
       </div>
       <div className="ranking-footer">
         <a href="/all" className="show-all">查看全部&gt;</a>

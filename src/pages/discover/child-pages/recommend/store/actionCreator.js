@@ -26,23 +26,23 @@ export const changeNewAlbumAction = res => ({
   newAlbums: res.albums,
 })
 
-// 飙升榜单
+// 飙升榜单Action
 export const changeUpRanking = res => ({
   type: actionTypes.CHANGE_UP_RANKING,
   upRanking: res.playlist,
 })
-// 新歌榜单
+// 新歌榜单Action
 export const changeNewRanking = res => ({
   type: actionTypes.CHANGE_NEW_RANKING,
   newRanking: res.playlist,
 })
-// 原创榜单
+// 原创榜单Action
 export const changeOriginRanking = res => ({
   type: actionTypes.CHANGE_ORIGIN_RANKING,
   originRanking: res.playlist,
 })
 
-// 入驻歌手
+// 入驻歌手Action
 export const changeSettleSinger = res => ({
   type: actionTypes.CHANGE_SETTLE_SINGER,
   settleSinger: res.artists
