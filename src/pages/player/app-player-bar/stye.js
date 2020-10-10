@@ -47,12 +47,12 @@ export const Control = styled.div`
     width: 36px;
     height: 36px;
     /* 动态的传递 */
-    background-position: 0 -204px;
+    background-position: 0 ${props => props.isPlaying ? "-165px": "-204px"};
     margin-top: 0;
 
     &:hover {
       /* 动态的传递 */
-      background-position: -40px -204px;
+      background-position: -40px ${props => props.isPlaying ? "-165px": "-204px"};
     }
   }
 
@@ -142,6 +142,7 @@ export const Operator = styled.div`
   .btn {
     width: 25px;
     height: 25px;
+    cursor: pointer;
   }
 
   .favor {
@@ -187,6 +188,37 @@ export const Operator = styled.div`
       color: #ccc;
       width: 59px;
       background-position: -42px -68px;
+    }
+  }
+
+  .top-volume {
+    position: absolute;
+    top: -117px;
+    left: 60px;
+    clear: both;
+    width: 32px;
+    height: 113px;
+    overflow: hidden;
+    padding: 10px;
+    background-position: 0 -503px;
+    
+    /* ant design Slider style change */
+    .ant-slider-vertical {
+      margin: 0;
+      .ant-slider-rail {
+        background-color: transparent;
+      }
+
+      .ant-slider-track {
+        background: url(${require('@/assets/img/playbar_sprite.png')}) no-repeat 0 9999px;
+        background-position: -40px bottom;
+      }
+
+      .ant-slider-handle {
+        border: 0;
+        background: url(${require('@/assets/img/sprite_icon.png')});
+        background-position: -42px -250px;
+      }
     }
   }
 

@@ -5,7 +5,7 @@ import {
   getHotRecommends,
   getNewAlbums,
   getTopList,
-  getSettleSinger
+  getSettleSinger,
 } from '@/service/recommend.js'
 
 // 轮播图Action
@@ -45,7 +45,7 @@ export const changeOriginRanking = res => ({
 // 入驻歌手Action
 export const changeSettleSinger = res => ({
   type: actionTypes.CHANGE_SETTLE_SINGER,
-  settleSinger: res.artists
+  settleSinger: res.artists,
 })
 
 // --------------------------------------------------------------
@@ -99,10 +99,10 @@ export const getTopListAction = idx => {
 }
 
 // 入驻歌手network request
-export  const getSettleSingerAction = limit => {
+export const getSettleSingerAction = limit => {
   return dispatch => {
     getSettleSinger(limit).then(res => {
       dispatch(changeSettleSinger(res))
     })
-  } 
+  }
 }

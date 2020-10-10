@@ -9,7 +9,6 @@ export default memo(function TopRanking(props) {
   // 鼠标放到一行item身上显示 播放按钮和添加播放列表和收藏的icons
   const { info } = props
   const { tracks = [] } = info
-  
   return (
     <TopRankingWrapper>
       <div className="ranking-header">

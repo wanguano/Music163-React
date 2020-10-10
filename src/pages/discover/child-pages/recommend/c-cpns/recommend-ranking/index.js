@@ -10,7 +10,7 @@ export default memo(function RecommendRanking() {
   // state/props
 
   // redux hook
-  const { upRanking, originRanking, newRanking } = useSelector(state => ({
+  const { upRanking = [], originRanking = [], newRanking = [] } = useSelector(state => ({
     upRanking: state.getIn(['recommend', 'upRanking']),
     originRanking: state.getIn(['recommend', 'originRanking']),
     newRanking: state.getIn(['recommend', 'newRanking'])
