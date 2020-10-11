@@ -5,6 +5,7 @@ import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js'
 import { Slider } from 'antd'
 import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye'
 import { getSongDetailAction } from '../store/actionCreator'
+import { NavLink } from 'react-router-dom'
 
 export default memo(function JMAppPlayerBar() {
   // props/state
@@ -41,14 +42,15 @@ export default memo(function JMAppPlayerBar() {
 
   // other function
   // 点击播放按钮后音乐
-  function playMusic() {
+  const playMusic = useCallback(() => {
     // 设置src属性
     setIsPlaying(!isPlaying)
+    console.log(isPlaying)
     // 播放音乐
     isPlaying ? audioRef.current.pause() : audioRef.current.play()
     // 设置音量
     audioRef.current.volume = 0.7
-  }
+  }, [isPlaying])
 
   // 歌曲播放触发
   function timeUpdate(e) {
@@ -66,9 +68,6 @@ export default memo(function JMAppPlayerBar() {
       setIsChanging(true)
       // 更改"当前播放时间"要的是毫秒数: 241840(总毫秒)   1 * 241840 / 1000 241.84 / 60  4.016667
       const currentTime = (value / 100) * duration
-      console.log(
-        `当前播放时间(毫秒): ${currentTime}, duration(毫秒)${duration}`
-      )
       setCurrentTime(currentTime)
       // 更改进度条值
       setProgress(value)
@@ -85,15 +84,16 @@ export default memo(function JMAppPlayerBar() {
       // 设置当前播放时间的state,设置的是'毫秒',所以需要*1000
       setCurrentTime(currentTime * 1000)
       setIsChanging(false)
+      // 播放音乐
+      audioRef.current.play()
     },
-    [duration]
+    [duration, audioRef]
   )
 
   // 更改音量
   function changingVolume(value) {
     audioRef.current.volume = value / 100
   }
-
   return (
     <PlayerbarWrapper className="sprite_player">
       <div className="w980 content">
@@ -103,9 +103,13 @@ export default memo(function JMAppPlayerBar() {
           <button className="sprite_player next"></button>
         </Control>
         <PlayerInfo>
-          <a href="#/" className="image">
+          <NavLink to={{
+            pathname: '/discover/song',
+            search: `?id=${currentSong.id}`,
+            state: {id: `${currentSong.id}`}
+          }} className="image">
             <img src={getSizeImage(picUrl, 35)} alt="" />
-          </a>
+          </NavLink>
           <div className="play-detail">
             <div className="song-info">
               <a href="/songDetail" className="song-name">

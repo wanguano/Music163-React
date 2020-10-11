@@ -6,6 +6,7 @@ import JMSongs from '../pages/discover/child-pages/songs'
 import JMDjradio from '../pages/discover/child-pages/djradio'
 import JMArtist from '../pages/discover/child-pages/artist'
 import JMAlbum from '../pages/discover/child-pages/album'
+import JMSongDetail from '../pages/player'
 
 import JMFriend from '@/pages/friend'
 import JMMine from '@/pages/mine'
@@ -23,7 +24,8 @@ const routes = [
       { path: '/discover/album', component: JMAlbum },
       { path: '/discover/djradio', component: JMDjradio },
       { path: '/discover/artist', component: JMArtist },
-      { path: '/discover/songs', component: JMSongs }
+      { path: '/discover/songs', component: JMSongs },
+      {path: '/discover/song', component: JMSongDetail}
     ],
   },
   { path: '/mine', component: JMMine },
