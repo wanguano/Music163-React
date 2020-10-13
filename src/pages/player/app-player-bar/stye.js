@@ -47,12 +47,13 @@ export const Control = styled.div`
     width: 36px;
     height: 36px;
     /* 动态的传递 */
-    background-position: 0 ${props => props.isPlaying ? "-165px": "-204px"};
+    background-position: 0 ${props => (props.isPlaying ? '-165px' : '-204px')};
     margin-top: 0;
 
     &:hover {
       /* 动态的传递 */
-      background-position: -40px ${props => props.isPlaying ? "-165px": "-204px"};
+      background-position: -40px
+        ${props => (props.isPlaying ? '-165px' : '-204px')};
     }
   }
 
@@ -135,7 +136,7 @@ export const PlayerInfo = styled.div`
 `
 
 export const Operator = styled.div`
- display: flex;
+  display: flex;
   position: relative;
   top: 5px;
 
@@ -164,22 +165,26 @@ export const Operator = styled.div`
     width: 126px;
     padding-left: 13px;
     background-position: -147px -240px;
-    
+
     .volume {
       background-position: -2px -248px;
     }
 
     .loop {
       background-position: ${props => {
-        switch(props.sequence) {
+        switch (props.playSequence) {
           case 1:
-            return "-66px -248px";
+            return '-66px -248px;'
           case 2:
-            return "-66px -344px";
+            return '-66px -344px;'
           default:
-            return "-3px -344px";
+            return '-3px -344px;'
         }
       }};
+
+      /* &.ant-popover-open {
+        background-color: red !important;
+      } */
     }
 
     .playlist {
@@ -201,7 +206,7 @@ export const Operator = styled.div`
     overflow: hidden;
     padding: 10px;
     background-position: 0 -503px;
-    
+
     /* ant design Slider style change */
     .ant-slider-vertical {
       margin: 0;
@@ -210,7 +215,8 @@ export const Operator = styled.div`
       }
 
       .ant-slider-track {
-        background: url(${require('@/assets/img/playbar_sprite.png')}) no-repeat 0 9999px;
+        background: url(${require('@/assets/img/playbar_sprite.png')}) no-repeat
+          0 9999px;
         background-position: -40px bottom;
       }
 
@@ -221,5 +227,4 @@ export const Operator = styled.div`
       }
     }
   }
-
 `

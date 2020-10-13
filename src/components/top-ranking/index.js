@@ -1,14 +1,31 @@
 import React, { memo } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { getSizeImage } from '@/utils/format-utils.js'
 
 import { TopRankingWrapper } from './style'
+import { getSongDetailAction,changeFirstLoad } from '@/pages/player/store/actionCreator'
 
 export default memo(function TopRanking(props) {
   // ranking-list排行列表效果需求:
   // 鼠标放到一行item身上显示 播放按钮和添加播放列表和收藏的icons
+  // props/state
   const { info } = props
   const { tracks = [] } = info
+
+  // redux hook
+  const dispatch = useDispatch()
+
+  // other handle
+  const playMusic = (e,item) => {
+    // 阻止超链接跳转
+    e.preventDefault()
+    // 派发action 歌曲详情
+    dispatch(getSongDetailAction(item.id))
+    // 不是首次加载,播放音乐
+    dispatch(changeFirstLoad(false))
+  }
+
   return (
     <TopRankingWrapper>
       <div className="ranking-header">
@@ -39,7 +56,7 @@ export default memo(function TopRanking(props) {
               <div className="number">{index + 1}</div>
               <a href="/todo" className="song-name text-nowrap">{item.name}</a>
               <div className="oper">
-                <a href="/todo" className="sprite_02 btn play">{item.name}</a>
+                <a href="/todo" className="sprite_02 btn play" onClick={e => playMusic(e,item)}>{item.name}</a>
                 <a href="/todo" className="sprite_icon2 btn addto">{item.name}</a>
                 <a href="/todo" className="sprite_02 btn favourite">{item.name}</a>
               </div>

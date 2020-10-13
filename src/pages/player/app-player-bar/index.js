@@ -2,9 +2,13 @@ import React, { memo, useEffect, useState, useRef, useCallback } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js'
-import { Slider } from 'antd'
+import { Slider, Tooltip } from 'antd'
 import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye'
-import { getSongDetailAction } from '../store/actionCreator'
+import {
+  getSongDetailAction,
+  changePlaySequenceAction,
+  changeCurrentIndexAndSongAction,
+} from '../store/actionCreator'
 import { NavLink } from 'react-router-dom'
 
 export default memo(function JMAppPlayerBar() {
@@ -14,25 +18,45 @@ export default memo(function JMAppPlayerBar() {
   const [progress, setProgress] = useState(0) // 滑块进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在滑动
   const [isPlaying, setIsPlaying] = useState(false) // 是否正在播放
+  const [musicCount, setMusicCount] = useState(0) // 播放音乐数量
 
   // redux hook
   const dispatch = useDispatch()
-  const { currentSong } = useSelector(
+  const { currentSong, playSequence, playList, firstLoad } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
+      playSequence: state.getIn(['player', 'playSequence']),
+      playList: state.getIn(['player', 'playList']),
+      firstLoad: state.getIn(['player', 'firstLoad'])
     }),
     shallowEqual
   )
 
   // other hook
   const audioRef = useRef()
+  // 派发action,发送网络请求歌曲的详情
   useEffect(() => {
     dispatch(getSongDetailAction(167876))
   }, [dispatch])
 
+  // 设置音频src
   useEffect(() => {
     audioRef.current.src = getPlayUrl(currentSong.id)
-  }, [currentSong])
+    // 设置音量
+    audioRef.current.volume = 0.5
+    // 如果不是首次加载: 播放音乐
+    if(!firstLoad) setIsPlaying(true + Math.random())
+  }, [currentSong,firstLoad])
+
+  // 歌曲个数
+  useEffect(() => {
+    setMusicCount(playList.length)
+  }, [playList])
+
+  // 切换歌曲时播放音乐
+  useEffect(() => {
+    isPlaying && audioRef.current.play()
+  }, [isPlaying])
 
   // other handle
   const picUrl = currentSong.al && currentSong.al.picUrl // 图片url
@@ -45,11 +69,8 @@ export default memo(function JMAppPlayerBar() {
   const playMusic = useCallback(() => {
     // 设置src属性
     setIsPlaying(!isPlaying)
-    console.log(isPlaying)
     // 播放音乐
     isPlaying ? audioRef.current.pause() : audioRef.current.play()
-    // 设置音量
-    audioRef.current.volume = 0.7
   }, [isPlaying])
 
   // 歌曲播放触发
@@ -84,6 +105,8 @@ export default memo(function JMAppPlayerBar() {
       // 设置当前播放时间的state,设置的是'毫秒',所以需要*1000
       setCurrentTime(currentTime * 1000)
       setIsChanging(false)
+      // 更改播放状态
+      setIsPlaying(true)
       // 播放音乐
       audioRef.current.play()
     },
@@ -94,20 +117,61 @@ export default memo(function JMAppPlayerBar() {
   function changingVolume(value) {
     audioRef.current.volume = value / 100
   }
+
+  // 更改播放顺序
+  const changeSequence = () => {
+    let currentSequence = playSequence
+    currentSequence++
+    if (currentSequence > 2) {
+      currentSequence = 0
+    }
+    dispatch(changePlaySequenceAction(currentSequence))
+  }
+
+  // 切换歌曲(点击播放下一首或上一首音乐)
+  const changeSong = tag => {
+    // 需要需要派发action,所以具体逻辑在actionCreator中完成
+    dispatch(changeCurrentIndexAndSongAction(tag))
+    setIsPlaying(true + Math.random()) // 更改播放状态图标
+  }
+
+  // 当前歌曲播放结束后
+  function handleTimeEnd() {
+    // 单曲循环
+    if (playSequence === 2) {
+      audioRef.current.currentTime = 0
+      audioRef.current.play()
+    } else {
+      // 播放下一首
+      dispatch(changeCurrentIndexAndSongAction(1))
+      // 更改播放状态
+      setIsPlaying(true + Math.random())
+    }
+  }
+
   return (
     <PlayerbarWrapper className="sprite_player">
       <div className="w980 content">
         <Control isPlaying={isPlaying}>
-          <button className="sprite_player pre"></button>
+          <button
+            className="sprite_player pre"
+            onClick={e => changeSong(-1)}
+          ></button>
           <button className="sprite_player play" onClick={playMusic}></button>
-          <button className="sprite_player next"></button>
+          <button
+            className="sprite_player next"
+            onClick={e => changeSong(1)}
+          ></button>
         </Control>
         <PlayerInfo>
-          <NavLink to={{
-            pathname: '/discover/song',
-            search: `?id=${currentSong.id}`,
-            state: {id: `${currentSong.id}`}
-          }} className="image">
+          <NavLink
+            to={{
+              pathname: '/discover/song',
+              search: `?id=${currentSong.id}`,
+              state: { id: `${currentSong.id}` },
+            }}
+            className="image"
+          >
             <img src={getSizeImage(picUrl, 35)} alt="" />
           </NavLink>
           <div className="play-detail">
@@ -134,7 +198,7 @@ export default memo(function JMAppPlayerBar() {
             </span>
           </div>
         </PlayerInfo>
-        <Operator>
+        <Operator playSequence={playSequence}>
           <div className="left">
             <button className="sprite_player btn favor"></button>
             <button className="sprite_player btn share"></button>
@@ -144,18 +208,31 @@ export default memo(function JMAppPlayerBar() {
               className="sprite_player btn volume"
               onClick={e => setIsShowBar(!isShowBar)}
             ></button>
-            <button className="sprite_player btn loop"></button>
-            <button className="sprite_player btn playlist">2</button>
+            <Tooltip
+              title={[
+                '顺序播放',
+                '随机播放',
+                '单曲循环',
+              ].filter((item, index) =>
+                index === playSequence ? item : undefined
+              )}
+            >
+              <button
+                className="sprite_player btn loop"
+                onClick={e => changeSequence()}
+              ></button>
+            </Tooltip>
+            <button className="sprite_player btn playlist">{musicCount}</button>
           </div>
           <div
             className="sprite_player top-volume"
             style={{ display: isShowBar ? 'block' : 'none' }}
           >
-            <Slider vertical defaultValue={70} onChange={changingVolume} />
+            <Slider vertical defaultValue={50} onChange={changingVolume} />
           </div>
         </Operator>
       </div>
-      <audio ref={audioRef} onTimeUpdate={timeUpdate} />
+      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={handleTimeEnd}  />
     </PlayerbarWrapper>
   )
 })

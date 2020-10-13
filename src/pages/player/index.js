@@ -1,9 +1,10 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { SongDetailWrapper, SongLeft, SongRight } from './style'
 
+// 歌曲详情页面
 export default memo(function JMSongDetail(props) {
   // props/state  先写死: 167876    到时候换这个: props.location.state.id
-  const [id, setId] = useState(167876)
+  // const [id, setId] = useState(167876)
   // 之后根路id发送请求,数据保存在redux当中
   return (
     <SongDetailWrapper>
