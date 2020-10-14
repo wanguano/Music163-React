@@ -10,8 +10,7 @@ export const SongDetailWrapper = styled.div`
 `
 
 export const SongLeft = styled.div`
-  width: 980px;
-  margin-right: -270px;
+  width: 720px;
 `
 
 export const SongRight = styled.div`
