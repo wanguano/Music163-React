@@ -104,6 +104,10 @@ body, textarea, select, input, button {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
 
+.my_music {
+  background: url(../img/mymusic.png) no-repeat 0 9999px;
+}
+
 .image_cover {
   position: absolute;
   left: 0;
@@ -121,4 +125,13 @@ body, textarea, select, input, button {
 
 .sprite_player {
   background: url(../img/playbar_sprite.png) no-repeat 0 9999px;
+}
+
+.lyric-css .ant-message-notice-content {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,.5);
+  color: #f5f5f5;
 }

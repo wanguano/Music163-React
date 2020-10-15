@@ -39,16 +39,36 @@ export default memo(function SongInfo(props) {
           <a href="/todo">{album}</a>
         </div>
         <div className="controls">
-          <div className="sprite_button2 play">
-            <i>
-              <em></em>
+          <div className="sprite_button play">
+            <i className="sprite_button inner">
+              <em className="sprite_button play-icon"></em>
               播放
             </i>
           </div>
-          <div className="sprite_button2 favorite">Todo</div>
-          <div className="sprite_button2 share">Todo</div>
-          <div className="sprite_button2 download">Todo</div>
-          <div className="sprite_button2 comment">Todo</div>
+          <div className="sprite_button favorite">
+            <i className="sprite_button inner">
+              <em className="sprite_button favorite-icon"></em>
+              收藏
+            </i>
+          </div>
+          <div className="sprite_button share">
+            <i className="sprite_button inner">
+              <em className="sprite_button favorite-icon"></em>
+              收藏
+            </i>
+          </div>
+          <div className="sprite_button download">
+            <i className="sprite_button inner">
+              <em className="sprite_button favorite-icon"></em>
+              收藏
+            </i>
+          </div>
+          <div className="sprite_button comment">
+            <i className="sprite_button inner">
+              <em className="sprite_button favorite-icon"></em>
+              (2026104)
+            </i>
+          </div>
         </div>
       </div>
     </SongInfoWrapper>

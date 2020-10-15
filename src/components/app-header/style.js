@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // 控制header局部样式
 export const HeaderWrapper = styled.div`
   width: 100%;
-  height: 70px;
+  /* height: 75px; */
   background-color: #242221;
 
   .content {

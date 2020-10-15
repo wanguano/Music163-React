@@ -208,7 +208,9 @@ const defaultState = Map({
   currentSongIndex: 0,
   currentSong: {},
   playSequence: 0, // 0循环播放  1随机播放  2单曲循环
-  firstLoad: true
+  firstLoad: true,
+  lyricList: [],
+  currentLyricIndex: 0
 })
 
 function reducer(state = defaultState, action) {
@@ -223,6 +225,10 @@ function reducer(state = defaultState, action) {
       return state.set('playSequence', action.sequence)
     case actionType.CHANGE_FIRST_LOAD: 
       return state.set('firstLoad', action.isLoad)
+    case actionType.CHANGE_LYRIC_LIST: 
+      return state.set('lyricList', action.lyric)
+    case actionType.CHANGE_CURRENT_LYRIC_INDEX:
+        return state.set('currentLyricIndex', action.index)
     default:
       return state
   }

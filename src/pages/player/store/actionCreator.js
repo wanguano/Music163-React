@@ -1,6 +1,7 @@
 import * as actionType from './actionType'
 import { getSongDetail, getLyric } from '@/service/player'
 import { getRandomNumber } from '@/utils/math-utils'
+import { parseLyric } from '@/utils/parse-lyric'
 // 歌曲详情Action
 const changeCurrentSongAction = currentSong => ({
   type: actionType.CHANGE_CURRENT_SONG,
@@ -19,10 +20,22 @@ const changePlayListAction = playList => ({
   playList,
 })
 
+// 改变歌词Action
+const changeLyricAction = lyric => ({
+  type: actionType.CHANGE_LYRIC_LIST,
+  lyric
+})
+
 // 首次加载Action
 export const changeFirstLoad = isFirstLoad => ({
   type: actionType.CHANGE_FIRST_LOAD,
   isLoad: isFirstLoad
+})
+
+// 改变currentLyricIndex
+export const changeCurrentLyricIndexAction = index => ({
+  type: actionType.CHANGE_CURRENT_LYRIC_INDEX,
+  index
 })
 
 // 更改播放顺序Action
@@ -113,7 +126,9 @@ export const getSongDetailAction = idx => {
 export const getLyricAction = id => {
   return dispatch => {
     getLyric(id).then((res) => {
-      console.log(res) 
+      const lyric = res.lrc.lyric
+      const lyricList = parseLyric(lyric)
+      dispatch(changeLyricAction(lyricList))
     })
   }
 }

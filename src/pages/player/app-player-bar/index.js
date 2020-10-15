@@ -2,12 +2,13 @@ import React, { memo, useEffect, useState, useRef, useCallback } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js'
-import { Slider, Tooltip } from 'antd'
+import { Slider, Tooltip, message } from 'antd'
 import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye'
 import {
   getSongDetailAction,
   changePlaySequenceAction,
   changeCurrentIndexAndSongAction,
+  changeCurrentLyricIndexAction
 } from '../store/actionCreator'
 import { NavLink } from 'react-router-dom'
 
@@ -22,12 +23,21 @@ export default memo(function JMAppPlayerBar() {
 
   // redux hook
   const dispatch = useDispatch()
-  const { currentSong, playSequence, playList, firstLoad } = useSelector(
+  const {
+    currentSong,
+    playSequence,
+    playList,
+    firstLoad,
+    lyricList,
+    currentLyricIndex
+  } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
       playSequence: state.getIn(['player', 'playSequence']),
       playList: state.getIn(['player', 'playList']),
-      firstLoad: state.getIn(['player', 'firstLoad'])
+      firstLoad: state.getIn(['player', 'firstLoad']),
+      lyricList: state.getIn(['player', 'lyricList']),
+      currentLyricIndex: state.getIn(['player', 'currentLyricIndex'])
     }),
     shallowEqual
   )
@@ -45,8 +55,8 @@ export default memo(function JMAppPlayerBar() {
     // 设置音量
     audioRef.current.volume = 0.5
     // 如果不是首次加载: 播放音乐
-    if(!firstLoad) setIsPlaying(true + Math.random())
-  }, [currentSong,firstLoad])
+    if (!firstLoad) setIsPlaying(true + Math.random())
+  }, [currentSong, firstLoad])
 
   // 歌曲个数
   useEffect(() => {
@@ -76,10 +86,35 @@ export default memo(function JMAppPlayerBar() {
   // 歌曲播放触发
   function timeUpdate(e) {
     // 没有在滑动滑块时触发(默认时没有滑动)
+    let currentTime = e.target.currentTime
     if (!isChanging) {
-      setCurrentTime(e.target.currentTime * 1000)
-      setProgress((currentTime / duration) * 100)
+      setCurrentTime(currentTime * 1000)
+      setProgress(((currentTime * 1000) / duration) * 100)
     }
+
+    // 获取当前播放歌词
+    // 1.用于获取歌词的索引
+    let i = 0
+    // 2.遍历歌词数组
+    for (; i < lyricList.length; i++) {
+      const item = lyricList[i]
+      if (currentTime * 1000 < item.totalTime) {
+        // 4.跳出循环
+        break
+      }
+    }
+    // 对dispatch进行优化,如果index没有改变,就不进行dispatch
+    if(currentLyricIndex !== i - 1) {
+      dispatch(changeCurrentLyricIndexAction(i - 1))
+    }
+
+    const lyricContent = lyricList[i-1] && lyricList[i-1].content
+    message.open({
+      key: 'lyric',
+      content: lyricContent,
+      duration: 0,
+      className: 'lyric-css'
+    })
   }
 
   // 滑动滑块时触发
@@ -232,7 +267,7 @@ export default memo(function JMAppPlayerBar() {
           </div>
         </Operator>
       </div>
-      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={handleTimeEnd}  />
+      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={handleTimeEnd} />
     </PlayerbarWrapper>
   )
 })
