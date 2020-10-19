@@ -26,6 +26,12 @@ const changeLyricAction = lyric => ({
   lyric
 })
 
+// 改变歌曲数量
+const changePlayListCount = count => ({
+  type: actionType.CHANGE_PLAY_LIST_COUNT,
+  count
+})
+
 // 首次加载Action
 export const changeFirstLoad = isFirstLoad => ({
   type: actionType.CHANGE_FIRST_LOAD,
@@ -44,7 +50,7 @@ export const changePlaySequenceAction = sequence => ({
   sequence,
 })
 
-// 切换歌曲
+// 切换歌曲Action
 export const changeCurrentIndexAndSongAction = tag => {
   return (dispatch, getState) => {
     // 根据playSequence决定是顺序播放还是随机播放
@@ -133,3 +139,21 @@ export const getLyricAction = id => {
   }
 }
 
+// 获取歌曲详情用于添加到播放列表
+export const getAddSongDetailAction = id => {
+  return (dispatch,getState) => {
+    getSongDetail(id).then((res) => {
+      const playList = getState().getIn(['player', 'playList'])
+      // 先判断是已经存在播放列表,如果不存在,再进行添加
+      const songIndex = playList.findIndex(song => song.id === id)
+      if(songIndex !== -1) return // 找到了(后续不再执行)
+      // 获取要添加播放的歌曲信息
+      const willAddSong = res.songs[0]
+      // 添加到播放列表
+      playList.push(willAddSong)      
+      // 派发action
+      dispatch(changePlayListAction(playList))
+      dispatch(changePlayListCount(playList.length))
+    })
+  }
+}

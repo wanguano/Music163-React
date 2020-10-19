@@ -1,16 +1,30 @@
 import React from 'react'
-import JMDiscover from '@/pages/discover'
-import JMRecommend from '../pages/discover/child-pages/recommend'
-import JMToplist from '../pages/discover/child-pages/toplist'
-import JMSongs from '../pages/discover/child-pages/songs'
-import JMDjradio from '../pages/discover/child-pages/djradio'
-import JMArtist from '../pages/discover/child-pages/artist'
-import JMAlbum from '../pages/discover/child-pages/album'
-import JMSongDetail from '../pages/player'
-
-import JMFriend from '@/pages/friend'
-import JMMine from '@/pages/mine'
 import { Redirect } from 'react-router-dom'
+
+const JMDiscover = React.lazy(() => import('@/pages/discover'))
+const JMRecommend = React.lazy(() => import('@/pages/discover/child-pages/recommend'))
+const JMToplist = React.lazy(() => import('@/pages/discover/child-pages/toplist'))
+const JMSongs = React.lazy(() => import('@/pages/discover/child-pages/songs'))
+const JMDjradio = React.lazy(() => import('@/pages/discover/child-pages/djradio'))
+const JMArtist = React.lazy(() => import('@/pages/discover/child-pages/artist'))
+const JMAlbum = React.lazy(() => import('@/pages/discover/child-pages/album'))
+const JMSongDetail = React.lazy(() => import('@/pages/player'))
+const JMFriend = React.lazy(() => import('@/pages/friend'))
+const JMMine = React.lazy(() => import('@/pages/mine'))
+
+
+// import JMDiscover from '@/pages/discover'
+// import JMRecommend from '../pages/discover/child-pages/recommend'
+// import JMToplist from '../pages/discover/child-pages/toplist'
+// import JMSongs from '../pages/discover/child-pages/songs'
+// import JMDjradio from '../pages/discover/child-pages/djradio'
+// import JMArtist from '../pages/discover/child-pages/artist'
+// import JMAlbum from '../pages/discover/child-pages/album'
+// import JMSongDetail from '../pages/player'
+
+// import JMFriend from '@/pages/friend'
+// import JMMine from '@/pages/mine'
+// import { Redirect } from 'react-router-dom'
 
 const routes = [
   { path: '/', exact: true, render: () => <Redirect to="/discover" /> },

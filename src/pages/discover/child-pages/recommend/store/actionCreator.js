@@ -24,6 +24,7 @@ export const changeHotRecommendAction = res => ({
 export const changeNewAlbumAction = res => ({
   type: actionTypes.CHANGE_NEW_ALBUMS,
   newAlbums: res.albums,
+  // newAlbums: res.monthData, // 新接口数据
 })
 
 // 飙升榜单Action

@@ -19,6 +19,36 @@ export const PlayerbarWrapper = styled.div`
     height: 47px;
     align-content: center;
   }
+
+  /* 进入 */
+  .playlist-enter,
+  .playlist-appear {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  /* 执行动画 */
+  .playlist-enter-active,
+  .playlist-appear-active {
+    transition: opacity 300ms, transform 300ms;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* 离开 */
+  .playlist-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .playlist-exit-active {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .playlist-exit-done {
+    opacity: 0;
+  }
 `
 
 export const Control = styled.div`
@@ -188,6 +218,7 @@ export const Operator = styled.div`
     }
 
     .playlist {
+      /* position: relative; */
       padding-left: 18px;
       text-align: center;
       color: #ccc;

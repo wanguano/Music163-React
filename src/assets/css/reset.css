@@ -135,3 +135,7 @@ body, textarea, select, input, button {
   background-color: rgba(0,0,0,.5);
   color: #f5f5f5;
 }
+
+.wrap-bg2 {
+  background: url(../img/wrap3.png) repeat-y center 0;;
+}

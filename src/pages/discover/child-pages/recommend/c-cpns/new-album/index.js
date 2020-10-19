@@ -17,7 +17,7 @@ export default memo(function NewAlbum() {
     }),
     shallowEqual
   )
-
+  // console.log(newAlbums)
   //  other hook
   const albumRef = useRef()
   useEffect(() => {
@@ -28,7 +28,6 @@ export default memo(function NewAlbum() {
       两个页面轮播: 2page
       在page中添加一个个item
   */
-
   return (
     <NewAlbumWrapper>
       <ThemeHeaderRcm title="新碟上架" />
@@ -39,7 +38,7 @@ export default memo(function NewAlbum() {
               return (
                 <div key={item} className="page">
                   {/* item * 5, (item+1) * 5   第一次遍历0  5  第二次遍历 5  10  */}
-                  {newAlbums.slice(item * 5, (item + 1) * 5).map(cItem => {
+                  {newAlbums && newAlbums.slice(item * 5, (item + 1) * 5).map(cItem => {
                     return (
                       <AlbumCover
                         key={cItem.id}

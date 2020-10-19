@@ -28,8 +28,8 @@ export default memo(function RecommendRanking() {
     <RankingWrapper>
       <ThemeHeaderRcm title="榜单" />
       <div className="ranking-info">
-        <TopList info={upRanking} />
         <TopList info={originRanking} />
+        <TopList info={upRanking} />
         <TopList info={newRanking} />
       </div>
     </RankingWrapper>

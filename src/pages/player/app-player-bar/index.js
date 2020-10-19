@@ -3,14 +3,17 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js'
 import { Slider, Tooltip, message } from 'antd'
+import SliderPlaylist from './c-cpns/slider-playlist'
 import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye'
 import {
   getSongDetailAction,
   changePlaySequenceAction,
   changeCurrentIndexAndSongAction,
-  changeCurrentLyricIndexAction
+  changeCurrentLyricIndexAction,
+  getAddSongDetailAction,
 } from '../store/actionCreator'
 import { NavLink } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
 
 export default memo(function JMAppPlayerBar() {
   // props/state
@@ -19,14 +22,14 @@ export default memo(function JMAppPlayerBar() {
   const [progress, setProgress] = useState(0) // 滑块进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在滑动
   const [isPlaying, setIsPlaying] = useState(false) // 是否正在播放
-  const [musicCount, setMusicCount] = useState(0) // 播放音乐数量
+  const [isShowSlide, setIsShowSlide] = useState(true) // 是否显示播放列表
 
   // redux hook
   const dispatch = useDispatch()
   const {
     currentSong,
     playSequence,
-    playList,
+    playListCount,
     firstLoad,
     lyricList,
     currentLyricIndex
@@ -34,19 +37,32 @@ export default memo(function JMAppPlayerBar() {
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
       playSequence: state.getIn(['player', 'playSequence']),
-      playList: state.getIn(['player', 'playList']),
       firstLoad: state.getIn(['player', 'firstLoad']),
       lyricList: state.getIn(['player', 'lyricList']),
-      currentLyricIndex: state.getIn(['player', 'currentLyricIndex'])
+      currentLyricIndex: state.getIn(['player', 'currentLyricIndex']),
+      playListCount: state.getIn(['player', 'playListCount']),
     }),
     shallowEqual
   )
 
   // other hook
   const audioRef = useRef()
-  // 派发action,发送网络请求歌曲的详情
+  // 派发action,发送网络请求歌曲的详情,初始化歌曲列表
   useEffect(() => {
-    dispatch(getSongDetailAction(167876))
+    let firstId = null
+    let localPlayList = []
+    // 如果没有本地存储音乐.默认为:有何不可 & 如果本地存储没有存放播放列表id,添加默认值
+    try {
+      firstId = JSON.parse(localStorage.getItem('localPlayList'))[0]
+      localPlayList = JSON.parse(localStorage.getItem('localPlayList'))
+    } catch (error) {
+      firstId = 167876
+      localPlayList.push(411214279, 1363948882)
+    }
+    // 当前播放歌曲
+    dispatch(getSongDetailAction(firstId))
+    // 添加播放列表
+    localPlayList.forEach(id => dispatch(getAddSongDetailAction(id)))
   }, [dispatch])
 
   // 设置音频src
@@ -57,11 +73,6 @@ export default memo(function JMAppPlayerBar() {
     // 如果不是首次加载: 播放音乐
     if (!firstLoad) setIsPlaying(true + Math.random())
   }, [currentSong, firstLoad])
-
-  // 歌曲个数
-  useEffect(() => {
-    setMusicCount(playList.length)
-  }, [playList])
 
   // 切换歌曲时播放音乐
   useEffect(() => {
@@ -75,7 +86,7 @@ export default memo(function JMAppPlayerBar() {
   const duration = currentSong.dt //播放总时间
 
   // other function
-  // 点击播放按钮后音乐
+  // 点击播放或暂停按钮后音乐
   const playMusic = useCallback(() => {
     // 设置src属性
     setIsPlaying(!isPlaying)
@@ -93,8 +104,8 @@ export default memo(function JMAppPlayerBar() {
     }
 
     // 获取当前播放歌词
-    // 1.用于获取歌词的索引
-    let i = 0
+
+    let i = 0 //用于获取歌词的索引
     // 2.遍历歌词数组
     for (; i < lyricList.length; i++) {
       const item = lyricList[i]
@@ -104,17 +115,22 @@ export default memo(function JMAppPlayerBar() {
       }
     }
     // 对dispatch进行优化,如果index没有改变,就不进行dispatch
-    if(currentLyricIndex !== i - 1) {
+    if (currentLyricIndex !== i - 1) {
       dispatch(changeCurrentLyricIndexAction(i - 1))
     }
 
-    const lyricContent = lyricList[i-1] && lyricList[i-1].content
-    message.open({
-      key: 'lyric',
-      content: lyricContent,
-      duration: 0,
-      className: 'lyric-css'
-    })
+    // 展示歌词
+    const lyricContent = lyricList[i - 1] && lyricList[i - 1].content
+    lyricContent &&
+      message.open({
+        key: 'lyric',
+        content: lyricContent,
+        duration: 0,
+        className: 'lyric-css',
+      })
+
+    // 如果显示播放列表那么不展示歌词
+    isShowSlide && message.destroy('lyric')
   }
 
   // 滑动滑块时触发
@@ -147,6 +163,12 @@ export default memo(function JMAppPlayerBar() {
     },
     [duration, audioRef]
   )
+
+  // 改变播放列表是否显示
+  const changePlaylistShow = useCallback(() => {
+    console.log('123')
+    setIsShowSlide(!isShowSlide)
+  }, [isShowSlide])
 
   // 更改音量
   function changingVolume(value) {
@@ -182,6 +204,11 @@ export default memo(function JMAppPlayerBar() {
       // 更改播放状态
       setIsPlaying(true + Math.random())
     }
+  }
+
+  // 播放音乐
+  const forcePlayMusic = () => {
+    setIsPlaying(true + Math.random())
   }
 
   return (
@@ -257,7 +284,25 @@ export default memo(function JMAppPlayerBar() {
                 onClick={e => changeSequence()}
               ></button>
             </Tooltip>
-            <button className="sprite_player btn playlist">{musicCount}</button>
+            <button
+              className="sprite_player btn playlist"
+              // 阻止事件捕获,父元素点击事件,不希望点击子元素也触发该事件
+              onClick={e => setIsShowSlide(!isShowSlide)}
+            >
+              <span>{playListCount}</span>
+              <CSSTransition
+                in={isShowSlide}
+                timeout={3000}
+                classNames="playlist"
+              >
+                <SliderPlaylist
+                  isShowSlider={isShowSlide}
+                  playlistCount={playListCount}
+                  closeWindow={changePlaylistShow}
+                  playMusic={forcePlayMusic}
+                />
+              </CSSTransition>
+            </button>
           </div>
           <div
             className="sprite_player top-volume"
