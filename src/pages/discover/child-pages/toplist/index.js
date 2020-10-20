@@ -35,7 +35,7 @@ export default memo(function Toplist() {
           </div>
         </TopListLeft>
         <TopListRight>
-          <h2>看心情做φ(゜▽゜*)♪</h2>
+          <h2>未完待续...</h2>
         </TopListRight>
       </div>
     </TopListWrapper>
