@@ -90,6 +90,15 @@ export const changeCurrentIndexAndSongAction = tag => {
   }
 }
 
+// 修改播放列表并修改歌曲数量
+export const changePlaylistAndCount = playlist => {
+  return dispatch => {
+    console.log(playlist)
+    dispatch(changePlayListAction(playlist))
+    dispatch(changePlayListCount(playlist.length))
+  }
+}
+
 // 歌曲详情network request
 export const getSongDetailAction = idx => {
   return (dispatch, getState) => {
@@ -157,3 +166,4 @@ export const getAddSongDetailAction = id => {
     })
   }
 }
+

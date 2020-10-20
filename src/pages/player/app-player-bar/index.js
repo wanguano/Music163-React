@@ -29,10 +29,10 @@ export default memo(function JMAppPlayerBar() {
   const {
     currentSong,
     playSequence,
-    playListCount,
     firstLoad,
     lyricList,
-    currentLyricIndex
+    currentLyricIndex,
+    playlistCount
   } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
@@ -40,7 +40,7 @@ export default memo(function JMAppPlayerBar() {
       firstLoad: state.getIn(['player', 'firstLoad']),
       lyricList: state.getIn(['player', 'lyricList']),
       currentLyricIndex: state.getIn(['player', 'currentLyricIndex']),
-      playListCount: state.getIn(['player', 'playListCount']),
+      playlistCount: state.getIn(['player', 'playListCount']),
     }),
     shallowEqual
   )
@@ -166,7 +166,6 @@ export default memo(function JMAppPlayerBar() {
 
   // 改变播放列表是否显示
   const changePlaylistShow = useCallback(() => {
-    console.log('123')
     setIsShowSlide(!isShowSlide)
   }, [isShowSlide])
 
@@ -190,6 +189,13 @@ export default memo(function JMAppPlayerBar() {
     // 需要需要派发action,所以具体逻辑在actionCreator中完成
     dispatch(changeCurrentIndexAndSongAction(tag))
     setIsPlaying(true + Math.random()) // 更改播放状态图标
+  }
+
+  // 切换下一首歌曲,不播放音乐
+  const nextMusic = tag => {
+    // 需要需要派发action,所以具体逻辑在actionCreator中完成
+    dispatch(changeCurrentIndexAndSongAction(tag))
+    setIsPlaying(false)
   }
 
   // 当前歌曲播放结束后
@@ -289,7 +295,7 @@ export default memo(function JMAppPlayerBar() {
               // 阻止事件捕获,父元素点击事件,不希望点击子元素也触发该事件
               onClick={e => setIsShowSlide(!isShowSlide)}
             >
-              <span>{playListCount}</span>
+              <span>{playlistCount}</span>
               <CSSTransition
                 in={isShowSlide}
                 timeout={3000}
@@ -297,9 +303,11 @@ export default memo(function JMAppPlayerBar() {
               >
                 <SliderPlaylist
                   isShowSlider={isShowSlide}
-                  playlistCount={playListCount}
+                  playlistCount={playlistCount}
                   closeWindow={changePlaylistShow}
                   playMusic={forcePlayMusic}
+                  changeSong={nextMusic}
+                  isPlaying={isPlaying}
                 />
               </CSSTransition>
             </button>

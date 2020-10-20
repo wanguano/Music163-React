@@ -20,26 +20,26 @@ function JMRecommend() {
       {/* 轮播图 */}
       <TopBanners />
       {/* 主体内容 */}
-      <Content className="w980">
-        {/* 主体推荐页左侧 */}
-        <RecommendLeft>
-          {/* 热门推荐 */}
-          <HotRecommend />
-          {/* 新碟上架 */}
-          <NewAlbum />
-          {/* 榜单 */}
-          <RecommendRanking />
-        </RecommendLeft>
-        {/* 主体推荐页右侧 */}
-        <RecommendRight>
-          {/* 登录 */}
-          <UserLogin />
-          {/* 入驻歌手 */}
-          <SettleSinger/>
-          {/* 热门主播 */}
-          <HotArtist />
-        </RecommendRight>
-      </Content>
+        <Content className="w980">
+          {/* 主体推荐页左侧 */}
+          <RecommendLeft>
+            {/* 热门推荐 */}
+            <HotRecommend />
+            {/* 新碟上架 */}
+            <NewAlbum />
+            {/* 榜单 */}
+            <RecommendRanking />
+          </RecommendLeft>
+          {/* 主体推荐页右侧 */}
+          <RecommendRight>
+            {/* 登录 */}
+            <UserLogin />
+            {/* 入驻歌手 */}
+            <SettleSinger />
+            {/* 热门主播 */}
+            <HotArtist />
+          </RecommendRight>
+        </Content>
     </RecommendWrapper>
   )
 }

@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import propTypes from 'prop-types'
 import PlaylistItem from './c-cpns/playlist-item'
@@ -8,45 +8,53 @@ import {
   SliderPlaylistWrapper,
 } from './style'
 import { ClearOutlined, CloseOutlined, HeartOutlined } from '@ant-design/icons'
-import { useState } from 'react'
-import { getSongDetailAction } from '../../../store/actionCreator'
+import {
+  changePlaylistAndCount,
+  getSongDetailAction,
+} from '../../../store/actionCreator'
+import LyricContent from './c-cpns/lyric-content'
 
 function SliderPlaylist(props) {
   // props/state
-  const { isShowSlider, playlistCount, closeWindow, playMusic } = props
+  const {
+    isShowSlider,
+    playlistCount,
+    closeWindow,
+    playMusic,
+    changeSong,
+  } = props
   const [currentIndex, setCurrentIndex] = useState(0)
 
   // redux hook
   const dispatch = useDispatch()
-  const { currentSong, playList, currentSongIndex } = useSelector(
+  const { currentSong, playList } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
       playList: state.getIn(['player', 'playList']),
-      currentSongIndex: state.getIn(['player', 'currentSongIndex']),
     }),
     shallowEqual
   )
 
-  // other hook
-  useEffect(() => {
-    setCurrentIndex(currentSongIndex)
-  }, [currentSongIndex])
-
-  // other function Todo 
+  // other function Todo
   // 清除全部歌曲
-  const clearAllPlaylist = () => {
-    // 清除当前歌曲列表
-    // 清除本地存储歌曲id
-    // console.log(currentSong.id)
-    // playList.findIndex((item) => item.id)
+  const clearAllPlaylist = e => {
+    e.preventDefault()
+    playList.splice(0, playList.length)
+    dispatch(changePlaylistAndCount(playList))
   }
 
-  //
+  // 点击item播放音乐
   const clickItem = (index, item) => {
     setCurrentIndex(index)
     // 播放音乐 dispatch
     dispatch(getSongDetailAction(item.id))
     playMusic()
+    // let i = 0
+    // console.dir(lyricContentRef.current)
+
+    // setInterval(() => {
+    //   console.log(lyricContentRef.current)
+    // }, 16);
   }
 
   return (
@@ -69,11 +77,11 @@ function SliderPlaylist(props) {
             </a>
             <a
               href="/clear"
-              onClick={e => clearAllPlaylist()}
+              onClick={e => clearAllPlaylist(e)}
               className="header-icon"
             >
               <ClearOutlined />
-              <span>清除全部</span>
+              <span>清除播放列表</span>
             </a>
           </div>
         </div>
@@ -96,12 +104,13 @@ function SliderPlaylist(props) {
                 duration={item.dt}
                 clickItem={() => clickItem(index, item)}
                 songId={item.id}
+                nextMusic={() => changeSong(1)}
               />
             )
           })}
         </div>
         <div className="main-line"></div>
-        <div className="main-lyric">歌词展示</div>
+        <LyricContent/>
       </SliderPlaylistMain>
     </SliderPlaylistWrapper>
   )
