@@ -21,9 +21,9 @@
 
 ### 播放器
 
-![jie-shao](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205714.gif)
+![player_show1](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205714.gif)
 
-![jie-sha1o-02](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205846.gif)
+![player_show2](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205846.gif)
 
 ## 技术栈
 
