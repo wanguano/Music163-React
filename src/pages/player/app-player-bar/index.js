@@ -22,7 +22,7 @@ export default memo(function JMAppPlayerBar() {
   const [progress, setProgress] = useState(0) // 滑块进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在滑动
   const [isPlaying, setIsPlaying] = useState(false) // 是否正在播放
-  const [isShowSlide, setIsShowSlide] = useState(true) // 是否显示播放列表
+  const [isShowSlide, setIsShowSlide] = useState(false) // 是否显示播放列表
 
   // redux hook
   const dispatch = useDispatch()
