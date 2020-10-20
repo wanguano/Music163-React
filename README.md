@@ -5,8 +5,8 @@
 基于 `react-router` + `styled-components` + `axios` + `ant design` + `react-redux` + `redux-thunk` + `react-transition-group` 等开发一款PC端网易云音乐PC Web项目，UI 界面参考了PC版的网易云音乐、flex 布局。
 
 ## 预览地址
-😋 项目预览地址：www.wanguancs.top
-😎 开发文档: www.juejin.im??
+- 😋 项目预览地址：www.wanguancs.top
+- 😎 开发文档: www.juejin.im??
 
 ## 界面和功能展示
 ### 推荐/新碟上架/榜单
