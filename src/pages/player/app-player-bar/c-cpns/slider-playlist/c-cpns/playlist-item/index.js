@@ -22,10 +22,11 @@ function PlaylistItem(props) {
     // 从当前播放列表删除此音乐,然后派发action
     e.stopPropagation()
     const currentSongIndex = playList.findIndex(song => song.id===songId)
+    if(playList.length === 1) return
     playList.splice(currentSongIndex, 1)
     dispatch(changePlaylistAndCount(playList))
     // 切换下一首音乐
-    console.log(nextMusic())
+    nextMusic()
   }
 
   return (

@@ -214,7 +214,7 @@ const defaultState = Map({
   lyricList: [],
   currentLyricIndex: 0,
   addSongDetail: {},
-  playListCount: 1,
+  playListCount: 3,
 })
 
 function reducer(state = defaultState, action) {
