@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SongInfoWrapper = styled.div`
   display: flex;
@@ -16,6 +16,7 @@ export const SongInfoWrapper = styled.div`
       top: -4px;
       left: -4px;
       background-position: -140px -580px;
+      height: 215px;
     }
   }
 
@@ -154,5 +155,15 @@ export const SongInfoWrapper = styled.div`
         }
       }
     }
+
+    .lyric-item {
+      color: #333;
+      text-align: center;
+      margin: 9px 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
-`
+`;

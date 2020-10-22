@@ -1,23 +1,25 @@
 import React, { memo } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { getSizeImage } from '@/utils/format-utils.js'
+import { Collapse } from 'antd';
 import { SongInfoWrapper } from './style'
 
 export default memo(function SongInfo(props) {
   // redux hook
-  const { currentSong } = useSelector(
+  const { currentSong, lyricList } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
+      lyricList: state.getIn(['player', 'lyricList'])
     }),
     shallowEqual
   )
-
   // other handle
+  const { Panel } = Collapse
   const pirUrl = currentSong.al && currentSong.al.picUrl
   const songName = currentSong.name ? currentSong.name : ''
   const singer = currentSong.ar && currentSong.ar[0].name
   const album = currentSong.al && currentSong.al.name
-
+  
   return (
     <SongInfoWrapper>
       <div className="album">
@@ -70,6 +72,13 @@ export default memo(function SongInfo(props) {
             </i>
           </div>
         </div>
+        <Collapse >
+          <Panel header={`歌词展示`}>
+            {lyricList.map((item) => {
+              return <div key={item.totalTime} className="lyric-item">{item.content}</div> 
+            })}
+          </Panel>
+        </Collapse>
       </div>
     </SongInfoWrapper>
   )

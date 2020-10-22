@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { SongDetailWrapper, SongLeft, SongRight } from './style'
 import SongInfo from './child-pages/song-info'
+import SongComment from './child-pages/song-comment'
 
 // 歌曲详情页面
 export default memo(function JMSongDetail(props) {
@@ -12,7 +13,7 @@ export default memo(function JMSongDetail(props) {
       <div className="content w980">
         <SongLeft>
           <SongInfo />
-          <h2>SongComment 歌曲评论</h2>
+          <SongComment />
         </SongLeft>
         <SongRight>
           <h2>SongInclude 包含音乐</h2>

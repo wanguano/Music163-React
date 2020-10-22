@@ -5,7 +5,7 @@ export const SongDetailWrapper = styled.div`
     display: flex;
     width: 982px;
     background: url(${require('@/assets/img/wrap-bg.png')}) repeat-y center 0;
-    height: 1000px;
+    /* height: 1000px; */
   }
 `
 
