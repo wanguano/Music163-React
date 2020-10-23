@@ -215,6 +215,7 @@ const defaultState = Map({
   currentLyricIndex: 0,
   addSongDetail: {},
   playListCount: 3,
+  hotComments: []
 })
 
 function reducer(state = defaultState, action) {
@@ -237,6 +238,8 @@ function reducer(state = defaultState, action) {
       return state.set('addSongDetail', action.addSongDetail)
     case actionType.CHANGE_PLAY_LIST_COUNT:
       return state.set('playListCount', action.count)
+    case actionType.CHANGE_HOT_COMMENT:
+        return state.set('hotComments', action.hotComments)
     default:
       return state
   }

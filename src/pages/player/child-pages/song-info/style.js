@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const SongInfoWrapper = styled.div`
   display: flex;
-  padding: 36px 30px 40px 39px;
 
   .album {
     position: relative;
@@ -161,8 +160,9 @@ export const SongInfoWrapper = styled.div`
       text-align: center;
       margin: 9px 0;
 
-      &:last-child {
+      &:last-child,&:first-child {
         margin-bottom: 0;
+        margin-top: 0;
       }
     }
   }

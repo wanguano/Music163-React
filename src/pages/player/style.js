@@ -11,6 +11,7 @@ export const SongDetailWrapper = styled.div`
 
 export const SongLeft = styled.div`
   width: 720px;
+  padding: 47px 30px 40px 39px;
 `
 
 export const SongRight = styled.div`

@@ -1,5 +1,5 @@
 import * as actionType from './actionType'
-import { getSongDetail, getLyric } from '@/service/player'
+import { getSongDetail, getLyric,getHotComment } from '@/service/player'
 import { getRandomNumber } from '@/utils/math-utils'
 import { parseLyric } from '@/utils/parse-lyric'
 // 歌曲详情Action
@@ -24,6 +24,12 @@ const changePlayListAction = playList => ({
 const changeLyricAction = lyric => ({
   type: actionType.CHANGE_LYRIC_LIST,
   lyric
+})
+
+// 改变热门评论Action
+const changeHotComment = hotComments => ({
+  type: actionType.CHANGE_HOT_COMMENT,
+  hotComments
 })
 
 // 改变歌曲数量
@@ -166,3 +172,12 @@ export const getAddSongDetailAction = id => {
   }
 }
 
+// 获取歌曲热门评论
+export const getHotCommentAction = id => {
+  return dispatch => {
+    getHotComment(id).then((res) => {
+      const hotComments = res && res.hotComments 
+      dispatch(changeHotComment(hotComments))
+    })
+  }
+}
