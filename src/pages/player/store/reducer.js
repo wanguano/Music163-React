@@ -214,7 +214,7 @@ const defaultState = Map({
   lyricList: [],
   currentLyricIndex: 0,
   addSongDetail: {},
-  playListCount: 3,
+  playListCount: 0,
   hotComments: []
 })
 

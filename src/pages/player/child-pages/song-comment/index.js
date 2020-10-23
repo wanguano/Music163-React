@@ -7,21 +7,22 @@ import ThemeHeader from '@/components/theme-header';
 import { SongCommentWrapper, WonderfulWrapper } from './style';
 import { getHotCommentAction } from '../../store/actionCreator';
 
-export default memo(function SongComment() {
+function SongComment() {
   // props/state
 
   // redux hook
   const dispatch = useDispatch();
-  const { hotComments } = useSelector(
+  const { hotComments, currentSongId } = useSelector(
     (state) => ({
       hotComments: state.getIn(['player', 'hotComments']),
+      currentSongId: state.getIn(['player', 'currentSong', 'id'])
     }),
     shallowEqual
   );
 
   // other hooks
   useEffect(() => {
-    dispatch(getHotCommentAction(167876));
+    dispatch(getHotCommentAction(currentSongId));
   });
 
   // other handle
@@ -55,4 +56,7 @@ export default memo(function SongComment() {
       </WonderfulWrapper>
     </SongCommentWrapper>
   );
-});
+};
+
+
+export default memo(SongComment)
