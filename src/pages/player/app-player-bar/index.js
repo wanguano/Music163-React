@@ -61,11 +61,8 @@ export default memo(function JMAppPlayerBar() {
     //   localPlayList.push(411214279, 1363948882);
     // }
     //#endregion
-    // 当前播放歌曲
     dispatch(getSongDetailAction(167876));
-    dispatch(getSongDetailAction(411214279));
-    dispatch(getSongDetailAction(1363948882));
-    // 添加播放列表
+    // 添加播放列表 (这个是配合本地存储的)
     // localPlayList.forEach((id) => dispatch(getAddSongDetailAction(167876)));
   }, [dispatch]);
 
