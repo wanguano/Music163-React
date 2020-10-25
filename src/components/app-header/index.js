@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { debounce } from '@/utils/format-utils.js';
 import { getSearchSongListAction } from './store/actionCreator';
@@ -42,7 +42,8 @@ export default memo(function JMAppHeader() {
   const dispatch = useDispatch();
   const { searchSongList } = useSelector((state) => ({
     searchSongList: state.getIn(['themeHeader', 'searchSongList']),
-  }));
+  }), shallowEqual);
+
 
   // other function debounce()
   const changeInput = debounce((target) => {
@@ -53,7 +54,7 @@ export default memo(function JMAppHeader() {
     // 发送网络请求
     dispatch(getSearchSongListAction(value));
   }, 400);
-
+  // 点击当前item歌曲项
   const changeCurrentSong = (id) => {
     //派发action
     dispatch(getSongDetailAction(id))
@@ -61,7 +62,6 @@ export default memo(function JMAppHeader() {
     setIsFocus(false)
     // 播放音乐
     document.getElementById('audio').autoplay = true
-    console.log(document.getElementById('audio').play)
   }
 
   // 返回的JSX
@@ -87,6 +87,7 @@ export default memo(function JMAppHeader() {
               placeholder="音乐/视频/电台/用户"
               prefix={<SearchOutlined />}
               onInput={({ target }) => changeInput(target)}
+              onFocus={() => setIsFocus(true)}
             />
             <div
               className="down-slider"

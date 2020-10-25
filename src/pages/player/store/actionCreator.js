@@ -137,6 +137,8 @@ export const getSongDetailAction = idx => {
         dispatch(changeCurrentSongAction(song))
         // (4)请求歌曲的歌词
         dispatch(getLyricAction(idx))
+        // (5)更新歌曲数量
+        dispatch(changePlayListCount(playList.length))
   })
     }
   }

@@ -114,6 +114,7 @@ export const HeaderRight = styled.div`
       background: #fff;
       box-shadow: 0 4px 7px #555;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      
 
       .search-header {
         height: 35px;
@@ -148,16 +149,17 @@ export const HeaderRight = styled.div`
           border-left: 1px solid rgb(183, 183, 187);
           color: #ccc;
           padding-left: 5px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
+          
           .main {
             display: inline-block;
             font-size: 13px;
             line-height: 28px;
 
             .item {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 168px;
               cursor: pointer;
               height: 35px;
               line-height: 35px;

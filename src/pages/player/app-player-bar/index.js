@@ -99,7 +99,7 @@ export default memo(function JMAppPlayerBar() {
   // 歌曲播放触发
   function timeUpdate(e) {
     // 歌词索引改变,播放音乐
-    if (currentLyricIndex >= 1) setIsPlaying(true);
+    if (currentLyricIndex === 1) setIsPlaying(true);
 
     // 没有在滑动滑块时触发(默认时没有滑动)
     let currentTime = e.target.currentTime;

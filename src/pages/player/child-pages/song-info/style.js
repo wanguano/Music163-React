@@ -53,6 +53,9 @@ export const SongInfoWrapper = styled.div`
       }
 
       .song-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 24px;
         margin: 0 15px 0 11px;
       }
