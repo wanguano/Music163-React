@@ -11,7 +11,6 @@ import {
   changePlaySequenceAction,
   changeCurrentIndexAndSongAction,
   changeCurrentLyricIndexAction,
-  getAddSongDetailAction,
 } from '../store/actionCreator';
 import { NavLink } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
@@ -50,20 +49,24 @@ export default memo(function JMAppPlayerBar() {
   const audioRef = useRef();
   // 派发action,发送网络请求歌曲的详情,初始化歌曲列表
   useEffect(() => {
-    let firstId = null;
-    let localPlayList = [];
-    // 如果没有本地存储音乐.默认为:有何不可 & 如果本地存储没有存放播放列表id,添加默认值
-    try {
-      firstId = JSON.parse(localStorage.getItem('localPlayList'))[0];
-      localPlayList = JSON.parse(localStorage.getItem('localPlayList'));
-    } catch (error) {
-      firstId = 167876;
-      localPlayList.push(411214279, 1363948882);
-    }
+    //#region 本地存储
+    // let firstId = null;
+    // let localPlayList = [];
+    // // 如果没有本地存储音乐.默认为:有何不可 & 如果本地存储没有存放播放列表id,添加默认值
+    // try {
+    //   firstId = JSON.parse(localStorage.getItem('localPlayList'))[0];
+    //   localPlayList = JSON.parse(localStorage.getItem('localPlayList'));
+    // } catch (error) {
+    //   firstId = 167876;
+    //   localPlayList.push(411214279, 1363948882);
+    // }
+    //#endregion
     // 当前播放歌曲
-    dispatch(getSongDetailAction(firstId));
+    dispatch(getSongDetailAction(167876));
+    dispatch(getSongDetailAction(411214279));
+    dispatch(getSongDetailAction(1363948882));
     // 添加播放列表
-    localPlayList.forEach((id) => dispatch(getAddSongDetailAction(id)));
+    // localPlayList.forEach((id) => dispatch(getAddSongDetailAction(167876)));
   }, [dispatch]);
 
   // 设置音频src

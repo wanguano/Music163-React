@@ -18,7 +18,7 @@ export default memo(function TopRanking(props) {
   // props/state
   const { info } = props
   const { tracks = [] } = info
-  let localPlayList = []
+  // let localPlayList = [] // 本地存储(暂时不做)
 
   // redux hook
   const dispatch = useDispatch()
@@ -38,9 +38,10 @@ export default memo(function TopRanking(props) {
     dispatch(getSongDetailAction(item.id))
     // 不是首次加载,播放音乐
     dispatch(changeFirstLoad(false))
-    // 设置本地存储
-    localPlayList.push(item.id)
-    localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
+    //#region 设置本地存储(暂不做)
+    // localPlayList.push(item.id)
+    // localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
+    //#endregion
   }
 
   // 添加到播放列表
@@ -55,9 +56,10 @@ export default memo(function TopRanking(props) {
     switch (index) {
       case -1:
         message.success({ content: '添加成功' })
-      // 设置本地存储
-      localPlayList.push(item.id)
-      localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
+      //#region 设置本地存储(暂时先不做)
+      // localPlayList.push(item.id)
+      // localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
+      //#endregion
         break
       default:
         message.success({ content: '不能添加重复的歌曲' })
