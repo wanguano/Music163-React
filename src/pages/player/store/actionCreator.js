@@ -146,7 +146,7 @@ export const getSongDetailAction = idx => {
 export const getLyricAction = id => {
   return dispatch => {
     getLyric(id).then((res) => {
-      const lyric = res.lrc.lyric
+      const lyric = res.lrc && res.lrc.lyric
       const lyricList = parseLyric(lyric)
       dispatch(changeLyricAction(lyricList))
     })
@@ -164,7 +164,7 @@ export const getAddSongDetailAction = id => {
       // 获取要添加播放的歌曲信息
       const willAddSong = res.songs && res.songs[0]
       // 添加到播放列表
-      playList.push(willAddSong)      
+      playList.push(willAddSong)
       // 派发action
       dispatch(changePlayListAction(playList))
       dispatch(changePlayListCount(playList.length))

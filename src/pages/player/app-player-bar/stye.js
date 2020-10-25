@@ -189,6 +189,13 @@ export const Operator = styled.div`
     align-items: center;
   }
 
+  .anticon-download {
+    cursor: pointer;
+    padding: 1px 6px;
+    font-size: 19px;
+    color: #adadad;
+  }
+
   .right {
     display: flex;
     align-items: center;

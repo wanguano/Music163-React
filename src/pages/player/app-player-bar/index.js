@@ -3,6 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js';
 import { Slider, Tooltip, message } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
 import SliderPlaylist from './c-cpns/slider-playlist';
 import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye';
 import {
@@ -84,6 +85,7 @@ export default memo(function JMAppPlayerBar() {
   const songName = currentSong.name; // 歌曲名字
   const singerName = currentSong.ar && currentSong.ar[0].name; //作者名字
   const duration = currentSong.dt; //播放总时间
+  const songUrl = getPlayUrl(currentSong.id); // 歌曲URL
 
   // other function
   // 点击播放或暂停按钮后音乐
@@ -96,6 +98,9 @@ export default memo(function JMAppPlayerBar() {
 
   // 歌曲播放触发
   function timeUpdate(e) {
+    // 歌词索引改变,播放音乐
+    if (currentLyricIndex >= 1) setIsPlaying(true);
+
     // 没有在滑动滑块时触发(默认时没有滑动)
     let currentTime = e.target.currentTime;
     if (!isChanging) {
@@ -104,7 +109,6 @@ export default memo(function JMAppPlayerBar() {
     }
 
     // 获取当前播放歌词
-
     let i = 0; //用于获取歌词的索引
     // 2.遍历歌词数组
     for (; i < lyricList.length; i++) {
@@ -267,7 +271,14 @@ export default memo(function JMAppPlayerBar() {
         <Operator playSequence={playSequence}>
           <div className="left">
             <button className="sprite_player btn favor"></button>
-            <button className="sprite_player btn share"></button>
+            <a
+              download={currentSong && currentSong.name}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={songUrl}
+            >
+              <DownloadOutlined />
+            </a>
           </div>
           <div className="right sprite_player">
             <button
@@ -318,7 +329,12 @@ export default memo(function JMAppPlayerBar() {
           </div>
         </Operator>
       </div>
-      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={handleTimeEnd} />
+      <audio
+        id="audio"
+        ref={audioRef}
+        onTimeUpdate={timeUpdate}
+        onEnded={handleTimeEnd}
+      />
     </PlayerbarWrapper>
   );
 });

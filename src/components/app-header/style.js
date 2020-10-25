@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 // 控制header局部样式
 export const HeaderWrapper = styled.div`
@@ -16,7 +16,7 @@ export const HeaderWrapper = styled.div`
     height: 5px;
     background-color: #c20b0b;
   }
-`
+`;
 
 export const HeaderLeft = styled.div`
   display: flex;
@@ -79,25 +79,98 @@ export const HeaderLeft = styled.div`
       }
     }
   }
-`
+`;
 export const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   color: #ccc;
   font-size: 12px;
 
-  .search {
-    width: 158px;
-    height: 32px;
-    border-radius: 16px;
+  .search-wrapper {
+    position: relative;
+    .search {
+      width: 158px;
+      height: 32px;
+      border-radius: 16px;
 
-    input {
-      &::placeholder {
-        font-size: 12px;
+      input {
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    /* 下拉框 */
+    .down-slider {
+      position: absolute;
+      top: 36px;
+      left: 0;
+      right: 0;
+      width: 237px;
+      z-index: 999;
+      /* height: 144px; */
+      border: 1px solid #bebebe;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 4px 7px #555;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+
+      .search-header {
+        height: 35px;
+        .discover {
+          display: inline-block;
+          padding-top: 10px;
+          padding-left: 10px;
+        }
+      }
+
+      .content {
+        display: flex;
+        border: 1px solid rgb(183, 183, 187);
+
+        .zuo {
+          /* float: left; */
+          /* height: 100%; */
+          width: 65px;
+          /* border: 1px solid rgb(183, 183, 187); */
+          padding-top: 10px;
+          border-bottom: none;
+
+          .song {
+            color: #ccc;
+            margin-left: 28px;
+          }
+        }
+
+        .you {
+          width: 169px;
+          height: 100%;
+          border-left: 1px solid rgb(183, 183, 187);
+          color: #ccc;
+          padding-left: 5px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          .main {
+            display: inline-block;
+            font-size: 13px;
+            line-height: 28px;
+
+            .item {
+              cursor: pointer;
+              height: 35px;
+              line-height: 35px;
+              color: #000;
+            }
+          }
+          span.blue {
+            color: #7ab3dd;
+          }
+        }
       }
     }
   }
-
   .center {
     width: 90px;
     height: 32px;
@@ -114,4 +187,4 @@ export const HeaderRight = styled.div`
       color: #fff;
     }
   }
-`
+`;

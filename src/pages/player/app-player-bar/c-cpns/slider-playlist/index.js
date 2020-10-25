@@ -94,7 +94,7 @@ function SliderPlaylist(props) {
       </SliderPlaylistHeader>
       <SliderPlaylistMain>
         <div className="main-playlist">
-          {playList.map((item, index) => {
+          {playList && playList.map((item, index) => {
             return (
               <PlaylistItem
                 key={item.id}
