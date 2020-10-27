@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
-
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import { debounce } from '@/utils/format-utils.js';
 import { getSearchSongListAction } from './store/actionCreator';
 import { headerLinks } from '@/common/local-data';

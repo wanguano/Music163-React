@@ -5,3 +5,12 @@ export function getToplistInfo() {
     url: '/toplist'
   })
 }
+
+export function getToplistDetail(id) {
+  return request({
+    url: '/playlist/detail',
+    params: {
+      id
+    }
+  })
+}

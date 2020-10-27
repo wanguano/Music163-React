@@ -16,6 +16,7 @@ export const TopListItemWrapper = styled.div`
     height: 62px;
     background-color: ${props => (props.selected ? '#e6e6e6;' : '')};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       background-color: #f4f2f2;

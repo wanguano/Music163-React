@@ -32,7 +32,7 @@ export default memo(function HotRecommend() {
         keywords={['华语', '流行', '摇滚', '民谣', '电子']}
       />
       <div className="recommend-list">
-        {hotRecommends.map(item => {
+        {hotRecommends && hotRecommends.map(item => {
           return (
             <SongCover key={item.id} info={item} className="recommend-list">
               {item.name}

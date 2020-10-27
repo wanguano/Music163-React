@@ -98,15 +98,15 @@ export default memo(function JMAppPlayerBar() {
 
   // 歌曲播放触发
   function timeUpdate(e) {
-    // 歌词索引改变,播放音乐
-    if (currentLyricIndex === 1) setIsPlaying(true);
-
     // 没有在滑动滑块时触发(默认时没有滑动)
     let currentTime = e.target.currentTime;
     if (!isChanging) {
       setCurrentTime(currentTime * 1000);
       setProgress(((currentTime * 1000) / duration) * 100);
     }
+
+    // 当前音乐处于播放状态(用于搜索音乐,点击item播放音乐时使用)
+    if(currentTime>0.1&&currentTime<0.5) setIsPlaying(true);
 
     // 获取当前播放歌词
     let i = 0; //用于获取歌词的索引

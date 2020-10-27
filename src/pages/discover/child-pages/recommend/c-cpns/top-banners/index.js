@@ -37,6 +37,7 @@ export default memo(function TopBanners() {
 
   // 其他的逻辑代码 memoize
   const bgImage =
+    topBanners &&
     topBanners[currentIndex] &&
     topBanners[currentIndex].imageUrl + '?imageView&blur=40x20'
 
@@ -50,7 +51,7 @@ export default memo(function TopBanners() {
             ref={bannerRef}
             beforeChange={bannerChange}
           >
-            {topBanners.map(item => {
+            {topBanners && topBanners.map(item => {
               return (
                 <div key={item.imageUrl}>
                   <img src={item.imageUrl} alt={item.typeTitle} />

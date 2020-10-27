@@ -17,7 +17,7 @@ export const TopRankingWrapper = styled.div`
       width: 116px;
       margin: 6px 0 0 10px;
 
-      a > h3 {
+      div > h3 {
         font-weight: bold !important;
       }
 

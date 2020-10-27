@@ -71,14 +71,14 @@ export default memo(function TopRanking(props) {
       <div className="ranking-header">
         <div className="image">
           <img src={getSizeImage(info.coverImgUrl, 80)} alt="" />
-          <a href="/todo" className="image_cover ">
+          <div className="image_cover ">
             {info.name}
-          </a>
+          </div>
         </div>
         <div className="tit">
-          <a href="/todo">
+          <div>
             <h3>{info.name}</h3>
-          </a>
+          </div>
           <div className="btn">
             <a href="/todo" className="sprite_02 text-indent play">
               播放
@@ -96,7 +96,7 @@ export default memo(function TopRanking(props) {
             return (
               <div key={item.id} className="list-item">
                 <div className="number">{index + 1}</div>
-                <a href="/todo" className="song-name text-nowrap">
+                <a href="/play" className="song-name text-nowrap" onClick={e => playMusic(e, item)}>
                   {item.name}
                 </a>
                 <div className="oper">
@@ -114,7 +114,7 @@ export default memo(function TopRanking(props) {
                   >
                     {item.name}
                   </a>
-                  <a href="/todo" className="sprite_02 btn favourite">
+                  <a href="/play" className="sprite_02 btn favourite">
                     {item.name}
                   </a>
                 </div>

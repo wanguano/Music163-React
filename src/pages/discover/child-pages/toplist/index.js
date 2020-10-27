@@ -1,43 +1,48 @@
-import React, { memo, useEffect } from 'react'
-import { TopListLeft, TopListRight, TopListWrapper } from './style'
-import TopListItem from './c-cpns/top-list-item'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { getToplistInfoAction } from './store/actionCreator'
+import React, { memo, useEffect } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
+import { TopListLeft, TopListRight, TopListWrapper } from './style';
+import TopListItem from './c-cpns/top-list-item';
+import ToplistTitle from './c-cpns/toplist-title';
+import {
+  getToplistTitleInfoAction,
+  getToplistInfoAction,
+} from './store/actionCreator';
 
 export default memo(function Toplist() {
-  // props/state
-
   // redux/hook
-  const dispatch = useDispatch()
-  const { toplistInfo } = useSelector(
-    state => ({
+  const dispatch = useDispatch();
+  const { toplistInfo, currentToplistId } = useSelector(
+    (state) => ({
       toplistInfo: state.getIn(['toplist', 'toplistInfo']),
+      currentToplistId: state.getIn(['toplist', 'currentToplistId']),
     }),
     shallowEqual
-  )
+  );
 
   // other hook
   useEffect(() => {
-    dispatch(getToplistInfoAction())
-  }, [dispatch])
+    dispatch(getToplistInfoAction());
+  }, [dispatch]);
 
-  // other handle
-  const firstToplist = toplistInfo.slice(0, 4)
-  const lastToplist = toplistInfo.slice(5)
+  // TODO:----------------------- 获取榜单详细信息-------------------------------------先做样式
+  useEffect(() => {
+    // 派发榜单标题信息Action
+    dispatch(getToplistTitleInfoAction(currentToplistId));
+  }, [currentToplistId, dispatch]);
 
   return (
     <TopListWrapper className="wrap-bg2">
       <div className="content w980">
         <TopListLeft>
           <div className="top-list-container">
-            <TopListItem toplistInfo={firstToplist} />
-            <TopListItem toplistInfo={lastToplist} top={15} />
+            <TopListItem toplistInfo={toplistInfo} />
           </div>
         </TopListLeft>
         <TopListRight>
-          <h2>未完待续...</h2>
+          <ToplistTitle />
         </TopListRight>
       </div>
     </TopListWrapper>
-  )
-})
+  );
+});
