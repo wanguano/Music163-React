@@ -71,3 +71,13 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
+
+// 传递?id=71384707返回{id: 71384707}
+export function getQueryStringObj(queryString) {
+  if(!queryString) return
+  const reg = /(?:^|&)([^&]+)=([^&]+)(?=&|$)/g
+  const qs = queryString.slice(queryString.indexOf('?') + 1)
+  const res = reg.exec(qs)
+  const args = {[res[1]]: res[2]}
+  return args
+}

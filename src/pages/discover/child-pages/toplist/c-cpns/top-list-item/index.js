@@ -1,27 +1,31 @@
-import React, { memo, useState, Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { memo,  Fragment } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { getSizeImage } from '@/utils/format-utils.js';
 import { changeCurrentIndexAction, changeCurrentToplistIdAction } from '../../store/actionCreator'
 
 import { TopListItemWrapper } from './style';
 import propTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 function TopListItem(props) {
   // props/state
   const { toplistInfo } = props;
-  const [active, setActive] = useState(0);
 
   // redux hook
   const dispatch = useDispatch()
+  const {currentIndex} = useSelector((state) => ({
+    currentIndex: state.getIn(['toplist', 'currentIndex'])
+  }), shallowEqual)
 
   // other function
   const clickItem = (e, index, id) => {
     e.preventDefault();
-    setActive(index);
     // dispatch
     dispatch(changeCurrentToplistIdAction(id))
     dispatch(changeCurrentIndexAction(index))
+    // 修改URL
+    props.history.push(`/discover/ranking?id=${id}`)
   };
 
   return (
@@ -32,11 +36,10 @@ function TopListItem(props) {
             <h3 style={{ marginTop: index === 4 ? '17px' : '' }}>
               {index === 0 ? '云音乐特色榜' : index === 4 ? '全球媒体榜' : ''}
             </h3>
-            <div
-              className={
-                'info ' + (props.selected && index === active ? 'bg' : '')
-              }
+            <NavLink
+              className={"info " + (index === currentIndex ? 'bg' : '')}
               onClick={(e) => clickItem(e, index, item.id)}
+              to={{pathname: `/discover/songs`, search: `?id=${item.id}`}}
             >
               <div className="image">
                 <img src={getSizeImage(item.coverImgUrl, 44)} alt="" />
@@ -45,7 +48,7 @@ function TopListItem(props) {
                 <div className="info-title">{item.name}</div>
                 <div className="info-update">{item.updateFrequency}</div>
               </div>
-            </div>
+            </NavLink>
           </Fragment>
         );
       })}
