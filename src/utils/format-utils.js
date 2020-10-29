@@ -53,6 +53,7 @@ export function formatMonthDay(time) {
   return formatDate(time, 'MM月dd日');
 }
 
+
 export function formatMinuteSecond(time) {
   return formatDate(time, 'mm:ss');
 }

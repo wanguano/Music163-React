@@ -45,7 +45,7 @@ export default memo(function JMAppHeader() {
   }), shallowEqual);
 
 
-  // other function debounce()
+  // other function debounce()  函数防抖进行优化
   const changeInput = debounce((target) => {
     let value = target.value.trim();
     if(value.length < 1) return

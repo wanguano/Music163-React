@@ -34,11 +34,11 @@ export default memo(function SongInfo(props) {
         </div>
         <div className="singer">
           <span>歌手：</span>
-          <a href="/todo">{singer}</a>
+          <a href="/discover/recommend">{singer}</a>
         </div>
         <div className="settle-album">
           <span>所属专辑：</span>
-          <a href="/todo">{album}</a>
+          <a href="/discover/recommend">{album}</a>
         </div>
         <div className="controls">
           <div className="sprite_button play">

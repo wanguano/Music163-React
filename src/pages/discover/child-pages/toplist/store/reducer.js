@@ -5,7 +5,8 @@ const defaultState = Map({
   toplistInfo: [],
   currentIndex: 0,
   currentToplistId: 19723756,
-  currentToplistTitleInfo: {}
+  currentToplistTitleInfo: {},
+  currentToplist: []
 })
 
 function reducer(state = defaultState, action) {
@@ -18,6 +19,8 @@ function reducer(state = defaultState, action) {
         return state.set('currentToplistId', action.id)
     case actionTypes.CHANGE_CURRENT_TOPLIST_TITLE_INFO:
         return state.set('currentToplistTitleInfo', action.titleInfo)
+    case actionTypes.CHANGE_CURRENT_TOPLIST:
+        return state.set('currentToplist', action.toplist)
     default: return state
   }
 }

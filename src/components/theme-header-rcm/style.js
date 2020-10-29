@@ -4,9 +4,13 @@ export const RcmHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: 33px;
-  padding: 0 10px 0 34px;
+  padding: 0 10px 0 0;
+  padding-left: ${props => props.showIcon?'34px':'2px'};
   border-bottom: 2px solid #c10d0c;
-  background: url('${require('@/assets/img/sprite_02.png')}') no-repeat center;
+  background: ${props => {
+    const url = 'url('+require('@/assets/img/sprite_02.png')+') no-repeat center'
+    return props.showIcon?  url: ''
+  } };
   background-position: -225px -156px;
   line-height: 33px;
 `

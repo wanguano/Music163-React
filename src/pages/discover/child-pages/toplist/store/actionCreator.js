@@ -25,6 +25,12 @@ const changeToplistTitleInfo = (titleInfo) => ({
   titleInfo
 })
 
+// 改变不同榜单列表Action
+const changeCurrentToplist = (toplist) => ({
+  type: actionTypes.CHANGE_CURRENT_TOPLIST,
+  toplist 
+})
+
 // 榜单network
 export const getToplistInfoAction = () => {
   return dispatch => {
@@ -42,6 +48,17 @@ export const getToplistTitleInfoAction = (id) => {
       const {coverImgUrl,name,trackNumberUpdateTime,playCount,subscribedCount,commentCount,shareCount} = res && res.playlist
       const toplistTitleInfo = {coverImgUrl,name,trackNumberUpdateTime,playCount,subscribedCount,commentCount,shareCount}
       dispatch(changeToplistTitleInfo(toplistTitleInfo))
+    });
+  }
+}
+
+// 榜单列表详情信息 network
+export const getToplistItemAction = (id) => {
+  return dispatch => {
+    getToplistDetail(id).then((res) => {
+      // 榜单列表详情信息
+      const currentToplist = res && res.playlist.tracks
+      dispatch(changeCurrentToplist(currentToplist))  
     });
   }
 }

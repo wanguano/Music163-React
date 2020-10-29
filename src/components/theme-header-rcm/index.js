@@ -3,9 +3,9 @@ import propTypes from 'prop-types'
 import { RcmHeaderLeft, RcmHeaderRight, RcmHeaderWrapper } from './style'
 
 const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
-  const { title, keywords } = props
+  const { title, keywords, showIcon, right } = props
   return (
-    <RcmHeaderWrapper>
+    <RcmHeaderWrapper showIcon={showIcon}>
       <RcmHeaderLeft>
         <h2 className="hot-title">
           <a href="/discover/recommend" className="hot-text">
@@ -24,8 +24,8 @@ const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
         </ul>
       </RcmHeaderLeft>
       <RcmHeaderRight>
-        <span>更多</span>
-        <i className="icon"></i>
+        <span>{right}</span>
+        {showIcon &&<i className="icon"></i>}
       </RcmHeaderRight>
     </RcmHeaderWrapper>
   )
@@ -34,11 +34,15 @@ const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
 ThemeHeaderRmc.propTypes = {
   // title属性必填
   title: propTypes.string.isRequired,
-  keywords: propTypes.array
+  keywords: propTypes.array,
+  showIcon: propTypes.bool,
+  right: propTypes.any
 }
 
 ThemeHeaderRmc.defaultProps  = {
-  keywords: []
+  keywords: [],
+  showIcon: true,
+  right: '更多'
 }
 
 export default memo(ThemeHeaderRmc)
