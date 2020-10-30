@@ -23,7 +23,7 @@ export default memo(function ArtistHeaderLine(props) {
   return (
     <HeaderLineWrapper>
       <div className="hot-artist">{titleSlot}</div>
-      <a href="/discover/recommend" className="show-all">{rightSlot}</a>
+      <a href="/discover/recommend" className="no-link show-all">{rightSlot}</a>
     </HeaderLineWrapper>
   )
 })

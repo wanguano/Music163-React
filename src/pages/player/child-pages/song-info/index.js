@@ -38,7 +38,7 @@ export default memo(function SongInfo(props) {
         </div>
         <div className="settle-album">
           <span>所属专辑：</span>
-          <a href="/discover/recommend">{album}</a>
+          <a href="/discover/recommend" className="no-link">{album}</a>
         </div>
         <div className="controls">
           <div className="sprite_button play">

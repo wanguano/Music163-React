@@ -8,7 +8,7 @@ const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
     <RcmHeaderWrapper>
       <RcmHeaderLeft>
         <h2 className="hot-title">
-          <a href="/discover/recommend" className="hot-text">
+          <a href="/discover/recommend" className="no-link hot-text">
             {title}
           </a>
         </h2>

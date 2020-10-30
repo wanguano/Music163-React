@@ -80,10 +80,10 @@ export default memo(function TopRanking(props) {
             <h3>{info.name}</h3>
           </div>
           <div className="btn">
-            <a href="/discover/recommend" className="sprite_02 text-indent play">
+            <a href="/discover/recommend" className="no-link sprite_02 text-indent play">
               播放
             </a>
-            <a href="/discover/recommend" className="sprite_02 text-indent favourite">
+            <a href="/discover/recommend" className="no-link sprite_02 text-indent favourite">
               收藏
             </a>
           </div>
@@ -102,14 +102,14 @@ export default memo(function TopRanking(props) {
                 <div className="oper">
                   <a
                     href="/discover/recommend"
-                    className="sprite_02 btn play"
+                    className="no-link sprite_02 btn play"
                     onClick={e => playMusic(e, item)}
                   >
                     {item.name}
                   </a>
                   <a
                     href="/discover/recommend"
-                    className="sprite_icon2 btn addto"
+                    className="no-link sprite_icon2 btn addto"
                     onClick={e => addPlayList(e, item)}
                   >
                     {item.name}
@@ -123,7 +123,7 @@ export default memo(function TopRanking(props) {
           })}
       </div>
       <div className="ranking-footer">
-        <a href="/all" className="show-all">
+        <a href="/all" className="no-link show-all">
           查看全部&gt;
         </a>
       </div>

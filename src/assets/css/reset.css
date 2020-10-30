@@ -143,3 +143,7 @@ body, textarea, select, input, button {
 .wrap-bg2 {
   background: url(../img/wrap3.png) repeat-y center 0;;
 }
+
+.no-link {
+  pointer-events: none;
+}

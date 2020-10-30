@@ -6,24 +6,33 @@
 
 ## 预览地址
 - 😋 项目预览地址：www.wanguancs.top
-- 😎 开发文档: www.juejin.im??
+- 😎 开发文档: www.juejin.im/?
 
 ## 界面和功能展示
 ### 推荐/新碟上架/榜单
 
-![06](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210035.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210035.gif)
+
+### 路由切换
 
 ![05](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210132.gif)
 
 ### 排行榜
 
-![03](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210123.png)
+![](https://gitee.com/xmkm/cloudPic/raw/master/img/20201030133338.png)
 
 ### 播放器
 
-![player_show1](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205714.gif)
+![jie-shao](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205714.gif)
 
-![player_show2](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205846.gif)
+### 歌曲切换
+
+![jie-sha1o-02](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020205846.gif)
+
+### 歌曲搜索
+
+![image-20201028195912541](https://gitee.com/xmkm/cloudPic/raw/master/img/20201028195918.png)
+
 
 ## 技术栈
 
@@ -45,6 +54,7 @@
 - `Node.js`：利用 `Express` 搭建的本地测试服务器
 - `axios`：用来请求后端 `API` 音乐数据
 - [NeteaseCloudMusicApi](https://binaryify.github.io/NeteaseCloudMusicApi/#/)：网易云音乐 `NodeJS` 版 `API`，提供音乐数据
+- 也可以使用已经部署到服务器上的网易云接口: http://123.57.176.198:3000/
 
 ### 其他工具
 

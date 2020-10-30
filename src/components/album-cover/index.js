@@ -13,7 +13,7 @@ export default memo(function AlbumCover(props) {
     <AlbumCoverWrapper width={width} bgp={bgp} size={size}>
       <div className="album-image">
         <img src={getSizeImage(info.picUrl, size)} alt={info.name} />
-        <a href="/discover/recommend" className="image_cover cover">{info.name}</a>
+        <a href="/discover/recommend" className="no-link image_cover cover">{info.name}</a>
       </div>
       <div className="album-name text-nowrap">{info.name}</div>
       <div className="artist text-nowrap">{info.artist.name}</div>
