@@ -26,7 +26,7 @@ export default memo(function SettleSinger() {
     <SettleSingerWrapper>
       <ArtistHeaderLine titleSlot="入驻歌手" rightSlot="查看全部 >" />
       <div className="singer-container">
-        {settleSinger.map(item => {
+        {settleSinger && settleSinger.map(item => {
           return <SingerCover key={item.id} info={item} />
         })}
       </div>

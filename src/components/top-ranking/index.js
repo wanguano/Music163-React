@@ -52,7 +52,6 @@ export default memo(function TopRanking(props) {
     dispatch(getAddSongDetailAction(item.id))
     // 提示添加成功或失败
     const index = getFindIdIndex(playList, item.id)
-    // console.log(index)
     switch (index) {
       case -1:
         message.success({ content: '添加成功' })
@@ -102,19 +101,19 @@ export default memo(function TopRanking(props) {
                 <div className="oper">
                   <a
                     href="/discover/recommend"
-                    className="no-link sprite_02 btn play"
+                    className="sprite_02 btn play"
                     onClick={e => playMusic(e, item)}
                   >
                     {item.name}
                   </a>
                   <a
                     href="/discover/recommend"
-                    className="no-link sprite_icon2 btn addto"
+                    className="sprite_icon2 btn addto"
                     onClick={e => addPlayList(e, item)}
                   >
                     {item.name}
                   </a>
-                  <a href="/play" className="sprite_02 btn favourite">
+                  <a href="/play" className="no-link sprite_02 btn favourite">
                     {item.name}
                   </a>
                 </div>

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import propTypes from 'prop-types'
 import PlaylistItem from './c-cpns/playlist-item'
@@ -23,14 +23,14 @@ function SliderPlaylist(props) {
     playMusic,
     changeSong,
   } = props
-  const [currentIndex, setCurrentIndex] = useState(0)
 
   // redux hook
   const dispatch = useDispatch()
-  const { currentSong, playList } = useSelector(
+  const { currentSong, playList, currentSongIndex } = useSelector(
     state => ({
       currentSong: state.getIn(['player', 'currentSong']),
       playList: state.getIn(['player', 'playList']),
+      currentSongIndex: state.getIn(['player', 'currentSongIndex'])
     }),
     shallowEqual
   )
@@ -45,16 +45,9 @@ function SliderPlaylist(props) {
 
   // 点击item播放音乐
   const clickItem = (index, item) => {
-    setCurrentIndex(index)
     // 播放音乐 dispatch
     dispatch(getSongDetailAction(item.id))
     playMusic()
-    // let i = 0
-    // console.dir(lyricContentRef.current)
-
-    // setInterval(() => {
-    //   console.log(lyricContentRef.current)
-    // }, 16);
   }
 
   return (
@@ -98,7 +91,7 @@ function SliderPlaylist(props) {
             return (
               <PlaylistItem
                 key={item.id}
-                isActive={currentIndex === index ? 'active' : ''}
+                isActive={(currentSongIndex?currentSongIndex:0) === index ? 'active' : ''}
                 songName={item.name}
                 singer={item.ar[0].name}
                 duration={item.dt}

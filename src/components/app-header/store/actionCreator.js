@@ -7,6 +7,12 @@ const changeSearchSongListAction = (songList) => ({
   songList,
 });
 
+// 改变焦点状态
+export const changeFocusStateAction = state => ({
+  type: actionTypes.CHANGE_FOCUS_STATE,
+  state
+})
+
 // 搜索歌曲network
 export const getSearchSongListAction = (searchStr) => {
   return (dispatch) => {

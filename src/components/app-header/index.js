@@ -1,9 +1,9 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { debounce } from '@/utils/format-utils.js';
-import { getSearchSongListAction } from './store/actionCreator';
+import { getSearchSongListAction,changeFocusStateAction } from './store/actionCreator';
 import { headerLinks } from '@/common/local-data';
 import { getSongDetailAction } from '@/pages/player/store'
 
@@ -13,7 +13,7 @@ import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
 
 export default memo(function JMAppHeader() {
   // props/state
-  const [isFocus, setIsFocus] = useState(false); // 是否获取焦点
+  // const [isFocus, setIsFocus] = useState(false); // 是否获取焦点
 
   // Header-Select-Item
   const showSelectItem = (item, index) => {
@@ -40,8 +40,9 @@ export default memo(function JMAppHeader() {
 
   // redux hook
   const dispatch = useDispatch();
-  const { searchSongList } = useSelector((state) => ({
+  const { searchSongList, focusState } = useSelector((state) => ({
     searchSongList: state.getIn(['themeHeader', 'searchSongList']),
+    focusState: state.getIn(['themeHeader', 'focusState'])
   }), shallowEqual);
 
 
@@ -50,7 +51,7 @@ export default memo(function JMAppHeader() {
     let value = target.value.trim();
     if(value.length < 1) return
     // 显示下拉框
-    setIsFocus(true);
+    dispatch(changeFocusStateAction(true))
     // 发送网络请求
     dispatch(getSearchSongListAction(value));
   }, 400);
@@ -59,7 +60,7 @@ export default memo(function JMAppHeader() {
     //派发action
     dispatch(getSongDetailAction(id))
     // 隐藏下拉框
-    setIsFocus(false)
+    dispatch(changeFocusStateAction(false))
     // 播放音乐
     document.getElementById('audio').autoplay = true
   }
@@ -87,11 +88,11 @@ export default memo(function JMAppHeader() {
               placeholder="音乐/视频/电台/用户"
               prefix={<SearchOutlined />}
               onInput={({ target }) => changeInput(target)}
-              onFocus={() => setIsFocus(true)}
+              onFocus={() => dispatch(changeFocusStateAction(true)) }
             />
             <div
               className="down-slider"
-              style={{ display: isFocus ? 'block' : 'none' }}
+              style={{ display: focusState ? 'block' : 'none' }}
             >
               <div className="search-header">
                 <span className="discover">搜"歌曲"相关用户&gt;</span>
