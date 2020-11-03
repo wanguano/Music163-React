@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import { debounce } from '@/utils/format-utils.js';
 import { getSearchSongListAction,changeFocusStateAction } from './store/actionCreator';
@@ -11,9 +11,11 @@ import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
 
-export default memo(function JMAppHeader() {
+export default memo(function JMAppHeader(props) {
   // props/state
   // const [isFocus, setIsFocus] = useState(false); // 是否获取焦点
+  const [isRedirect, setIsRedirect] = useState(false);
+  const [value, setValue] = useState('')
 
   // Header-Select-Item
   const showSelectItem = (item, index) => {
@@ -64,6 +66,10 @@ export default memo(function JMAppHeader() {
     // 播放音乐
     document.getElementById('audio').autoplay = true
   }
+  // 跳转到搜索详情
+  const handleEnter = useCallback((e) => {
+    setIsRedirect(true)
+  }, [])
 
   // 返回的JSX
   return (
@@ -87,9 +93,13 @@ export default memo(function JMAppHeader() {
               className="search"
               placeholder="音乐/视频/电台/用户"
               prefix={<SearchOutlined />}
+              onChange={(e) => setIsRedirect(false) || setValue(e.target.value)}
               onInput={({ target }) => changeInput(target)}
               onFocus={() => dispatch(changeFocusStateAction(true)) }
+              onPressEnter={(e) => handleEnter(e)}
+              value={value}
             />
+            {isRedirect && <Redirect to={{pathname: '/search', search: `?song=${value}&type=1`}} />}
             <div
               className="down-slider"
               style={{ display: focusState ? 'block' : 'none' }}

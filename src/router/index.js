@@ -19,6 +19,7 @@ const JMAlbum = React.lazy(() => import('@/pages/discover/child-pages/album'));
 const JMSongDetail = React.lazy(() => import('@/pages/player'));
 const JMFriend = React.lazy(() => import('@/pages/friend'));
 const JMMine = React.lazy(() => import('@/pages/mine'));
+const JMSearch = React.lazy(() => import('@/pages/search'))
 
 // import JMDiscover from '@/pages/discover'
 // import JMRecommend from '../pages/discover/child-pages/recommend'
@@ -59,6 +60,7 @@ const routes = [
   },
   { path: '/mine', component: JMMine },
   { path: '/friend', component: JMFriend },
+  { path: '/search', component: JMSearch },
 ];
 
 export default routes;
