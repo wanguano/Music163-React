@@ -1,20 +1,23 @@
-import React, { memo, useCallback, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import React, { memo, useCallback, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { NavLink, Redirect } from 'react-router-dom'
 
-import { debounce } from '@/utils/format-utils.js';
-import { getSearchSongListAction,changeFocusStateAction } from './store/actionCreator';
-import { headerLinks } from '@/common/local-data';
+import { debounce } from '@/utils/format-utils.js'
+import {
+  getSearchSongListAction,
+  changeFocusStateAction,
+} from './store/actionCreator'
+import { headerLinks } from '@/common/local-data'
 import { getSongDetailAction } from '@/pages/player/store'
 
-import { Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
+import { Input } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
+import { HeaderLeft, HeaderRight, HeaderWrapper } from './style'
 
 export default memo(function JMAppHeader(props) {
   // props/state
   // const [isFocus, setIsFocus] = useState(false); // 是否获取焦点
-  const [isRedirect, setIsRedirect] = useState(false);
+  const [isRedirect, setIsRedirect] = useState(false)
   const [value, setValue] = useState('')
 
   // Header-Select-Item
@@ -30,33 +33,35 @@ export default memo(function JMAppHeader(props) {
           <em>{item.title}</em>
           <i className="icon"></i>
         </NavLink>
-      );
+      )
     } else {
       return (
         <a href={item.link} key={item.title} className="header-item">
           {item.title}
         </a>
-      );
+      )
     }
-  };
+  }
 
   // redux hook
-  const dispatch = useDispatch();
-  const { searchSongList, focusState } = useSelector((state) => ({
-    searchSongList: state.getIn(['themeHeader', 'searchSongList']),
-    focusState: state.getIn(['themeHeader', 'focusState'])
-  }), shallowEqual);
-
+  const dispatch = useDispatch()
+  const { searchSongList, focusState } = useSelector(
+    (state) => ({
+      searchSongList: state.getIn(['themeHeader', 'searchSongList']),
+      focusState: state.getIn(['themeHeader', 'focusState']),
+    }),
+    shallowEqual
+  )
 
   // other function debounce()  函数防抖进行优化
   const changeInput = debounce((target) => {
-    let value = target.value.trim();
-    if(value.length < 1) return
+    let value = target.value.trim()
+    if (value.length < 1) return
     // 显示下拉框
     dispatch(changeFocusStateAction(true))
     // 发送网络请求
-    dispatch(getSearchSongListAction(value));
-  }, 400);
+    dispatch(getSearchSongListAction(value))
+  }, 400)
   // 点击当前item歌曲项
   const changeCurrentSong = (id) => {
     //派发action
@@ -83,7 +88,7 @@ export default memo(function JMAppHeader(props) {
           </h1>
           <div className="header-group">
             {headerLinks.map((item, index) => {
-              return showSelectItem(item, index);
+              return showSelectItem(item, index)
             })}
           </div>
         </HeaderLeft>
@@ -91,15 +96,33 @@ export default memo(function JMAppHeader(props) {
           <div className="search-wrapper">
             <Input
               className="search"
-              placeholder="音乐/视频/电台/用户"
+              placeholder="音乐/电台"
               prefix={<SearchOutlined />}
               onChange={(e) => setIsRedirect(false) || setValue(e.target.value)}
               onInput={({ target }) => changeInput(target)}
-              onFocus={() => dispatch(changeFocusStateAction(true)) }
+              onFocus={() => dispatch(changeFocusStateAction(true))}
               onPressEnter={(e) => handleEnter(e)}
               value={value}
             />
-            {isRedirect && <Redirect to={{pathname: '/search', search: `?song=${value}&type=1`}} />}
+            <div className="icons-wrapper">
+              <div className="ctrl-wrapper">
+                <svg width="15" height="15" className="DocSearch-Control-Key-Icon">
+                  <path
+                    d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953"
+                    strokeWidth="1.2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="square"
+                  ></path>
+                </svg>
+              </div>
+              <div className="k-wrapper">k</div>
+            </div>
+            {isRedirect && (
+              <Redirect
+                to={{ pathname: '/search', search: `?song=${value}&type=1` }}
+              />
+            )}
             <div
               className="down-slider"
               style={{ display: focusState ? 'block' : 'none' }}
@@ -115,15 +138,18 @@ export default memo(function JMAppHeader(props) {
 
                 <div className="you">
                   <span className="main">
-                    {
-                      searchSongList&&searchSongList.map((item) => {
+                    {searchSongList &&
+                      searchSongList.map((item) => {
                         return (
-                          <div className="item" key={item.id} onClick={() => changeCurrentSong(item.id)}>
+                          <div
+                            className="item"
+                            key={item.id}
+                            onClick={() => changeCurrentSong(item.id)}
+                          >
                             <span>{item.name}</span>-{item.artists[0].name}
                           </div>
-                        ) 
-                      })
-                    }
+                        )
+                      })}
                   </span>
                 </div>
               </div>
@@ -135,5 +161,5 @@ export default memo(function JMAppHeader(props) {
       </div>
       <div className="red-line"></div>
     </HeaderWrapper>
-  );
-});
+  )
+})

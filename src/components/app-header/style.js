@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 // 控制header局部样式
 export const HeaderWrapper = styled.div`
@@ -16,7 +16,7 @@ export const HeaderWrapper = styled.div`
     height: 5px;
     background-color: #c20b0b;
   }
-`;
+`
 
 export const HeaderLeft = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ export const HeaderLeft = styled.div`
       }
     }
   }
-`;
+`
 export const HeaderRight = styled.div`
   display: flex;
   align-items: center;
@@ -88,6 +88,7 @@ export const HeaderRight = styled.div`
 
   .search-wrapper {
     position: relative;
+    /* 搜索框 */
     .search {
       width: 158px;
       height: 32px;
@@ -97,6 +98,44 @@ export const HeaderRight = styled.div`
         &::placeholder {
           font-size: 12px;
         }
+      }
+    }
+
+    /* icons */
+    .icons-wrapper {
+      position: absolute;
+      display: flex;
+      right: 8px;
+      top: 8px;
+
+      .ctrl-wrapper {
+        background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+        border-radius: 3px;
+        box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
+          0 1px 2px 1px rgba(30, 35, 90, 0.4);
+        color: rgb(150 159 175);
+        display: flex;
+        align-items: center;
+        height: 18px;
+        justify-content: center;
+        margin-right: 0.5em;
+        padding-bottom: 2px;
+        width: 20px;
+      }
+
+      .k-wrapper {
+        background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+        border-radius: 3px;
+        box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
+          0 1px 2px 1px rgba(30, 35, 90, 0.4);
+        color: #969faf;
+        display: flex;
+        align-items: center;
+        height: 18px;
+        justify-content: center;
+        margin-right: 0.6em;
+        padding-bottom: 2px;
+        width: 20px;
       }
     }
 
@@ -114,7 +153,6 @@ export const HeaderRight = styled.div`
       background: #fff;
       box-shadow: 0 4px 7px #555;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-      
 
       .search-header {
         height: 35px;
@@ -149,7 +187,7 @@ export const HeaderRight = styled.div`
           border-left: 1px solid rgb(183, 183, 187);
           color: #ccc;
           padding-left: 5px;
-          
+
           .main {
             display: inline-block;
             font-size: 13px;
@@ -189,4 +227,4 @@ export const HeaderRight = styled.div`
       color: #fff;
     }
   }
-`;
+`
