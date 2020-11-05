@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
 
@@ -16,7 +16,6 @@ import { HeaderLeft, HeaderRight, HeaderWrapper } from './style'
 
 export default memo(function JMAppHeader(props) {
   // props/state
-  // const [isFocus, setIsFocus] = useState(false); // 是否获取焦点
   const [isRedirect, setIsRedirect] = useState(false)
   const [value, setValue] = useState('')
 
@@ -53,6 +52,16 @@ export default memo(function JMAppHeader(props) {
     shallowEqual
   )
 
+  // other hook
+  const inputRef = useRef()
+  // (根据当前焦点状态设置input焦点)
+  useEffect(() => {
+     // 获取焦点
+    if(focusState) inputRef.current.focus()
+    // 失去焦点
+    else inputRef.current.blur()
+  }, [focusState])
+
   // other function debounce()  函数防抖进行优化
   const changeInput = debounce((target) => {
     let value = target.value.trim()
@@ -71,10 +80,19 @@ export default memo(function JMAppHeader(props) {
     // 播放音乐
     document.getElementById('audio').autoplay = true
   }
-  // 跳转到搜索详情
+  // 表单回车:跳转到搜索详情
   const handleEnter = useCallback((e) => {
+    dispatch(changeFocusStateAction(false))
+    // 只要在搜索框回车: 都进行跳转
     setIsRedirect(true)
-  }, [])
+  }, [dispatch])
+  // 获取焦点
+  const handleFocus = useCallback(() => {
+    // 更改为获取焦点状态
+    dispatch(changeFocusStateAction(true))
+    // 修改状态重定向状态
+    setIsRedirect(false)
+  }, [dispatch])
 
   // 返回的JSX
   return (
@@ -95,12 +113,13 @@ export default memo(function JMAppHeader(props) {
         <HeaderRight>
           <div className="search-wrapper">
             <Input
+              ref={inputRef}
               className="search"
               placeholder="音乐/电台"
               prefix={<SearchOutlined />}
               onChange={(e) => setIsRedirect(false) || setValue(e.target.value)}
               onInput={({ target }) => changeInput(target)}
-              onFocus={() => dispatch(changeFocusStateAction(true))}
+              onFocus={handleFocus}
               onPressEnter={(e) => handleEnter(e)}
               value={value}
             />
@@ -120,7 +139,7 @@ export default memo(function JMAppHeader(props) {
             </div>
             {isRedirect && (
               <Redirect
-                to={{ pathname: '/search', search: `?song=${value}&type=1` }}
+                to={{ pathname: '/search/single', search: `?song=${value}&type=1` }}
               />
             )}
             <div
@@ -136,7 +155,7 @@ export default memo(function JMAppHeader(props) {
                   <span className="song">单曲</span>
                 </div>
 
-                <div className="you">
+                {/* <div className="you"> */}
                   <span className="main">
                     {searchSongList &&
                       searchSongList.map((item) => {
@@ -151,7 +170,7 @@ export default memo(function JMAppHeader(props) {
                         )
                       })}
                   </span>
-                </div>
+                {/* </div> */}
               </div>
             </div>
           </div>

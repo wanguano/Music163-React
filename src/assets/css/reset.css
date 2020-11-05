@@ -147,3 +147,7 @@ body, textarea, select, input, button {
 .no-link {
   pointer-events: none;
 }
+
+.m-tab {
+  background: url(../img/tab.png) no-repeat 0 9999px;
+}

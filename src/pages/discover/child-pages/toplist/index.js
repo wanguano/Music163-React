@@ -38,7 +38,6 @@ export default memo(function Toplist(props) {
   }, [currentToplistId, dispatch, props])
 
 
-
   return (
     <TopListWrapper className="wrap-bg2">
       <div className="content w980">

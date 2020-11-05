@@ -181,32 +181,30 @@ export const HeaderRight = styled.div`
           }
         }
 
-        .you {
-          width: 169px;
-          height: 100%;
+        .main {
+          display: inline-block;
           border-left: 1px solid rgb(183, 183, 187);
-          color: #ccc;
-          padding-left: 5px;
+          font-size: 13px;
+          line-height: 28px;
 
-          .main {
-            display: inline-block;
-            font-size: 13px;
-            line-height: 28px;
+          .item {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 168px;
+            cursor: pointer;
+            height: 35px;
+            line-height: 35px;
+            color: #000;
+            text-indent: 8px;
 
-            .item {
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              width: 168px;
-              cursor: pointer;
-              height: 35px;
-              line-height: 35px;
-              color: #000;
+            &:hover {
+              background-color: #ccc;
             }
           }
-          span.blue {
-            color: #7ab3dd;
-          }
+        }
+        span.blue {
+          color: #7ab3dd;
         }
       }
     }
