@@ -1,8 +1,6 @@
-import React, { memo, useEffect, useState } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import React, { memo, useState, useEffect } from 'react'
 
-import { getQueryStringObj } from '@/utils/format-utils'
-import { getSearchSongListAction } from './store/actionCreator'
+import qs from 'query-string'
 import { useChangeDropBoxState } from '@/hooks/change-state'
 import { searchCategories } from '@/common/local-data'
 
@@ -14,42 +12,33 @@ import { renderRoutes } from 'react-router-config'
 export default memo(function JMSearch(props) {
   // props/state
   const { route } = props
-  const [searchSongName, setSongName] = useState(null)
+  const [searchSongName, setSearchSongName] = useState(null)
 
   // redux hook
-  const dispatch = useDispatch()
-  const { searchSongList } = useSelector(
-    (state) => ({
-      searchSongList: state.getIn(['search', 'searchSongList']),
-    }),
-    shallowEqual
-  )
+  // const dispatch = useDispatch()
+  // const { songListLength } = useSelector(
+  //   (state) => ({
+  //     songListLength: state.getIn(['search', 'singleSongList', 'length']),
+  //   }),
+  //   shallowEqual
+  // )
 
-  // (获取queryString传递歌曲名字)
-  const queryString = props.location.search
-  let songName = decodeURIComponent(
-    queryString && getQueryStringObj(queryString).song
-  )
+  // other handle
+  const { Search } = Input
+  const { song } = qs.parse(props.location.search)
 
   // other hook
   // (判断是否传递queryString)
   useEffect(() => {
-    // 没有传递queryString
-    if(!queryString) props.history.push('/discover')
-  }, [props,queryString])
+    // 没有传递搜索歌曲名字,重定向到推荐页
+    if (!song) props.history.push('/discover')
+  }, [song, props])
+  
   // (组件渲染更新歌曲名字)
   useEffect(() => {
-    setSongName(songName)
-  }, [songName])
-  // (根据歌曲名字发送网络请求)
-  useEffect(() => {
-    // 传递queryString: 发送网络请求
-    if(queryString) dispatch(getSearchSongListAction(songName, 20))
-  }, [songName, dispatch, queryString])
-  
-  // other handle
-  const { Search } = Input
-  
+    setSearchSongName(song)
+  }, [song])
+
 
   return (
     <SearchWrapper onClick={useChangeDropBoxState()}>
@@ -58,23 +47,27 @@ export default memo(function JMSearch(props) {
           <Search
             value={searchSongName}
             style={{ width: 490 }}
-            onChange={(e) => setSongName(e.target.value)}
+            onChange={(e) => setSearchSongName(e.target.value)}
           />
         </div>
         <div className="search-content">
           <div className="search-info">
-            搜索"{songName}", 找到<span className="music-amount"> {searchSongList.length} </span>单曲
+            搜索"{song}", 找到
+            <span className="music-amount"> 20 </span>单曲
           </div>
           <div className="m-tab search-category">
-            {
-              searchCategories.map((item) => {
-                return (
-                  <NavLink key={item.link} to={{pathname: item.link, search: queryString}} className="route-item m-tab" activeClassName="active">
-                    <em>{item.title}</em>
-                  </NavLink>
-                ) 
-              })
-            }
+            {searchCategories.map((item) => {
+              return (
+                <NavLink
+                  key={item.link}
+                  to={{ pathname: item.link + `&song=${song}` }}
+                  className="route-item m-tab"
+                  activeClassName="active"
+                >
+                  <em>{item.title}</em>
+                </NavLink>
+              )
+            })}
           </div>
           {renderRoutes(route.routes)}
         </div>

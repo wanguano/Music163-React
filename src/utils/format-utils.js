@@ -78,7 +78,8 @@ export function getQueryStringObj(queryString) {
     const reg = /(?:^|&)([^&]+)=([^&]+)(?=&|$)/g
     const qs = queryString.slice(queryString.indexOf('?') + 1)
     const res = reg.exec(qs)
-    const args = { [res[1]]: res[2] }
+    console.log(res)
+    const args = { [res[1]]: res[2],[res[3]]: res[4]  }
     return args
   }
 }

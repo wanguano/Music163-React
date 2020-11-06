@@ -12,6 +12,7 @@
     "axios": "^0.20.0",
     "immutable": "^4.0.0-rc.12",
     "normalize.css": "^8.0.1",
+    "query-string": "^6.13.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

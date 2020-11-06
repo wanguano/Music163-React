@@ -2,10 +2,6 @@ import React, { memo, useEffect, useState, useRef, useCallback } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js';
-import { Slider, Tooltip, message } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
-import SliderPlaylist from './c-cpns/slider-playlist';
-import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye';
 import {
   getSongDetailAction,
   changePlaySequenceAction,
@@ -14,6 +10,12 @@ import {
 } from '../store/actionCreator';
 import { NavLink } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+
+import { Slider, Tooltip, message } from 'antd';
+import { DownloadOutlined,UndoOutlined } from '@ant-design/icons';
+import SliderPlaylist from './c-cpns/slider-playlist';
+import { Control, Operator, PlayerbarWrapper, PlayerInfo } from './stye';
+
 
 export default memo(function JMAppPlayerBar() {
   // props/state
@@ -221,6 +223,12 @@ export default memo(function JMAppPlayerBar() {
     setIsPlaying(true + Math.random());
   };
 
+  // 重新播放音乐
+  const refreshMusic = () => {
+    audioRef.current.currentTime = 0
+    audioRef.current.play()
+  }
+
   return (
     <PlayerbarWrapper className="sprite_player">
       <div className="w980 content">
@@ -270,7 +278,6 @@ export default memo(function JMAppPlayerBar() {
         </PlayerInfo>
         <Operator playSequence={playSequence}>
           <div className="left">
-            <button className="sprite_player btn favor"></button>
             <a
               download={currentSong && currentSong.name}
               target="_blank"
@@ -279,6 +286,7 @@ export default memo(function JMAppPlayerBar() {
             >
               <DownloadOutlined />
             </a>
+            <UndoOutlined className="refresh" onClick={refreshMusic} />
           </div>
           <div className="right sprite_player">
             <button
@@ -334,6 +342,7 @@ export default memo(function JMAppPlayerBar() {
         ref={audioRef}
         onTimeUpdate={timeUpdate}
         onEnded={handleTimeEnd}
+        preload="auto"
       />
     </PlayerbarWrapper>
   );

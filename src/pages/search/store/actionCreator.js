@@ -8,9 +8,9 @@ const changeSongListAction = (songs) => ({
 })
 
 // 搜索歌曲列表Action
-export const getSearchSongListAction = (songName, limit) => {
+export const getSearchSongListAction = (songName, limit, type = 1) => {
   return (dispatch) => {
-    getSearchSongData(songName, limit).then((res) => {
+    getSearchSongData(songName, limit, type).then((res) => {
       const songs = res && res.result.songs
       dispatch(changeSongListAction(songs))
     })

@@ -176,8 +176,14 @@ export const Operator = styled.div`
     cursor: pointer;
   }
 
-  .favor {
-    background-position: -88px -163px;
+  .refresh {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #9f9f9f;
+    &:hover {
+      color: #ccc;
+    }
   }
 
   .share {
