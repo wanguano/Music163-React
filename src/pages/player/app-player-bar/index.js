@@ -254,9 +254,9 @@ export default memo(function JMAppPlayerBar() {
           </NavLink>
           <div className="play-detail">
             <div className="song-info">
-              <a href="/discover/song" className="no-link song-name">
+              <NavLink to="/discover/song" className="song-name">
                 {songName}
-              </a>
+              </NavLink>
               <a href="/author" className="no-link singer-name">
                 {singerName}
               </a>
