@@ -11,32 +11,44 @@
 ## 界面和功能展示
 ### 推荐/新碟上架/榜单
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104124350.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210035.gif)
 
 ### 路由切换
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104124647.gif)
-
-### 排行榜
-
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104125218.gif)
-
-### 播放器
-
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104125815.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155503.gif)
 
 ### 歌曲评论
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104133028.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155443.gif)
+
+### 排行榜
+
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155607.gif)
+
+### 播放器
+
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155945.gif)
 
 ### 歌曲切换
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104130152.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155717.gif)
 
 ### 歌曲搜索
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201104132103.gif)
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155850.gif)
 
+- 新增：键盘事件↓  &  函数防抖
+  - `ctrl+k` 搜索框获取焦点 & 唤醒搜索下拉框
+  - `esc` 取消焦点 & 下拉框
+  - `enter` 进入歌曲搜索详情
+
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201105143819.gif)
+
+#### 歌曲搜索详情列表
+
+- 在搜索框中按下`回车`即可，搜索列表**基本**功能实现
+
+![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107160305.gif)
 
 
 ## 技术栈
@@ -77,13 +89,13 @@
 
 ``` powershell
 # yarn dependencies
-yarn install
-
+yarn install | npm install
+ 
 # serve with hot reload at localhost:3000
-yarn satrt
+yarn satrt  | npm satrt
 
 # build for production with minification
-yarn build
+yarn build  |  npm build
 ```
 
 
