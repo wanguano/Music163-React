@@ -50,7 +50,7 @@ function SongItem(props) {
           className="font-active"
           onClick={(e) => playMusic(e)}
         />
-        <a href="/play" onClick={(e) => playMusic(e)}>
+        <a href="/play" onClick={(e) => playMusic(e)} className="text-nowrap">
           {songName}
         </a>
       </div>

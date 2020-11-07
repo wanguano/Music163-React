@@ -1,12 +1,11 @@
 import * as actionTypes from './actionTypes'
-
 import {
   getTopBanners,
   getHotRecommends,
   getNewAlbums,
-  getTopList,
   getSettleSinger,
 } from '@/service/recommend.js'
+import { getToplistDetail } from '@/service/toplist'
 
 // 轮播图Action
 export const changeTopBannerAction = res => ({
@@ -71,26 +70,26 @@ export const getHostBannersAction = limit => {
 }
 
 // 新碟上架network request
-export const getNewAlbumsAction = limit => {
+export const getNewAlbumsAction = () => {
   return dispatch => {
-    getNewAlbums(limit).then(res => {
+    getNewAlbums().then(res => {
       dispatch(changeNewAlbumAction(res))
     })
   }
 }
 
-// 榜单network request
+// 榜单详情 network
 export const getTopListAction = idx => {
   return dispatch => {
-    getTopList(idx).then(res => {
+    getToplistDetail(idx).then(res => {
       switch (idx) {
-        case 0:
+        case 19723756:
           dispatch(changeUpRanking(res))
           break
-        case 2:
+        case 3779629:
           dispatch(changeNewRanking(res))
           break
-        case 3:
+        case 2884035:
           dispatch(changeOriginRanking(res))
           break
         default:

@@ -6,6 +6,6 @@ module.exports = {
     alias: {
       '@': resolve('src'),
       'components': resolve('src/components'),
-    },
-  },
+    }
+  }
 }

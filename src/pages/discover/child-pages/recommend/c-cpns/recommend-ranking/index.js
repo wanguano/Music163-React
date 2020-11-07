@@ -19,9 +19,9 @@ export default memo(function RecommendRanking() {
 
   // other hook
   useEffect(() => { 
-    dispatch(getTopListAction(0))
-    dispatch(getTopListAction(2))
-    dispatch(getTopListAction(3))
+    dispatch(getTopListAction(19723756))
+    dispatch(getTopListAction(3779629))
+    dispatch(getTopListAction(2884035))
   }, [dispatch])
 
   return (

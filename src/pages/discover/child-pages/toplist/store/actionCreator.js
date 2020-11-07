@@ -58,7 +58,6 @@ export const getToplistItemAction = (id) => {
     getToplistDetail(id).then((res) => {
       // 榜单列表详情信息
       const currentToplist = res && res.playlist.tracks
-      console.log(currentToplist)
       dispatch(changeCurrentToplist(currentToplist))  
     });
   }

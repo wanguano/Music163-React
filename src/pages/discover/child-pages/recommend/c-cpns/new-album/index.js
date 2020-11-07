@@ -17,11 +17,12 @@ export default memo(function NewAlbum() {
     }),
     shallowEqual
   )
-  // console.log(newAlbums)
+
   //  other hook
   const albumRef = useRef()
+  // (新碟上架)
   useEffect(() => {
-    dispatch(getNewAlbumsAction(10))
+    dispatch(getNewAlbumsAction())
   }, [dispatch])
 
   /* 轮播图布局思路:

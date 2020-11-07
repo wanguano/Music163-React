@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
-import { getQueryStringObj } from '@/utils/format-utils'
+import qs from 'query-string'
 
 import { TopListLeft, TopListRight, TopListWrapper } from './style'
 import TopListItem from './c-cpns/top-list-item'
@@ -25,18 +25,17 @@ export default memo(function Toplist(props) {
 
   // other hook
   useEffect(() => {
+    // 榜单item
     dispatch(getToplistInfoAction())
   }, [dispatch])
 
   // 排行榜头部信息
   useEffect(() => {
     // 派发榜单标题信息Action
-    const id = getQueryStringObj(props.location.search)
-      ? getQueryStringObj(props.location.search).id
-      : '19723756'
+    let { id } = qs.parse(props.location.search)
+    id = id ? id : '19723756'
     dispatch(getToplistTitleInfoAction(id))
   }, [currentToplistId, dispatch, props])
-
 
   return (
     <TopListWrapper className="wrap-bg2">

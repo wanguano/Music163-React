@@ -20,7 +20,6 @@ export default memo(function LyricContent() {
   useEffect(() => {
     if (currentLyricIndex > 0 && currentLyricIndex < 3) return
     scrollTo(panelRef.current, (currentLyricIndex - 3) * 32, 300)
-    // console.log(`滚动ing, 目标滚动:${(currentLyricIndex - 3) * 32}, duration${300}`)
   }, [currentLyricIndex])
 
   return (

@@ -72,14 +72,3 @@ export function debounce(func, delay) {
   }
 }
 
-// 传递?id=71384707返回{id: 71384707}
-export function getQueryStringObj(queryString) {
-  if (queryString) {
-    const reg = /(?:^|&)([^&]+)=([^&]+)(?=&|$)/g
-    const qs = queryString.slice(queryString.indexOf('?') + 1)
-    const res = reg.exec(qs)
-    console.log(res)
-    const args = { [res[1]]: res[2],[res[3]]: res[4]  }
-    return args
-  }
-}
