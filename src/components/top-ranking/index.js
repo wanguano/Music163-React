@@ -2,19 +2,18 @@ import React, { memo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getSizeImage } from '@/utils/format-utils.js'
-import { getFindIdIndex } from '@/utils/math-utils.js'
 
 import { message } from 'antd'
 import { TopRankingWrapper } from './style'
 import {
   getSongDetailAction,
   changeFirstLoad,
-  getAddSongDetailAction,
 } from '@/pages/player/store/actionCreator'
+import { useAddPlaylist } from '../../hooks/change-music'
 
 export default memo(function TopRanking(props) {
   // ranking-list排行列表效果需求:
-  // 鼠标放到一行item身上显示 播放按钮和添加播放列表和收藏的icons
+  // 鼠标放到一行item身上hover效果 播放按钮和添加播放列表和收藏的icons
   // props/state
   const { info } = props
   const { tracks = [] } = info
@@ -44,26 +43,29 @@ export default memo(function TopRanking(props) {
     //#endregion
   }
 
-  // 添加到播放列表
-  const addPlayList = (e, item) => {
+  // 添加到播放列表(使用自定义hook)
+  const addPlaylist = useAddPlaylist(playList,message)
+  //#region 原始写法
+  // const addPlayList = (e, item) => {
     // 阻止超链接跳转
-    e.preventDefault()
-    // 获取歌曲详情,添加到播放列表
-    dispatch(getAddSongDetailAction(item.id))
-    // 提示添加成功或失败
-    const index = getFindIdIndex(playList, item.id)
-    switch (index) {
-      case -1:
-        message.success({ content: '添加成功' })
-      //#region 设置本地存储(暂时先不做)
-      // localPlayList.push(item.id)
-      // localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
-      //#endregion
-        break
-      default:
-        message.success({ content: '不能添加重复的歌曲' })
-    }
-  }
+    // e.preventDefault && e.preventDefault()
+    // // 获取歌曲详情,添加到播放列表
+    // dispatch(getAddSongDetailAction(item.id))
+    // // 提示添加成功或失败
+    // const index = getFindIdIndex(playList, item.id)
+    // switch (index) {
+    //   case -1:
+    //     message.success({ content: '添加成功' })
+    //   //#region 设置本地存储(暂时先不做)
+    //   // localPlayList.push(item.id)
+    //   // localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
+    //   //#endregion
+    //     break
+    //   default:
+    //     message.success({ content: '不能添加重复的歌曲' })
+    // }
+  // }
+  //#endregion
 
   return (
     <TopRankingWrapper>
@@ -109,7 +111,7 @@ export default memo(function TopRanking(props) {
                   <a
                     href="/discover/recommend"
                     className="sprite_icon2 btn addto"
-                    onClick={e => addPlayList(e, item)}
+                    onClick={e => addPlaylist(e,item.id)}
                   >
                     {item.name}
                   </a>

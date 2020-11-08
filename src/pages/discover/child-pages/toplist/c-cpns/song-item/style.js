@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const SongItemWrapper = styled.div`
   display: flex;
@@ -19,7 +19,8 @@ export const SongItemWrapper = styled.div`
 
   .song-info {
     display: flex;
-    width: ${props => props.isPic?'258px': '328px'};
+    justify-content: space-between;
+    width: ${(props) => (props.isPic ? '258px' : '328px')};
 
     .font-active {
       font-size: 15px;
@@ -29,10 +30,21 @@ export const SongItemWrapper = styled.div`
     .font-active:active {
       color: #d31111;
     }
+
+    .btn {
+      width: 17px;
+      height: 17px;
+      margin-left: 8px;
+      cursor: pointer;
+      &.addto {
+        position: relative;
+        top: 2px;
+        background-position: 0 -700px;
+      }
+    }
   }
 
   .duration {
     width: 91px;
   }
-
 `
