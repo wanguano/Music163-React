@@ -243,7 +243,7 @@ export const Operator = styled.div`
   .top-volume {
     position: absolute;
     top: -117px;
-    left: 60px;
+    left: 65px;
     clear: both;
     width: 32px;
     height: 113px;

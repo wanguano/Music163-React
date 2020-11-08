@@ -14,31 +14,14 @@ export default memo(function JMSearch(props) {
   const { route } = props
   const [searchSongName, setSearchSongName] = useState(null)
 
-  // redux hook
-  // const dispatch = useDispatch()
-  // const { songListLength } = useSelector(
-  //   (state) => ({
-  //     songListLength: state.getIn(['search', 'singleSongList', 'length']),
-  //   }),
-  //   shallowEqual
-  // )
-
   // other handle
   const { Search } = Input
   const { song } = qs.parse(props.location.search)
 
-  // other hook
-  // (判断是否传递queryString)
-  useEffect(() => {
-    // 没有传递搜索歌曲名字,重定向到推荐页
-    if (!song) props.history.push('/discover')
-  }, [song, props])
-  
   // (组件渲染更新歌曲名字)
   useEffect(() => {
     setSearchSongName(song)
   }, [song])
-
 
   return (
     <SearchWrapper onClick={useChangeDropBoxState()}>
