@@ -11,44 +11,55 @@
 ## 界面和功能展示
 ### 推荐/新碟上架/榜单
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201020210035.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107223943.gif)
 
 ### 路由切换
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155503.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107225248.gif)
+
 
 ### 歌曲评论
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155443.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107230432.gif)
+
 
 ### 排行榜
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155607.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201108133921.gif)
+
+
 
 ### 播放器
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155945.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201108130517.gif)
 
-### 歌曲切换
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155717.gif)
+
+### 歌曲切换(随机、顺序、单曲循环)
+
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201108133347.gif)
+
+
+
 
 ### 歌曲搜索
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107155850.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107231246.gif)
 
 - 新增：键盘事件↓  &  函数防抖
   - `ctrl+k` 搜索框获取焦点 & 唤醒搜索下拉框
   - `esc` 取消焦点 & 下拉框
   - `enter` 进入歌曲搜索详情
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201105143819.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107231505.gif)
+
 
 #### 歌曲搜索详情列表
 
 - 在搜索框中按下`回车`即可，搜索列表**基本**功能实现
 
-![](https://mingcloudpic.oss-cn-beijing.aliyuncs.com/img/20201107160305.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20201107231549.gif)
+
 
 
 ## 技术栈
@@ -107,4 +118,3 @@ yarn build  |  npm build
 
 ## 最后
 如果觉得项目还不错的话 👏，就给个 star ⭐ 鼓励一下吧~
-
