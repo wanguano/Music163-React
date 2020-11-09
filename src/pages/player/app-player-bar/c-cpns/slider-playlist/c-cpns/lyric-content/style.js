@@ -42,7 +42,7 @@ export const LyricContentWrapper = styled.div`
 
     &.active {
       /* top: 12px; */
-      color: #fff;
+      color: #fff!important;
     }
   }
 
