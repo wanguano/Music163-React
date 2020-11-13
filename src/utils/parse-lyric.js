@@ -7,7 +7,6 @@
 const parseExp = /\[([0-9]{2}):([0-9]{2})\.([0-9]{2,3})\]/
 export function parseLyric(lyrics) {
   const lineStrings = lyrics && lyrics.split('\n')
-  // const  parseExp.exec(lineStrings)
   const lyricList = []
   for (const line of lineStrings) {
     if (line) {

@@ -192,7 +192,7 @@ export default memo(function JMAppPlayerBar() {
   // 切换歌曲(点击播放下一首或上一首音乐)
   const changeSong = (tag) => {
     // 首先判断播放列表中是否存在音乐，再决定是否播放
-    if(playlistCount<1){
+    if (playlistCount < 1) {
       message.error('请添加播放列表', 0.5)
       return
     }
@@ -320,7 +320,9 @@ export default memo(function JMAppPlayerBar() {
               // 阻止事件捕获,父元素点击事件,不希望点击子元素也触发该事件
               onClick={(e) => setIsShowSlide(!isShowSlide)}
             >
-              <span>{playlistCount}</span>
+              <Tooltip title="播放列表">
+                <span>{playlistCount}</span>
+              </Tooltip>
               <CSSTransition
                 in={isShowSlide}
                 timeout={3000}
