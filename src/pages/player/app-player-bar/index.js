@@ -191,6 +191,11 @@ export default memo(function JMAppPlayerBar() {
 
   // 切换歌曲(点击播放下一首或上一首音乐)
   const changeSong = (tag) => {
+    // 首先判断播放列表中是否存在音乐，再决定是否播放
+    if(playlistCount<1){
+      message.error('请添加播放列表', 0.5)
+      return
+    }
     // 需要需要派发action,所以具体逻辑在actionCreator中完成
     dispatch(changeCurrentIndexAndSongAction(tag))
     setIsPlaying(true + Math.random()) // 更改播放状态图标
