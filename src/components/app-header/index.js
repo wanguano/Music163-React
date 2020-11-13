@@ -115,7 +115,7 @@ export default memo(function JMAppHeader(props) {
             <Input
               ref={inputRef}
               className="search"
-              placeholder="音乐/电台"
+              placeholder="音乐/歌手"
               prefix={<SearchOutlined />}
               onChange={(e) => setIsRedirect(false) || setValue(e.target.value)}
               onInput={({ target }) => changeInput(target)}
