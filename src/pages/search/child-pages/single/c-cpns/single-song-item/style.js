@@ -30,6 +30,18 @@ export const SingleSongItemWrapper = styled.div`
         text-decoration: underline;
       }
     }
+
+    .btn {
+      width: 17px;
+      height: 17px;
+      margin-left: 8px;
+      cursor: pointer;
+      &.addto {
+        position: relative;
+        top: 2px;
+        background-position: 0 -700px;
+      }
+    }
   }
 
   .singer {

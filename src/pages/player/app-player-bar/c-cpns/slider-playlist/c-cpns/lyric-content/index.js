@@ -25,7 +25,7 @@ export default memo(function LyricContent() {
   return (
     <LyricContentWrapper ref={panelRef}>
       <div className="lyric-content">
-        {lyricList.map((item, index) => {
+        {lyricList && lyricList.map((item, index) => {
           return (
             <div
               key={item.totalTime}
