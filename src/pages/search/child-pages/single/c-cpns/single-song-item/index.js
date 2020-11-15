@@ -8,6 +8,7 @@ import { useAddPlaylist } from '@/hooks/change-music'
 
 import { PlayCircleOutlined } from '@ant-design/icons'
 import { SingleSongItemWrapper } from './style'
+import { message } from 'antd'
 
 function SingleSongItem(props) {
   // props/state
@@ -25,7 +26,7 @@ function SingleSongItem(props) {
     document.getElementById('audio').autoplay = true
   }
 
-  const addPlaylist = useAddPlaylist(playlist, '添加成功')
+  const addPlaylist = useAddPlaylist(playlist, message)
 
   return (
     <SingleSongItemWrapper>

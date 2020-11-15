@@ -6,7 +6,7 @@ import { searchCategories } from '@/common/local-data'
 
 import { Input } from 'antd'
 import { SearchWrapper } from './style'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 
 export default memo(function JMSearch(props) {
@@ -23,7 +23,8 @@ export default memo(function JMSearch(props) {
   // (组件渲染更新歌曲名字)
   useEffect(() => {
     setSearchSongName(song)
-  }, [song])
+    // eslint-disable-next-line
+  }, [])
 
   // (本次存储索引: NavLink选中状态的索引)
   useEffect(() => {
@@ -65,6 +66,7 @@ export default memo(function JMSearch(props) {
                   }`}
                   onClick={() => setActiveIndex(index)}
                 >
+                  {activeIndex === index?<Redirect to={item.link + `&song=${searchSongName}`} />:null}
                   <em>{item.title}</em>
                 </NavLink>
               )
