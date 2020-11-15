@@ -271,7 +271,7 @@ export const searchCategories = [
   },
   {
     title: '歌手',
-    link: '/search/singer?type=10',
+    link: '/search/singer?type=100',
   },
   {
     title: '专辑',

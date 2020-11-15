@@ -50,7 +50,7 @@ export default memo(function ToplistMain() {
         </div>
         <div className="main-list">
           {
-            currentToplist && currentToplist.map((item,index) => {
+            currentToplist && currentToplist.slice(0, 100).map((item,index) => {
               return   <SongItem 
               key={item.id}
               currentRanking={index+1} 

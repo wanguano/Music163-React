@@ -1,1 +1,2 @@
 export const CHANGE_SEARCH_SONG_LIST = 'search/CHANGE_SEARCH_SONG_LIST'
+export const CHANGE_SINGER_LIST = 'search/CHANGE_SINGER_LIST'

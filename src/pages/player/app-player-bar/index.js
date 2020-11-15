@@ -31,7 +31,7 @@ export default memo(function JMAppPlayerBar() {
     currentSong,
     playSequence,
     firstLoad,
-    lyricList,
+    lyricList = [],
     currentLyricIndex,
     playlistCount,
   } = useSelector(

@@ -73,7 +73,7 @@ const routes = [
         render: () => <Redirect to="/search/single?song=&type=1" />,
       },
       { path: '/search/single', component: JMSingle },
-      { path: '/search/singer/', component: JMSinger},
+      { path: '/search/singer', component: JMSinger},
       { path: '/search/album/', component: JMSearchAlbum}
     ]
   },

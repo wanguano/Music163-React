@@ -30,7 +30,7 @@ export default memo(function JMSingle(props) {
 
   return (
     <SingleSongWrapper>
-      {singleSongList.map((item) => {
+      {singleSongList && singleSongList.map((item) => {
         return (
           <SingleSongItem
             key={item.id}
