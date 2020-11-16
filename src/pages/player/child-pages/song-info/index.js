@@ -74,7 +74,7 @@ export default memo(function SongInfo(props) {
         </div>
         <Collapse >
           <Panel header={`歌词展示`}>
-            {lyricList.map((item) => {
+            {lyricList && lyricList.map((item) => {
               return <div key={item.totalTime} className="lyric-item">{item.content}</div> 
             })}
           </Panel>
