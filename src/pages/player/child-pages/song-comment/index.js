@@ -23,7 +23,7 @@ function SongComment() {
   // other hooks
   useEffect(() => {
     dispatch(getHotCommentAction(currentSongId));
-  });
+  }, [dispatch,currentSongId]);
 
   // other handle
   function formatDate(time = +new Date()) {
