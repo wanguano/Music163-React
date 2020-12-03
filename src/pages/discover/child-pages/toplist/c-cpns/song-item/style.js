@@ -42,6 +42,11 @@ export const SongItemWrapper = styled.div`
         background-position: 0 -700px;
       }
     }
+
+    .left-info>a {
+      display: inline-block;
+      width: 190px;
+    }
   }
 
   .duration {
