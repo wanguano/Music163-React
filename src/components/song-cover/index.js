@@ -14,9 +14,11 @@ function SongCover(props) {
   const name = (info && info.name) || (songList && songList.name) 
   // nickname
   const nickname = (info && info.copywriter) || (songList && songList.creator.nickname) 
-
+  // id
+  const songInfoId = (info && info.id) || (songList && songList.id)
+  
   return (
-    <SongCoverWrapper width={width}>
+    <SongCoverWrapper width={width} href={`#/songlist?songlistId=${songInfoId}`}>
       <div className="cover-wrapper">
         <img src={getSizeImage(picUrl, 140)} alt="" />
         <div className="cover-mask sprite_cover">
