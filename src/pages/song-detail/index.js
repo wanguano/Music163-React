@@ -1,16 +1,23 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { SonglistContent, SonglistWrapper } from './style'
 import qs from 'query-string'
+import { getSongDeatilData } from '../../service/song-detail'
 
 export default memo(function JMSonglist(props) {
   // props/state
+  const { songlistId } = qs.parse(props.location.search) // 获取传递得歌单ID,之后根据ID发生网络请求
 
   // redux hook
 
   // other hook
+  useEffect(() => {
+    // 歌曲详情数据
+    getSongDeatilData(songlistId).then((res) => {
+      console.log(res)
+    })
+  }, [songlistId])
 
   // other handle
-  const { songlistId } = qs.parse(props.location.search) // 获取传递得歌单ID,之后根据ID发生网络请求
 
   // TODO:
   // 1.歌单基本工程完成
