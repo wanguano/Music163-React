@@ -1,6 +1,7 @@
 import React, { memo, useEffect,  } from 'react'
 import { useDispatch } from 'react-redux'
 import qs from 'query-string'
+import AppNavBar from '@/components/nav-bar/index'
 import { SonglistContent, SonglistWrapper } from './style'
 import { getSongDeailAction } from './store/actionCreator'
 import SongDetailLeft from './child-pages/song-detail-left'
@@ -21,6 +22,8 @@ export default memo(function JMSonglist(props) {
   // JSX
   return (
     <SonglistWrapper>
+      {/* 导航栏 */}
+      <AppNavBar />
       <SonglistContent>
         {/* 歌单左部 */}
         <SongDetailLeft />
