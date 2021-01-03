@@ -88,6 +88,8 @@ export default memo(function JMAppHeader(props) {
   }, [dispatch])
   // 获取焦点
   const handleFocus = useCallback(() => {
+    // 当文本获取焦点时,文本被选中状态
+    inputRef.current.select()
     // 更改为获取焦点状态
     dispatch(changeFocusStateAction(true))
     // 修改状态重定向状态
