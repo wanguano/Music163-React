@@ -7,6 +7,7 @@ import { reducer as songsReducer } from '../pages/discover/child-pages/songs/sto
 import { reducer as themeHeaderReducer } from '@/components/app-header/store';
 import { reducer as searchReducer } from '@/pages/search/store'
 import { reducer as songDetailRducer } from '@/pages/song-detail/store'
+import { reducer as loginReducer } from '@/components/theme-login/store'
 
 // 多个reducer合并
 const cRducer = combineReducers({
@@ -16,7 +17,8 @@ const cRducer = combineReducers({
   songList: songsReducer,
   themeHeader: themeHeaderReducer,
   search: searchReducer,
-  songDetail: songDetailRducer
+  songDetail: songDetailRducer,
+  loginState: loginReducer
 });
 
 export default cRducer;

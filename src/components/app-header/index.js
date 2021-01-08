@@ -9,6 +9,8 @@ import {
 } from './store/actionCreator'
 import { headerLinks } from '@/common/local-data'
 import { getSongDetailAction } from '@/pages/player/store'
+import ThemeLogin from '@/components/theme-login'
+import { changeIsVisible } from '@/components/theme-login/store'
 
 import { Input } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
@@ -56,8 +58,8 @@ export default memo(function JMAppHeader(props) {
   const inputRef = useRef()
   // (根据当前焦点状态设置input焦点)
   useEffect(() => {
-     // 获取焦点
-    if(focusState) inputRef.current.focus()
+    // 获取焦点
+    if (focusState) inputRef.current.focus()
     // 失去焦点
     else inputRef.current.blur()
   }, [focusState])
@@ -80,12 +82,17 @@ export default memo(function JMAppHeader(props) {
     // 播放音乐
     document.getElementById('audio').autoplay = true
   }
+
   // 表单回车:跳转到搜索详情
-  const handleEnter = useCallback((e) => {
-    dispatch(changeFocusStateAction(false))
-    // 只要在搜索框回车: 都进行跳转
-    setIsRedirect(true)
-  }, [dispatch])
+  const handleEnter = useCallback(
+    (e) => {
+      dispatch(changeFocusStateAction(false))
+      // 只要在搜索框回车: 都进行跳转
+      setIsRedirect(true)
+    },
+    [dispatch]
+  )
+
   // 获取焦点
   const handleFocus = useCallback(() => {
     // 当文本获取焦点时,文本被选中状态
@@ -95,6 +102,13 @@ export default memo(function JMAppHeader(props) {
     // 修改状态重定向状态
     setIsRedirect(false)
   }, [dispatch])
+
+  // other handle
+
+  /* 
+    * 登录状态保存
+    * 
+  */
 
   // 返回的JSX
   return (
@@ -127,7 +141,11 @@ export default memo(function JMAppHeader(props) {
             />
             <div className="icons-wrapper">
               <div className="ctrl-wrapper">
-                <svg width="15" height="15" className="DocSearch-Control-Key-Icon">
+                <svg
+                  width="15"
+                  height="15"
+                  className="DocSearch-Control-Key-Icon"
+                >
                   <path
                     d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953"
                     strokeWidth="1.2"
@@ -141,7 +159,10 @@ export default memo(function JMAppHeader(props) {
             </div>
             {isRedirect && (
               <Redirect
-                to={{ pathname: '/search/single', search: `?song=${value}&type=1` }}
+                to={{
+                  pathname: '/search/single',
+                  search: `?song=${value}&type=1`,
+                }}
               />
             )}
             <div
@@ -158,29 +179,32 @@ export default memo(function JMAppHeader(props) {
                 </div>
 
                 {/* <div className="you"> */}
-                  <span className="main">
-                    {searchSongList &&
-                      searchSongList.map((item) => {
-                        return (
-                          <div
-                            className="item"
-                            key={item.id}
-                            onClick={() => changeCurrentSong(item.id)}
-                          >
-                            <span>{item.name}</span>-{item.artists[0].name}
-                          </div>
-                        )
-                      })}
-                  </span>
+                <span className="main">
+                  {searchSongList &&
+                    searchSongList.map((item) => {
+                      return (
+                        <div
+                          className="item"
+                          key={item.id}
+                          onClick={() => changeCurrentSong(item.id)}
+                        >
+                          <span>{item.name}</span>-{item.artists[0].name}
+                        </div>
+                      )
+                    })}
+                </span>
                 {/* </div> */}
               </div>
             </div>
           </div>
           <div className="center">创作者中心</div>
-          <div>登录</div>
+          <div className="login" onClick={() => dispatch(changeIsVisible(true))}>
+            登录
+          </div>
         </HeaderRight>
       </div>
       <div className="red-line"></div>
+      <ThemeLogin />
     </HeaderWrapper>
   )
 })

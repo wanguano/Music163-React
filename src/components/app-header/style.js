@@ -225,4 +225,9 @@ export const HeaderRight = styled.div`
       color: #fff;
     }
   }
+
+  .login:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `
