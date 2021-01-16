@@ -1,10 +1,13 @@
 import React, { memo, useState } from 'react'
-import { Modal } from 'antd'
+import { Button, message, Modal } from 'antd'
 import Draggable from 'react-draggable'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { changeIsVisible } from './store'
+import { PhoneOutlined } from '@ant-design/icons'
+import LoginIcon from '@/components/theme-controls-icon/login/index'
+import { LoginLeft, LoginRight, LoginWrapper } from './style'
 
-function ThemeLogin(props) {
+function ThemeLogin() {
   // state/props
   const [disabled, setDisabled] = useState(true)
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 })
@@ -12,9 +15,12 @@ function ThemeLogin(props) {
 
   // redux
   const dispatch = useDispatch()
-  const { isVisible } = useSelector((state) => ({
-    isVisible: state.getIn(['loginState', 'isVisible']),
-  }), shallowEqual)
+  const { isVisible } = useSelector(
+    (state) => ({
+      isVisible: state.getIn(['loginState', 'isVisible']),
+    }),
+    shallowEqual
+  )
 
   // 确定
   const handleOk = (e) => {
@@ -40,6 +46,7 @@ function ThemeLogin(props) {
   return (
     <Draggable>
       <Modal
+        centered
         title={
           <div
             style={{
@@ -76,15 +83,29 @@ function ThemeLogin(props) {
           </Draggable>
         )}
       >
-        <p>
-          Just don&apos;t learn physics at school and your life will be full of
-          magic and miracles.
-        </p>
-        <br />
-        <p>
-          Day before yesterday I saw a rabbit, and yesterday a deer, and today,
-          you.
-        </p>
+        {/* 登录盒子 */}
+        <LoginWrapper>
+          <LoginLeft>
+            <div className="login-content">
+              <div className="login-bg">
+              </div>
+              <Button type="ghost" shape="round" icon={<PhoneOutlined />} className="gap">
+                注册
+              </Button>
+              <Button type="primary" shape="round" icon={<PhoneOutlined />}>
+                手机号登录
+              </Button>
+            </div>
+          </LoginLeft>
+          <LoginRight>
+            <div className="icons-wrapper">
+              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-150px -670px" description="微信登录" />
+              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-190px -670px" description="QQ登录" />
+              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-231px -670px" description="微博登录" />
+              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-271px -670px" description="网易邮箱登录" />
+            </div>
+          </LoginRight>
+        </LoginWrapper>
       </Modal>
     </Draggable>
   )

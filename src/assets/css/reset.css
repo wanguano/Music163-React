@@ -183,3 +183,7 @@ button {
 .m-tab {
   background: url(../img/tab.png) no-repeat 0 9999px;
 }
+
+.theme-logo {
+  background: url(../img/logo.png) repeat 0 9999px;;
+}
