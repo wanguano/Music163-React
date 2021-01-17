@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import { Button, message, Modal } from 'antd'
 import Draggable from 'react-draggable'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -10,8 +10,9 @@ import { LoginLeft, LoginRight, LoginWrapper } from './style'
 function ThemeLogin() {
   // state/props
   const [disabled, setDisabled] = useState(true)
+  const [loginState, setLoginState] = useState('default')
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 })
-  const draggleRef = React.createRef()
+  const draggleRef = useRef()
 
   // redux
   const dispatch = useDispatch()
@@ -22,10 +23,6 @@ function ThemeLogin() {
     shallowEqual
   )
 
-  // 确定
-  const handleOk = (e) => {
-    dispatch(changeIsVisible(false))
-  }
   // 取消
   const handleCancel = (e) => {
     dispatch(changeIsVisible(false))
@@ -34,7 +31,7 @@ function ThemeLogin() {
   const onStart = (event, uiData) => {
     console.log('---->拖拽')
     const { clientWidth, clientHeight } = window?.document?.documentElement
-    const targetRect = this.draggleRef?.current?.getBoundingClientRect()
+    const targetRect = draggleRef?.current?.getBoundingClientRect()
     setBounds({
       left: -targetRect?.left + uiData?.x,
       right: clientWidth - (targetRect?.right - uiData?.x),
@@ -43,10 +40,46 @@ function ThemeLogin() {
     })
   }
 
+  // other handle
+  const handleLogin = (loginMode) => {
+    switch (loginMode) {
+      case 'phone': 
+        setLoginState('phone')
+      break
+      default: ;
+    }
+  }
+
+  const defaultWrapperContent = <LoginWrapper>
+  <LoginLeft>
+    <div className="login-content">
+      <div className="login-bg">
+      </div>
+      <Button type="ghost" onClick={() => message.warn('暂不做')} shape="round" icon={<PhoneOutlined />} className="gap">
+        注册
+      </Button>
+      <Button type="primary" shape="round" icon={<PhoneOutlined />} onClick={() => handleLogin('phone')}>
+        手机号登录
+      </Button>
+    </div>
+  </LoginLeft>
+  <LoginRight>
+    <div className="icons-wrapper">
+      <LoginIcon onClick={() => message.warn('暂不做')} position="-150px -670px" description="微信登录" />
+      <LoginIcon onClick={() => message.warn('暂不做')} position="-190px -670px" description="QQ登录" />
+      <LoginIcon onClick={() => message.warn('暂不做')} position="-231px -670px" description="微博登录" />
+      <LoginIcon onClick={() => message.warn('暂不做')} position="-271px -670px" description="网易邮箱登录" />
+    </div>
+  </LoginRight>
+</LoginWrapper>
+
+  const phoneLogin = <div>登录</div> 
+
   return (
     <Draggable>
       <Modal
         centered
+        footer={null}
         title={
           <div
             style={{
@@ -71,7 +104,6 @@ function ThemeLogin() {
           </div>
         }
         visible={isVisible}
-        onOk={handleOk}
         onCancel={handleCancel}
         modalRender={(modal) => (
           <Draggable
@@ -84,28 +116,7 @@ function ThemeLogin() {
         )}
       >
         {/* 登录盒子 */}
-        <LoginWrapper>
-          <LoginLeft>
-            <div className="login-content">
-              <div className="login-bg">
-              </div>
-              <Button type="ghost" shape="round" icon={<PhoneOutlined />} className="gap">
-                注册
-              </Button>
-              <Button type="primary" shape="round" icon={<PhoneOutlined />}>
-                手机号登录
-              </Button>
-            </div>
-          </LoginLeft>
-          <LoginRight>
-            <div className="icons-wrapper">
-              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-150px -670px" description="微信登录" />
-              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-190px -670px" description="QQ登录" />
-              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-231px -670px" description="微博登录" />
-              <LoginIcon onClick={() => message.warn('暂时先不做')} position="-271px -670px" description="网易邮箱登录" />
-            </div>
-          </LoginRight>
-        </LoginWrapper>
+        { loginState === 'default' ? defaultWrapperContent: phoneLogin}
       </Modal>
     </Draggable>
   )
