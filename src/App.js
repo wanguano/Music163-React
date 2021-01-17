@@ -6,7 +6,7 @@ import { HashRouter } from 'react-router-dom'
 import routes from './router'
 import store from './store'
 
-import { Spin } from 'antd'
+import { BackTop, Spin } from 'antd'
 import JMAppHeader from 'components/app-header'
 import JMAppFooter from 'components/app-footer'
 import JMAppPlayerBar from './pages/player/app-player-bar'
@@ -19,6 +19,8 @@ export default memo(function App() {
         <Suspense fallback={<Spin />}>{renderRoutes(routes)}</Suspense>
         <JMAppFooter />
         <JMAppPlayerBar />
+        {/* 返回顶部 */}
+        <BackTop />
       </HashRouter>
     </Provider>
   )
