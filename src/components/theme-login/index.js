@@ -115,8 +115,9 @@ function ThemeLogin() {
           </Draggable>
         )}
       >
-        {/* 登录盒子 */}
-        { loginState === 'default' ? defaultWrapperContent: phoneLogin}
+        {/* 登录 */}
+        { loginState === 'default' ? defaultWrapperContent: null}
+        { loginState === 'phone' ? phoneLogin: undefined}
       </Modal>
     </Draggable>
   )
