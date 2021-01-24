@@ -5,7 +5,8 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { changeIsVisible } from './store'
 import { PhoneOutlined } from '@ant-design/icons'
 import LoginIcon from '@/components/theme-controls-icon/login/index'
-import { LoginLeft, LoginRight, LoginWrapper } from './style'
+import { LoginLeft, LoginRight, LoginWrapper, PhoneLoginModal } from './style'
+import ThemeLoginForm from '../theme-login-form'
 
 function ThemeLogin() {
   // state/props
@@ -26,6 +27,8 @@ function ThemeLogin() {
   // 取消
   const handleCancel = (e) => {
     dispatch(changeIsVisible(false))
+    // 初始化状态
+    setLoginState('default')
   }
   // 拖拽
   const onStart = (event, uiData) => {
@@ -43,38 +46,69 @@ function ThemeLogin() {
   // other handle
   const handleLogin = (loginMode) => {
     switch (loginMode) {
-      case 'phone': 
+      case 'phone':
         setLoginState('phone')
-      break
-      default: ;
+        break
+      default:
     }
   }
 
-  const defaultWrapperContent = <LoginWrapper>
-  <LoginLeft>
-    <div className="login-content">
-      <div className="login-bg">
-      </div>
-      <Button type="ghost" onClick={() => message.warn('暂不做')} shape="round" icon={<PhoneOutlined />} className="gap">
-        注册
-      </Button>
-      <Button type="primary" shape="round" icon={<PhoneOutlined />} onClick={() => handleLogin('phone')}>
-        手机号登录
-      </Button>
-    </div>
-  </LoginLeft>
-  <LoginRight>
-    <div className="icons-wrapper">
-      <LoginIcon onClick={() => message.warn('暂不做')} position="-150px -670px" description="微信登录" />
-      <LoginIcon onClick={() => message.warn('暂不做')} position="-190px -670px" description="QQ登录" />
-      <LoginIcon onClick={() => message.warn('暂不做')} position="-231px -670px" description="微博登录" />
-      <LoginIcon onClick={() => message.warn('暂不做')} position="-271px -670px" description="网易邮箱登录" />
-    </div>
-  </LoginRight>
-</LoginWrapper>
+  const defaultWrapperContent = (
+    <LoginWrapper>
+      <LoginLeft>
+        <div className="login-content">
+          <div className="login-bg"></div>
+          <Button
+            type="ghost"
+            onClick={() => message.warn('暂不做')}
+            shape="round"
+            icon={<PhoneOutlined />}
+            className="gap"
+          >
+            注册
+          </Button>
+          <Button
+            type="primary"
+            shape="round"
+            icon={<PhoneOutlined />}
+            onClick={() => handleLogin('phone')}
+          >
+            手机号登录
+          </Button>
+        </div>
+      </LoginLeft>
+      <LoginRight>
+        <div className="icons-wrapper">
+          <LoginIcon
+            onClick={() => message.warn('暂不做')}
+            position="-150px -670px"
+            description="微信登录"
+          />
+          <LoginIcon
+            onClick={() => message.warn('暂不做')}
+            position="-190px -670px"
+            description="QQ登录"
+          />
+          <LoginIcon
+            onClick={() => message.warn('暂不做')}
+            position="-231px -670px"
+            description="微博登录"
+          />
+          <LoginIcon
+            onClick={() => message.warn('暂不做')}
+            position="-271px -670px"
+            description="网易邮箱登录"
+          />
+        </div>
+      </LoginRight>
+    </LoginWrapper>
+  )
 
-  const phoneLogin = <div>登录</div> 
-
+  const phoneLogin = (
+    <PhoneLoginModal>
+      <ThemeLoginForm />
+    </PhoneLoginModal>
+  )
   return (
     <Draggable>
       <Modal
@@ -116,8 +150,8 @@ function ThemeLogin() {
         )}
       >
         {/* 登录 */}
-        { loginState === 'default' ? defaultWrapperContent: null}
-        { loginState === 'phone' ? phoneLogin: undefined}
+        {loginState === 'default' ? defaultWrapperContent : null}
+        {loginState === 'phone' ? phoneLogin : undefined}
       </Modal>
     </Draggable>
   )

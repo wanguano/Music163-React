@@ -12,6 +12,31 @@ import JMAppFooter from 'components/app-footer'
 import JMAppPlayerBar from './pages/player/app-player-bar'
 
 export default memo(function App() {
+  /*
+   *  ?. :保证这个对象前面必须有这个属性才可以调用
+   *  ?? :当我们不确定前面的value是否一定有值时,可以添加默认值
+   *
+   */
+  // -------?.--------
+  // const arr1 = [1,2,3,4,5]
+  // // 当arr为undefined时,不会报错
+  // const newArr = undefined?.map((item) => item)
+  // console.log(newArr)
+
+  // -------??--------
+  // const a = undefined ?? 'default' // 'default
+  // const b = null ?? 'default' // 'default'
+  // const c = false ?? 'default' // 'false'
+  // const d = 0 ?? 'default' // 0
+  // console.log(a, b, c, d)
+
+  // -------对象不确定赋值(未兼容)--------
+  // let a = { b: null, c: 10 }
+  // // a.b有值吗? 有值就用自己的,没有就用右侧的value
+  // a.b ??= 20
+  // // a.c有值吗? 有值就用自己的,没有就用右侧的value
+  // a.c ??= 20
+
   return (
     <Provider store={store}>
       <HashRouter>
