@@ -72,3 +72,38 @@ export function debounce(func, delay) {
   }
 }
 
+/**
+ *
+ * @param {String} loginState 登录模式
+ */
+export function getParseLoginState(loginState) {
+  let loginMode = ''
+  switch (loginState) {
+    case 'phone':
+      loginMode = '手机号'
+      break
+    case 'email':
+      loginMode = '邮箱'
+      break
+    default:
+      loginMode = '手机号'
+      break
+  }
+  return loginMode
+}
+
+
+/**
+ * 根据不同登录方式,返回匹配对应的正则
+ * @param {String} loginState 登录状态
+ */
+export function getMatchReg(loginState){
+  switch(loginState) {
+    case 'phone':
+      return /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+    case 'email':
+      return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    default: 
+      return '';
+  }
+}
