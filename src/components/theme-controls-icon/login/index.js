@@ -1,10 +1,14 @@
 import React, { memo } from 'react'
 import propType from 'prop-types'
 
+/**
+ * 登录ICON
+ * @param {prop对象} props position description onClick
+ */
 function LoginIcon(props) {
   // icon description
   const {position, description, onClick} = props
-  console.log('position description ---->', position, description)
+  // console.log('position description ---->', position, description)
   return (
      // eslint-disable-next-line
     <a style={{display: 'flex', width: '149px', marginTop: '19px', lineHeight: '38px'}} onClick={onClick}>
