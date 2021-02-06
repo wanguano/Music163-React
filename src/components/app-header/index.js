@@ -1,25 +1,26 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { NavLink, Redirect } from 'react-router-dom'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { NavLink, Redirect } from 'react-router-dom';
 
-import { debounce } from '@/utils/format-utils.js'
+import { debounce } from '@/utils/format-utils.js';
 import {
   getSearchSongListAction,
   changeFocusStateAction,
-} from './store/actionCreator'
-import { headerLinks } from '@/common/local-data'
-import { getSongDetailAction } from '@/pages/player/store'
-import ThemeLogin from '@/components/theme-login'
-import { changeIsVisible } from '@/components/theme-login/store'
+} from './store/actionCreator';
+import { headerLinks } from '@/common/local-data';
+import { getSongDetailAction } from '@/pages/player/store';
+import ThemeLogin from '@/components/theme-login';
+import { changeIsVisible } from '@/components/theme-login/store';
 
-import { Input } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
-import { HeaderLeft, HeaderRight, HeaderWrapper } from './style'
+import { Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
 
 export default memo(function JMAppHeader(props) {
   // props/state
-  const [isRedirect, setIsRedirect] = useState(false)
-  const [value, setValue] = useState('')
+  const [isRedirect, setIsRedirect] = useState(false);
+  const [value, setValue] = useState('');
+  const [recordActive, setRecordActive] = useState(-1);
 
   // Header-Select-Item
   const showSelectItem = (item, index) => {
@@ -34,81 +35,105 @@ export default memo(function JMAppHeader(props) {
           <em>{item.title}</em>
           <i className="icon"></i>
         </NavLink>
-      )
+      );
     } else {
       return (
         <a href={item.link} key={item.title} className="header-item">
           {item.title}
         </a>
-      )
+      );
     }
-  }
+  };
 
   // redux hook
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { searchSongList, focusState } = useSelector(
     (state) => ({
       searchSongList: state.getIn(['themeHeader', 'searchSongList']),
       focusState: state.getIn(['themeHeader', 'focusState']),
     }),
     shallowEqual
-  )
+  );
 
   // other hook
-  const inputRef = useRef()
+  const inputRef = useRef();
   // (根据当前焦点状态设置input焦点)
   useEffect(() => {
     // 获取焦点
-    if (focusState) inputRef.current.focus()
+    if (focusState) inputRef.current.focus();
     // 失去焦点
-    else inputRef.current.blur()
-  }, [focusState])
+    else inputRef.current.blur();
+  }, [focusState]);
 
   // other function debounce()  函数防抖进行优化
   const changeInput = debounce((target) => {
-    let value = target.value.trim()
-    if (value.length < 1) return
+    let value = target.value.trim();
+    if (value.length < 1) return;
     // 显示下拉框
-    dispatch(changeFocusStateAction(true))
+    dispatch(changeFocusStateAction(true));
     // 发送网络请求
-    dispatch(getSearchSongListAction(value))
-  }, 400)
+    dispatch(getSearchSongListAction(value));
+  }, 400);
   // 点击当前item歌曲项
   const changeCurrentSong = (id) => {
     //派发action
-    dispatch(getSongDetailAction(id))
+    dispatch(getSongDetailAction(id));
     // 隐藏下拉框
-    dispatch(changeFocusStateAction(false))
+    dispatch(changeFocusStateAction(false));
     // 播放音乐
-    document.getElementById('audio').autoplay = true
-  }
+    document.getElementById('audio').autoplay = true;
+  };
 
   // 表单回车:跳转到搜索详情
   const handleEnter = useCallback(
     (e) => {
-      dispatch(changeFocusStateAction(false))
-      // 只要在搜索框回车: 都进行跳转
-      setIsRedirect(true)
+      // 说明当前光标有”高亮当前行“
+      if (recordActive>=0) {
+        setValue(searchSongList[recordActive].name + searchSongList[recordActive].artists[0].name)
+        // console.log(searchSongList[recordActive])
+      }
+        dispatch(changeFocusStateAction(false));
+        // 只要在搜索框回车: 都进行跳转
+        setIsRedirect(true);
     },
-    [dispatch]
-  )
+    [dispatch, recordActive, searchSongList]
+  );
 
   // 获取焦点
   const handleFocus = useCallback(() => {
     // 当文本获取焦点时,文本被选中状态
-    inputRef.current.select()
+    inputRef.current.select();
     // 更改为获取焦点状态
-    dispatch(changeFocusStateAction(true))
+    dispatch(changeFocusStateAction(true));
     // 修改状态重定向状态
-    setIsRedirect(false)
-  }, [dispatch])
+    setIsRedirect(false);
+  }, [dispatch]);
 
-  // other handle
+  // 监控用户是否按: "上"或"下"键
+  const watchKeyboard = useCallback(
+    (even) => {
+      even.preventDefault(); // 阻止光标“左移”或“右移”
+      let activeNumber = recordActive;
+      if (even.keyCode === 38) {
+        activeNumber--;
+        activeNumber = activeNumber <= 0 ? 0 : activeNumber;
+        setRecordActive(activeNumber);
+      } else if (even.keyCode === 40) {
+        activeNumber++;
+        activeNumber =
+          activeNumber >= searchSongList?.length - 1
+            ? searchSongList?.length - 1
+            : activeNumber;
+        setRecordActive(activeNumber);
+      }
+    },
+    [recordActive, setRecordActive, searchSongList]
+  );
 
-  /* 
-    * 登录状态保存
-    * 
-  */
+  /*
+   * 登录状态保存
+   *
+   */
 
   // 返回的JSX
   return (
@@ -122,7 +147,7 @@ export default memo(function JMAppHeader(props) {
           </h1>
           <div className="header-group">
             {headerLinks.map((item, index) => {
-              return showSelectItem(item, index)
+              return showSelectItem(item, index);
             })}
           </div>
         </HeaderLeft>
@@ -130,14 +155,16 @@ export default memo(function JMAppHeader(props) {
           <div className="search-wrapper">
             <Input
               ref={inputRef}
-              className="search"
+              className="search "
               placeholder="音乐/歌手"
+              size="large"
               prefix={<SearchOutlined />}
               onChange={(e) => setIsRedirect(false) || setValue(e.target.value)}
               onInput={({ target }) => changeInput(target)}
               onFocus={handleFocus}
               onPressEnter={(e) => handleEnter(e)}
               value={value}
+              onKeyDown={watchKeyboard}
             />
             <div className="icons-wrapper">
               <div className="ctrl-wrapper">
@@ -181,16 +208,18 @@ export default memo(function JMAppHeader(props) {
                 {/* <div className="you"> */}
                 <span className="main">
                   {searchSongList &&
-                    searchSongList.map((item) => {
+                    searchSongList.map((item, index) => {
                       return (
                         <div
-                          className="item"
+                          className={
+                            'item ' + (recordActive === index ? 'active' : '')
+                          }
                           key={item.id}
                           onClick={() => changeCurrentSong(item.id)}
                         >
                           <span>{item.name}</span>-{item.artists[0].name}
                         </div>
-                      )
+                      );
                     })}
                 </span>
                 {/* </div> */}
@@ -198,7 +227,10 @@ export default memo(function JMAppHeader(props) {
             </div>
           </div>
           <div className="center">创作者中心</div>
-          <div className="login" onClick={() => dispatch(changeIsVisible(true))}>
+          <div
+            className="login"
+            onClick={() => dispatch(changeIsVisible(true))}
+          >
             登录
           </div>
         </HeaderRight>
@@ -206,5 +238,5 @@ export default memo(function JMAppHeader(props) {
       <div className="red-line"></div>
       <ThemeLogin />
     </HeaderWrapper>
-  )
-})
+  );
+});

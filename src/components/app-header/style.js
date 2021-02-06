@@ -88,13 +88,16 @@ export const HeaderRight = styled.div`
 
   .search-wrapper {
     position: relative;
+
     /* 搜索框 */
     .search {
-      width: 158px;
+      width: 235px;
       height: 32px;
       border-radius: 16px;
 
       input {
+        font-size: 14px;
+        font-family: '微软雅黑';
         &::placeholder {
           font-size: 12px;
         }
@@ -106,7 +109,7 @@ export const HeaderRight = styled.div`
       position: absolute;
       display: flex;
       right: 8px;
-      top: 8px;
+      top: 7px;
 
       .ctrl-wrapper {
         background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
@@ -116,11 +119,11 @@ export const HeaderRight = styled.div`
         color: rgb(150 159 175);
         display: flex;
         align-items: center;
-        height: 18px;
+        height: 20px;
         justify-content: center;
         margin-right: 0.5em;
         padding-bottom: 2px;
-        width: 20px;
+        width: 25px;
       }
 
       .k-wrapper {
@@ -131,11 +134,11 @@ export const HeaderRight = styled.div`
         color: #969faf;
         display: flex;
         align-items: center;
-        height: 18px;
+        height: 20px;
         justify-content: center;
         margin-right: 0.6em;
         padding-bottom: 2px;
-        width: 20px;
+        width: 25px;
       }
     }
 
@@ -199,6 +202,10 @@ export const HeaderRight = styled.div`
             text-indent: 8px;
 
             &:hover {
+              background-color: #ccc;
+            }
+
+            &.active {
               background-color: #ccc;
             }
           }
