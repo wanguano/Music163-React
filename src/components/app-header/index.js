@@ -89,8 +89,8 @@ export default memo(function JMAppHeader(props) {
     (e) => {
       // 说明当前光标有”高亮当前行“
       if (recordActive>=0) {
-        setValue(searchSongList[recordActive].name + searchSongList[recordActive].artists[0].name)
-        // console.log(searchSongList[recordActive])
+        // 保存value
+        setValue(searchSongList[recordActive].name + '-' + searchSongList[recordActive].artists[0].name)
       }
         dispatch(changeFocusStateAction(false));
         // 只要在搜索框回车: 都进行跳转
@@ -112,28 +112,22 @@ export default memo(function JMAppHeader(props) {
   // 监控用户是否按: "上"或"下"键
   const watchKeyboard = useCallback(
     (even) => {
-      even.preventDefault(); // 阻止光标“左移”或“右移”
       let activeNumber = recordActive;
       if (even.keyCode === 38) {
         activeNumber--;
-        activeNumber = activeNumber <= 0 ? 0 : activeNumber;
+        activeNumber = activeNumber < 0 ? searchSongList?.length - 1 : activeNumber;
         setRecordActive(activeNumber);
       } else if (even.keyCode === 40) {
         activeNumber++;
         activeNumber =
-          activeNumber >= searchSongList?.length - 1
-            ? searchSongList?.length - 1
+          activeNumber >= searchSongList?.length
+            ? 0
             : activeNumber;
         setRecordActive(activeNumber);
       }
     },
     [recordActive, setRecordActive, searchSongList]
   );
-
-  /*
-   * 登录状态保存
-   *
-   */
 
   // 返回的JSX
   return (
