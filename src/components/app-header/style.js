@@ -94,7 +94,7 @@ export const HeaderRight = styled.div`
       width: 235px;
       height: 32px;
       border-radius: 16px;
-
+      
       input {
         font-size: 14px;
         font-family: '微软雅黑';
@@ -106,10 +106,7 @@ export const HeaderRight = styled.div`
 
     /* icons */
     .icons-wrapper {
-      position: absolute;
       display: flex;
-      right: 8px;
-      top: 7px;
 
       .ctrl-wrapper {
         background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
@@ -202,11 +199,14 @@ export const HeaderRight = styled.div`
             text-indent: 8px;
 
             &:hover {
-              background-color: #ccc;
+              background-color: #ecf0f1;
+              border-radius: 5%;
+              color: #2ecc71;
             }
 
             &.active {
-              background-color: #ccc;
+              background-color: #ecf0f1;
+              color: #2ecc71;
             }
           }
         }
