@@ -183,7 +183,6 @@ export const HeaderRight = styled.div`
 
         .main {
           display: inline-block;
-          border-left: 1px solid rgb(183, 183, 187);
           font-size: 13px;
           line-height: 28px;
 
