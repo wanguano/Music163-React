@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo, Suspense, useEffect } from 'react'
 import { Provider } from 'react-redux'
 
 import { renderRoutes } from 'react-router-config'
@@ -6,11 +6,10 @@ import { HashRouter } from 'react-router-dom'
 import routes from './router'
 import store from './store'
 
-import { BackTop, Spin } from 'antd'
+import { BackTop, Skeleton } from 'antd'
 import JMAppHeader from 'components/app-header'
 import JMAppFooter from 'components/app-footer'
 import JMAppPlayerBar from './pages/player/app-player-bar'
-
 export default memo(function App() {
   /*
    *  ?. :保证这个对象前面必须有这个属性才可以调用
@@ -37,11 +36,24 @@ export default memo(function App() {
   // // a.c有值吗? 有值就用自己的,没有就用右侧的value
   // a.c ??= 20
 
+  // other hook
+  useEffect(() => {
+    /* 
+      * 本地存储操作
+      *   1.保存当前登录状态
+      *   2.标识当前登录用户
+    */
+    // const loginState = JSON.parse(localStorage.getItem('isLogin'))
+
+    
+
+  }, [])
+
   return (
     <Provider store={store}>
       <HashRouter>
         <JMAppHeader />
-        <Suspense fallback={<Spin />}>{renderRoutes(routes)}</Suspense>
+        <Suspense fallback={<Skeleton active />}>{renderRoutes(routes)}</Suspense>
         <JMAppFooter />
         <JMAppPlayerBar />
         {/* 返回顶部 */}
