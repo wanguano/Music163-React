@@ -8,10 +8,13 @@ import LoginIcon from '@/components/theme-controls-icon/login/index'
 import { LoginLeft, LoginRight, LoginWrapper, PhoneLoginModal } from './style'
 import ThemeLoginForm from '../theme-login-form'
 
+/**
+ * 登录页面(模态框)
+ */
 function ThemeLogin() {
   // state/props
   const [disabled, setDisabled] = useState(true)
-  const [loginState, setLoginState] = useState('default')
+  const [loginState, setLoginState] = useState('default')// 默认状态显示
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 })
   const draggleRef = useRef()
 
@@ -23,12 +26,15 @@ function ThemeLogin() {
     }),
     shallowEqual
   )
-
+  
   // 取消
   const handleCancel = (e) => {
+    // 关闭模态框
     dispatch(changeIsVisible(false))
-    // 初始化状态
-    setLoginState('default')
+    // 延迟返回初始化状态
+    setTimeout(() => {
+      setLoginState('default')
+    }, 100)
   }
   // 拖拽
   const onStart = (event, uiData) => {
@@ -48,6 +54,9 @@ function ThemeLogin() {
     switch (loginMode) {
       case 'phone':
         setLoginState('phone')
+        break
+      case 'email':
+        setLoginState('email')
         break
       default:
     }
@@ -95,7 +104,7 @@ function ThemeLogin() {
             description="微博登录"
           />
           <LoginIcon
-            onClick={() => message.warn('暂不做')}
+            onClick={() => handleLogin('email')}
             position="-271px -670px"
             description="网易邮箱登录"
           />
@@ -104,11 +113,13 @@ function ThemeLogin() {
     </LoginWrapper>
   )
 
-  const phoneLogin = (
-    <PhoneLoginModal>
-      <ThemeLoginForm />
-    </PhoneLoginModal>
-  )
+  const phoneLogin = (loginState) => {
+    return (
+      <PhoneLoginModal>
+        <ThemeLoginForm loginState={loginState} />
+      </PhoneLoginModal>
+    )
+  }
   return (
     <Draggable>
       <Modal
@@ -151,7 +162,8 @@ function ThemeLogin() {
       >
         {/* 登录 */}
         {loginState === 'default' ? defaultWrapperContent : null}
-        {loginState === 'phone' ? phoneLogin : undefined}
+        {loginState === 'phone' ? phoneLogin() : undefined}
+        {loginState === 'email' ? phoneLogin('email') : undefined}
       </Modal>
     </Draggable>
   )
