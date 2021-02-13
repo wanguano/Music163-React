@@ -27,7 +27,7 @@ export const getLoginProfileInfo = (username, password, message) => {
         // 保存登录信息
         dispatch(changeUserProfile(res && res.profile))
         // 更改登录状态
-        localStorage.setItem('isLogin', true)
+        // localStorage.setItem('isLogin', true)
       }
     })
   }
