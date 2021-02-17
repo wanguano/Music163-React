@@ -9,6 +9,7 @@ const instance = axios.create({
   baseURL: BASE_URL, // -> http://123.57.176.198:3000/banner
   timeout: TIMEOUT, // -> 5000
   headers: {},
+  withCredentials: true
 })
 
 instance.interceptors.request.use(
