@@ -25,6 +25,8 @@ const JMSinger = React.lazy(() => import('@/pages/search/child-pages/singer'))
 const JMSearchAlbum = React.lazy(() => import('@/pages/search/child-pages/album'))
 const JMSonglist = React.lazy(() => import('@/pages/song-detail'))
 
+const JM404 = React.lazy(() => import('@/pages/404'))
+
 // import JMDiscover from '@/pages/discover'
 // import JMRecommend from '../pages/discover/child-pages/recommend'
 // import JMToplist from '../pages/discover/child-pages/toplist'
@@ -82,6 +84,9 @@ const routes = [
     path: '/songlist',
     exact: true,
     component: JMSonglist
+  },
+  {
+    component: JM404
   }
 ]
 
