@@ -33,7 +33,7 @@ export default memo(function Toplist(props) {
   useEffect(() => {
     // 派发榜单标题信息Action
     let { id } = qs.parse(props.location.search)
-    id = id ? id : '19723756'
+    id = id ? id : currentToplistId
     dispatch(getToplistTitleInfoAction(id))
   }, [currentToplistId, dispatch, props])
 
