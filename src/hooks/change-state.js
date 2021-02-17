@@ -15,7 +15,7 @@ export function useChangeDropBoxState(state = false) {
 /**
  * 调用该hook注册全局键盘事件: ctrl+k唤醒搜索框  esc关闭下拉框
  */
-export function useGlobalKeyboardEvent() {
+export async function useGlobalKeyboardEvent() {
   const showDropBoxState = useChangeDropBoxState(true)
   const closeDropBoxState = useChangeDropBoxState(false)
   document.addEventListener('keydown', (e) => {
