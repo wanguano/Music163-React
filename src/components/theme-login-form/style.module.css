@@ -1,0 +1,19 @@
+.textAlignRight {
+  justify-content: flex-start;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.mr80 {
+  margin-right: 80px;
+}
+
+.forgetPwd {
+  color: #666;
+  cursor: pointer;
+  margin-right: 18px;
+}
+
+.forgetPwd:hover {
+  text-decoration: underline;
+}

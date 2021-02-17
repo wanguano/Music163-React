@@ -1,5 +1,10 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import propTypes from 'prop-types'
+import { getParseLoginState, getMatchReg } from '@/utils/format-utils'
+import { Form, Input, Button, Checkbox, message } from 'antd'
+import loginFormStyle from './style.module.css'
+import { useDispatch } from 'react-redux'
+import { getLoginProfileInfo } from '../theme-login/store/actionCreator'
 
 const layout = {
   labelCol: { span: 6 },
@@ -9,10 +14,30 @@ const tailLayout = {
   wrapperCol: { span: 30 },
 }
 
+/**
+ * 登录的表单组件
+ */
 const ThemeLoginForm = (props) => {
-  // const { loginToken = 'phone' } = props
-  const onFinish = (values) => {
-    console.log('Success:', values)
+  // prop/state
+  // 拿到"登录的方式"
+  const { loginState } = props
+  // 解析登录状态: phone->'手机号'  email->'邮箱'
+  const parseLoginModeText = getParseLoginState(loginState)
+  // 表单正则: 根据不同登录方式,匹配不同的正则
+  const mathchReg = getMatchReg(loginState)
+  const pwdReg = /[0-9a-zA-Z._-]{6,20}/
+  console.log(loginState, parseLoginModeText, `正则--->${mathchReg}`)
+  // redux hook
+  const dispatch = useDispatch()
+
+  // other handle
+
+  // component handle
+  const onFinish = ({username, password}) => {
+    // 先固定写死: 手机号登陆
+    dispatch(getLoginProfileInfo(username, password, message))
+    console.log('Success:', username, password)
+    
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -28,21 +53,24 @@ const ThemeLoginForm = (props) => {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="手机号"
+        label={parseLoginModeText}
         name="username"
-        rules={[{ required: true, message: '请输入你的用户名' }]}
+        rules={[{pattern: mathchReg, message: `请输入正确的${parseLoginModeText}`}, { required: true, message: '请输入你的账户' }]}
       >
-        <Input />
+        <Input autoFocus />
       </Form.Item>
 
       <Form.Item
         label="密码"
         name="password"
-        rules={[{ required: true, message: '请输入你的密码!' }]}
+        rules={[{ pattern: pwdReg, message: '密码最短6位' } ,{ required: true, message: '请输入你的密码!' }]}
       >
         <Input.Password />
       </Form.Item>
-
+      <div className={loginFormStyle.textAlignRight}>
+        <Checkbox className={loginFormStyle.mr80} defaultChecked={true}>自动登录</Checkbox>
+        <span className={loginFormStyle.forgetPwd}>忘记密码?</span>
+      </div>
       <Form.Item {...tailLayout}>
         <Button
           type="primary"
@@ -56,6 +84,14 @@ const ThemeLoginForm = (props) => {
       </Form.Item>
     </Form>
   )
+}
+
+ThemeLoginForm.propTypes = {
+  loginState: propTypes.string
+}
+
+ThemeLoginForm.defaultProps  = {
+  loginState: 'phone'
 }
 
 export default ThemeLoginForm
