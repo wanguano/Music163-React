@@ -6,6 +6,7 @@ import {SonglistContent, SonglistWrapper} from './style'
 import {getSongDeailAction} from './store/actionCreator'
 import SongDetailLeft from './child-pages/song-detail-left'
 import SongDetailRight from './child-pages/song-detail-right'
+import { useGlobalKeyboardEvent } from '../../hooks/change-state'
 
 export default memo(function JMSonglist(props) {
   // props/state
@@ -18,6 +19,9 @@ export default memo(function JMSonglist(props) {
   useEffect(() => {
     dispatch(getSongDeailAction(songlistId))
   }, [dispatch, songlistId])
+
+  // custom hook
+  useGlobalKeyboardEvent()// 全局注册 ctrl+k 唤醒下拉框
 
   // JSX
   return (
