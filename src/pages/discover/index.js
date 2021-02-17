@@ -11,12 +11,12 @@ export default memo(function JMDiscover(props) {
   const { route } = props
 
   // custom hook
-  useGlobalKeyboardEvent()
+  useGlobalKeyboardEvent()// 全局注册 ctrl+k 唤醒下拉框
 
   return (
     <HeaderCategory onClick={useChangeDropBoxState()}>
       {/* 导航栏 */}
-      <AppNavBar />
+      <AppNavBar  />
       {renderRoutes(route.routes)}
     </HeaderCategory>
   )
