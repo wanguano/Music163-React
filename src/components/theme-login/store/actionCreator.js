@@ -44,6 +44,8 @@ export const getLoginProfileInfo = (username, password, tip) => {
         let newLoginInfo = Object.assign(getLoginInfo('loginInfo'), loginInfo)
         setLoginInfo('loginInfo', newLoginInfo)
         console.log(getLoginInfo('loginInfo'))
+        // 关闭模态框
+        dispatch(changeIsVisible(false))
       }
     })
   }
