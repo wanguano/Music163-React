@@ -35,3 +35,11 @@ export function getLoginInfo(key) {
     return JSON.parse(originalText);
   }
 }
+
+/**
+ * 清除登录状态
+ */
+export function clearLoginState() {
+  localStorage.clear()
+  window.location.reload()
+}
