@@ -1,10 +1,13 @@
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { memo, Suspense } from 'react';
 import { Provider } from 'react-redux';
 
 import { renderRoutes } from 'react-router-config';
 import { HashRouter } from 'react-router-dom';
 import routes from './router';
 import store from './store';
+// import initLoginInfo from '@/config/token.js'
+// import { setLoginInfo , getLoginInfo} from '@/utils/secret-key'
+// import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator'
 
 import { BackTop, Skeleton } from 'antd';
 import JMAppHeader from 'components/app-header';
@@ -36,18 +39,26 @@ export default memo(function App() {
   // // a.c有值吗? 有值就用自己的,没有就用右侧的value
   // a.c ??= 20
   
-  // other handle
-  const loginState = JSON.parse(localStorage.getItem('isLogin')) ?? false
-  console.log(loginState)
 
   // other hook
-  useEffect(() => {
-    /*
-     * 本地存储操作
-     *   1.保存当前登录状态
-     *   2.标识当前登录用户
-     */
-  }, []);
+  /* 
+    * 初始化登录状态: z每次初始化判断是否存在账号密码
+  */
+
+  // // other handle
+  // // 初始化
+  // const initLogin = () => {
+  //   // 存在登录信息
+  //   if (localStorage.getItem('loginInfo') != null) {
+  //     const {username, password} = getLoginInfo('loginInfo')
+  //     username && password? getLoginProfileInfo(username, password): console.log('当前登录的默认信息')
+  //   }
+  //   // 不存在登录信息
+  //   else {
+  //     setLoginInfo('loginInfo', initLoginInfo)
+  //   }
+  // }
+  // initLogin()
 
   return (
     <Provider store={store}>
