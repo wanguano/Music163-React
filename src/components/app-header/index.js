@@ -181,7 +181,7 @@ export default memo(function JMAppHeader(props) {
               没想好
             </a>
           </Menu.Item>
-          <Menu.Item danger onClick={() => clearLoginState(props)}>退出登录</Menu.Item>
+          <Menu.Item danger onClick={() => clearLoginState()}>退出登录</Menu.Item>
         </Menu>
       ) : ''
     );
