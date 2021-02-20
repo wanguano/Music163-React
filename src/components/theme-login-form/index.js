@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { getParseLoginState, getMatchReg } from '@/utils/format-utils'
-import { Form, Input, Button, Checkbox, message } from 'antd'
+import { Form, Input, Button, Checkbox } from 'antd'
 import loginFormStyle from './style.module.css'
 import { useDispatch } from 'react-redux'
 import { getLoginProfileInfo } from '../theme-login/store/actionCreator'
@@ -35,8 +35,7 @@ const ThemeLoginForm = (props) => {
   // component handle
   const onFinish = ({username, password}) => {
     // 先固定写死: 手机号登陆
-    dispatch(getLoginProfileInfo(username, password, message))
-    console.log('Success:', username, password)
+    dispatch(getLoginProfileInfo(username, password, true))
     
   }
 
