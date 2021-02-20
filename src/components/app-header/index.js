@@ -12,15 +12,19 @@ import { getSongDetailAction } from '@/pages/player/store';
 import ThemeLogin from '@/components/theme-login';
 import { changeIsVisible } from '@/components/theme-login/store';
 
-import { Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Dropdown, Input, Menu } from 'antd';
+import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
+import { clearLoginState } from '../../utils/secret-key';
 
 export default memo(function JMAppHeader(props) {
   // props/state
   const [isRedirect, setIsRedirect] = useState(false);
   const [value, setValue] = useState('');
   const [recordActive, setRecordActive] = useState(-1);
+  /* 
+    登录标识
+  */
 
   // Header-Select-Item
   const showSelectItem = (item, index) => {
@@ -47,10 +51,12 @@ export default memo(function JMAppHeader(props) {
 
   // redux hook
   const dispatch = useDispatch();
-  const { searchSongList, focusState } = useSelector(
+  const { searchSongList, focusState, isLogin, profile } = useSelector(
     (state) => ({
       searchSongList: state.getIn(['themeHeader', 'searchSongList']),
       focusState: state.getIn(['themeHeader', 'focusState']),
+      isLogin: state.getIn(['loginState', 'isLogin']),
+      profile: state.getIn(['loginState', 'profile']),
     }),
     shallowEqual
   );
@@ -77,7 +83,7 @@ export default memo(function JMAppHeader(props) {
   // 点击当前item歌曲项
   const changeCurrentSong = (id, item) => {
     // 放到搜索文本框
-    setValue(item.name + '-' + item.artists[0].name)
+    setValue(item.name + '-' + item.artists[0].name);
     //派发action
     dispatch(getSongDetailAction(id));
     // 隐藏下拉框
@@ -90,13 +96,17 @@ export default memo(function JMAppHeader(props) {
   const handleEnter = useCallback(
     (e) => {
       // 说明当前光标有”高亮当前行“
-      if (recordActive>=0) {
+      if (recordActive >= 0) {
         // 保存value
-        setValue(searchSongList[recordActive].name + '-' + searchSongList[recordActive].artists[0].name)
+        setValue(
+          searchSongList[recordActive].name +
+            '-' +
+            searchSongList[recordActive].artists[0].name
+        );
       }
-        dispatch(changeFocusStateAction(false));
-        // 只要在搜索框回车: 都进行跳转
-        setIsRedirect(true);
+      dispatch(changeFocusStateAction(false));
+      // 只要在搜索框回车: 都进行跳转
+      setIsRedirect(true);
     },
     [dispatch, recordActive, searchSongList]
   );
@@ -117,14 +127,13 @@ export default memo(function JMAppHeader(props) {
       let activeNumber = recordActive;
       if (even.keyCode === 38) {
         activeNumber--;
-        activeNumber = activeNumber < 0 ? searchSongList?.length - 1 : activeNumber;
+        activeNumber =
+          activeNumber < 0 ? searchSongList?.length - 1 : activeNumber;
         setRecordActive(activeNumber);
       } else if (even.keyCode === 40) {
         activeNumber++;
         activeNumber =
-          activeNumber >= searchSongList?.length
-            ? 0
-            : activeNumber;
+          activeNumber >= searchSongList?.length ? 0 : activeNumber;
         setRecordActive(activeNumber);
       }
     },
@@ -134,24 +143,49 @@ export default memo(function JMAppHeader(props) {
   // icons键盘图标
   const icons = (
     <div className="icons-wrapper">
-    <div className="ctrl-wrapper">
-      <svg
-        width="15"
-        height="15"
-        className="DocSearch-Control-Key-Icon"
-      >
-        <path
-          d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953"
-          strokeWidth="1.2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="square"
-        ></path>
-      </svg>
+      <div className="ctrl-wrapper">
+        <svg width="15" height="15" className="DocSearch-Control-Key-Icon">
+          <path
+            d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953"
+            strokeWidth="1.2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="square"
+          ></path>
+        </svg>
+      </div>
+      <div className="k-wrapper">k</div>
     </div>
-    <div className="k-wrapper">k</div>
-  </div>
-  )
+  );
+
+  // 用户JSX
+  const profileDwonMenu = () => {
+    return (
+      isLogin ? (
+        <Menu>
+          <Menu.Item>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://www.alipay.com/"
+            >
+              个人信息
+            </a>
+          </Menu.Item>
+          <Menu.Item>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://www.taobao.com/"
+            >
+              没想好
+            </a>
+          </Menu.Item>
+          <Menu.Item danger onClick={() => clearLoginState(props)}>退出登录</Menu.Item>
+        </Menu>
+      ) : ''
+    );
+  };
 
   // 返回的JSX
   return (
@@ -223,17 +257,25 @@ export default memo(function JMAppHeader(props) {
                       );
                     })}
                 </span>
-                {/* </div> */}
               </div>
             </div>
           </div>
           <div className="center">创作者中心</div>
-          <div
-            className="login"
-            onClick={() => dispatch(changeIsVisible(true))}
-          >
-            登录
-          </div>
+          <Dropdown overlay={profileDwonMenu}>
+            <div
+              className="login"
+              onClick={() => !isLogin && dispatch(changeIsVisible(true))}
+            >
+              {/* {isLogin ? profile.nickname : '登录'} */}
+              <a
+                href="https://juejin.cn/user/606586151899166"
+                className="ant-dropdown-link"
+                onClick={(e) => e.preventDefault()}
+              >
+                {isLogin ? profile.nickname : '登录'} <DownOutlined />
+              </a>
+            </div>
+          </Dropdown>
         </HeaderRight>
       </div>
       <div className="red-line"></div>
