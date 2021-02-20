@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.6.5",
     "axios": "^0.20.0",
+    "crypto-js": "^4.0.0",
     "immutable": "^4.0.0-rc.12",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
