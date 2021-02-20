@@ -216,7 +216,7 @@ export const HeaderRight = styled.div`
     }
   }
   .center {
-    width: 90px;
+    width: 80px;
     height: 32px;
     line-height: 32px;
     text-align: center;
