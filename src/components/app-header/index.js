@@ -167,7 +167,7 @@ export default memo(function JMAppHeader(props) {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="http://www.alipay.com/"
+              href="#/"
             >
               个人信息
             </a>
@@ -176,7 +176,7 @@ export default memo(function JMAppHeader(props) {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="http://www.taobao.com/"
+              href="#/"
             >
               没想好
             </a>
