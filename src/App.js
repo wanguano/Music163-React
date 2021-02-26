@@ -17,7 +17,7 @@ export default memo(function App() {
   /*
    *  ?. :保证这个对象前面必须有这个属性才可以调用
    *  ?? :当我们不确定前面的value是否一定有值时,可以添加默认值
-   *
+   * 
    */
   // -------?.--------
   // const arr1 = [1,2,3,4,5]
@@ -52,6 +52,24 @@ export default memo(function App() {
   //   if (localStorage.getItem('loginInfo') != null) {
   //     const {username, password} = getLoginInfo('loginInfo')
   //     username && password? getLoginProfileInfo(username, password): console.log('当前登录的默认信息')
+  //   }
+  //   // 不存在登录信息
+  //   else {
+  //     setLoginInfo('loginInfo', initLoginInfo)
+  //   }
+  // }
+  // initLogin()
+
+  // redux hook
+  // const dispatch = useDispatch()
+
+  // // other handle
+  // // 初始化
+  // const initLogin = () => {
+  //   // 存在登录信息
+  //   if (localStorage.getItem('loginInfo') != null) {
+  //     const {username, password} = getLoginInfo('loginInfo')
+  //     username && password? dispatch(getLoginProfileInfo(username, password)): console.log('当前登录的默认信息')
   //   }
   //   // 不存在登录信息
   //   else {
