@@ -1,8 +1,9 @@
 import { gotoPhoneLogin } from '@/service/login'
-import { message } from 'antd'
 import * as actionTypes from './actionTypes'
 import loginInfo from '@/config/token'
 import { getLoginInfo , setLoginInfo} from '@/utils/secret-key'
+import md5 from 'js-md5'
+import { message } from 'antd'
 // 更改登录框显示
 export const changeIsVisible = (visibleState) => ({
   type: actionTypes.CHANGE_IS_VISIBLE_STATE,
@@ -25,7 +26,8 @@ export const changeUserLoginState = (loginState) => ({
 // -------------获取登录信息-------------
 export const getLoginProfileInfo = (username, password, tip) => {
   return (dispatch) => {
-    gotoPhoneLogin(username, password).then((res) => {
+    gotoPhoneLogin(username, undefined, md5(password)).then((res) => {
+      console.log(res)
       if (res.code !== 200) {
         message.error('账号或密码错误')
       }else {
