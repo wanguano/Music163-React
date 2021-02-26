@@ -1,6 +1,6 @@
 import request from './request'
 /* 手机号登录 */
-export function gotoPhoneLogin(phone, password, countrycode, md5_password) {
+export function gotoPhoneLogin(phone, password, md5_password, countrycode) {
   return request({
     url: '/login/cellphone',
     method: 'get',
