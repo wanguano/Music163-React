@@ -71,7 +71,7 @@
 
 ### 支持对歌曲列表进行拖拽排序
 
-![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20210310153351.gif)
+![](https://cdn.jsdelivr.net/gh/wanguano/cloudPic/img/20210315165207.gif)
 
 ### 歌曲切换(随机、顺序、单曲循环)
 
