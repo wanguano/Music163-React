@@ -15,7 +15,7 @@ const changeSongIndexAction = index => ({
 })
 
 // 更改播放列表Action
-const changePlayListAction = playList => ({
+export const changePlayListAction = playList => ({
   type: actionType.CHANGE_PLAY_LIST,
   playList,
 })
