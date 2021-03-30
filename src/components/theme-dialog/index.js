@@ -1,5 +1,5 @@
-import { Modal, Button } from 'antd';
-import React, { memo, useState } from 'react';
+import { Modal } from 'antd';
+import React, { memo } from 'react';
 import propTypes from 'prop-types'
 
 function ThemeDialog(props) {

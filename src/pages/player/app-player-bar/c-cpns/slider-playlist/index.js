@@ -12,7 +12,8 @@ import { ClearOutlined, CloseOutlined, HeartOutlined } from '@ant-design/icons';
 import {
   changePlaylistAndCount,
   getSongDetailAction,
-  changePlayListAction
+  changePlayListAction,
+  changeSongIndexAction
 } from '../../../store/actionCreator';
 import LyricContent from './c-cpns/lyric-content';
 
@@ -39,20 +40,41 @@ function SliderPlaylist(props) {
 
   // other hook
   const playlistRef = useRef();
+  // 歌曲列表拖拽初始化
   useEffect(() => {
     const el = playlistRef.current.querySelector('.main-playlist');
     new Sortable(el, {
       sort: true,
       animation: 200,
-      onEnd: function (evt) {  // 拖拽结束发生该事件
+      onEnd: function (evt) {
+        // 拖拽结束发生该事件
         // tableData 改成自己的数组
-        let tempPlayList = playList
-        tempPlayList.splice(evt.newIndex, 0, playList.splice(evt.oldIndex, 1)[0]);
+        let tempPlayList = playList;
+        tempPlayList.splice(
+          evt.newIndex,
+          0,
+          playList.splice(evt.oldIndex, 1)[0]
+        );
         // 更改播放列表顺序
-        dispatch(changePlayListAction(tempPlayList))
+        dispatch(changePlayListAction(tempPlayList));
+        // 更改播放索引 拖拽的顺序 有问题
+        // dispatch(changeSongIndexAction(evt.newIndex))
+        /* 
+          判断是否是当前播放的歌曲被拖拽了，如果是那就改变索引
+          如何判断：oldIndex和redux中保存的currentIndex进行对比，如果是那就进行改变索引
+          还是有问题！！！(回头再改)
+        */
+        if (currentSongIndex === evt.oldIndex) {
+          dispatch(changeSongIndexAction(evt.newIndex));
+        }
+        console.log(
+          'currentSongIndex, evt.oldIndex',
+          currentSongIndex,
+          evt.oldIndex
+        );
       },
     });
-  }, [playList, dispatch]);
+  }, [playList, dispatch, currentSongIndex]);
 
   // other function
   // 清除全部歌曲
