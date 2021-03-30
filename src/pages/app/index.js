@@ -2,15 +2,15 @@ import React, { memo, Suspense, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import routes from '@/router';
-import { Skeleton, Button } from 'antd';
-import ThemeDialog from '@/components/theme-dialog/index'
+import { Button, Skeleton } from 'antd';
+import ThemeDialog from '@/components/theme-dialog/index';
 import initLoginInfo from '@/config/token.js';
 import { setLoginInfo, getLoginInfo } from '@/utils/secret-key';
 import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator';
 
 export default memo(function APPWrapper() {
   // props/state
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState(false);
 
   // redux hook
   const dispatch = useDispatch();
@@ -42,10 +42,16 @@ export default memo(function APPWrapper() {
     setIsShow(false);
   };
 
+
   return (
     <>
       <Suspense fallback={<Skeleton active />}>{renderRoutes(routes)}</Suspense>
-      <ThemeDialog controlShow={isShow} title="上传音乐" handleOk={handleOk} handleCancel={handleCancel}>
+      <ThemeDialog
+        controlShow={isShow}
+        title="上传音乐"
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      >
         <h2>hello dialog</h2>
         <h3>上传音乐</h3>
       </ThemeDialog>

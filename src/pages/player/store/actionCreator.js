@@ -9,7 +9,7 @@ const changeCurrentSongAction = currentSong => ({
 })
 
 // 更改歌曲索引Action
-const changeSongIndexAction = index => ({
+export const changeSongIndexAction = index => ({
   type: actionType.CHANGE_CURRENT_SONG_INDEX,
   index,
 })
