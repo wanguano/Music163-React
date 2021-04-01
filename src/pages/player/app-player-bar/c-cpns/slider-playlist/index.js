@@ -64,14 +64,15 @@ function SliderPlaylist(props) {
           如何判断：oldIndex和redux中保存的currentIndex进行对比，如果是那就进行改变索引
           还是有问题！！！(回头再改)
         */
-        if (currentSongIndex === evt.oldIndex) {
-          dispatch(changeSongIndexAction(evt.newIndex));
-        }
-        console.log(
-          'currentSongIndex, evt.oldIndex',
-          currentSongIndex,
-          evt.oldIndex
-        );
+        // if (currentSongIndex === evt.oldIndex) {
+        //   dispatch(changeSongIndexAction(evt.newIndex));
+        // }
+        // console.log(
+        //   'currentSongIndex, evt.oldIndex',
+        //   currentSongIndex,
+        //   evt.oldIndex
+        // );
+        console.log('currentSongIndex', currentSongIndex, changeSongIndexAction)
       },
     });
   }, [playList, dispatch, currentSongIndex]);
