@@ -57,7 +57,7 @@ function SliderPlaylist(props) {
         );
         // 更改播放列表顺序
         dispatch(changePlayListAction(tempPlayList));
-        // 更改播放索引 拖拽的顺序 有问题
+        // 更改播放索引 拖拽的顺序 有问题 
         // dispatch(changeSongIndexAction(evt.newIndex))
         /* 
           判断是否是当前播放的歌曲被拖拽了，如果是那就改变索引
