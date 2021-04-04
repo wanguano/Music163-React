@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useState } from 'react';
+import React, { memo, Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import routes from '@/router';
@@ -7,6 +7,9 @@ import ThemeDialog from '@/components/theme-dialog/index';
 import initLoginInfo from '@/config/token.js';
 import { setLoginInfo, getLoginInfo } from '@/utils/secret-key';
 import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator';
+import { addPlaylistId, getPlaylistId } from '../../utils/localstorage';
+import { SONG_PLAYLIST_ID as songplaylistId } from '@/common/constants';
+import { getSongDetailAction } from '../player/store/index'
 
 export default memo(function APPWrapper() {
   // props/state
@@ -33,6 +36,20 @@ export default memo(function APPWrapper() {
   };
   initLogin();
 
+  // 添加默认歌曲ID(本地存储默认歌曲id)
+  useEffect(() => {
+    songplaylistId.forEach((id) => {
+      addPlaylistId(id);
+    });
+  }, []);
+
+  // 本地存储读取歌曲列表ID
+  useEffect(() => {
+    getPlaylistId().forEach(id => {
+      dispatch(getSongDetailAction(id))
+    })
+  }, [dispatch])
+
   // other function
   const handleOk = () => {
     setIsShow(false);
@@ -41,7 +58,6 @@ export default memo(function APPWrapper() {
   const handleCancel = () => {
     setIsShow(false);
   };
-
 
   return (
     <>
