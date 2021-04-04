@@ -158,11 +158,20 @@ export default memo(function JMAppHeader(props) {
     </div>
   );
 
-  // 用户JSX
+  // 用户下拉JSX
   const profileDwonMenu = () => {
     return (
       isLogin ? (
         <Menu>
+          <Menu.Item>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="#/"
+            >
+              {profile.nickname}
+            </a>
+          </Menu.Item>
           <Menu.Item>
             <a
               target="_blank"
@@ -186,6 +195,16 @@ export default memo(function JMAppHeader(props) {
       ) : ''
     );
   };
+
+  const showProfileContent = () => {
+    return (
+      <img src={profile.avatarUrl} alt="" className="profile-img" />
+      // <div>
+      //   <img src={profile.avatarUrl} alt="" className="profile-img" />
+      //   {/* <span>{profile.nickname}</span> */}
+      // </div>
+    )
+  }
 
   // 返回的JSX
   return (
@@ -272,7 +291,7 @@ export default memo(function JMAppHeader(props) {
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
               >
-                {isLogin ? profile.nickname : '登录'} <DownOutlined />
+                {isLogin ? showProfileContent() : '登录'} <DownOutlined />
               </a>
             </div>
           </Dropdown>
