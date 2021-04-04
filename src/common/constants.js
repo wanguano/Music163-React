@@ -2,3 +2,5 @@ export const HOT_RECOMMEND_LIMIT = 8;
 export const SETTLE_SINGER_COUNT = 5;
 
 export const SONG_LIST_LIMIT = 35
+
+export const SONG_PLAYLIST_ID = [167876, 411214279, 1363948882, 1387581250]
