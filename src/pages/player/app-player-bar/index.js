@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getSizeImage, formatDate, getPlayUrl } from '@/utils/format-utils.js'
 import {
-  getSongDetailAction,
+  // getSongDetailAction,
   changePlaySequenceAction,
   changeCurrentIndexAndSongAction,
   changeCurrentLyricIndexAction,
@@ -62,7 +62,7 @@ export default memo(function JMAppPlayerBar() {
     //   localPlayList.push(411214279, 1363948882);
     // }
     //#endregion
-    dispatch(getSongDetailAction(167876))
+    // dispatch(getSongDetailAction(167876))
     // 添加播放列表 (这个是配合本地存储的)
     // localPlayList.forEach((id) => dispatch(getAddSongDetailAction(167876)));
   }, [dispatch])
