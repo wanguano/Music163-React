@@ -91,7 +91,7 @@ export const HeaderRight = styled.div`
 
     /* 搜索框 */
     .search {
-      width: 235px;
+      width: 221px;
       height: 32px;
       border-radius: 16px;
       
@@ -216,13 +216,13 @@ export const HeaderRight = styled.div`
     }
   }
   .center {
-    width: 80px;
+    width: 75px;
     height: 32px;
     line-height: 32px;
     text-align: center;
     border: 1px solid #666;
     border-radius: 16px;
-    margin: 0 16px;
+    margin: 0 13px;
     background-color: transparent;
 
     &:hover {
@@ -235,5 +235,11 @@ export const HeaderRight = styled.div`
   .login:hover {
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  .profile-img {
+    width: 35px;
+    height: auto;
+    border-radius: 50%;
   }
 `
