@@ -2,6 +2,7 @@ import * as actionType from './actionType'
 import { getSongDetail, getLyric,getHotComment } from '@/service/player'
 import { getRandomNumber } from '@/utils/math-utils'
 import { parseLyric } from '@/utils/parse-lyric'
+import { addPlaylistId } from '../../../utils/localstorage'
 // 歌曲详情Action
 const changeCurrentSongAction = currentSong => ({
   type: actionType.CHANGE_CURRENT_SONG,
@@ -125,6 +126,8 @@ export const getSongDetailAction = idx => {
       // 没找到歌曲
       // 请求该歌曲的数据
       getSongDetail(idx).then(res => {
+        // (0)歌曲ID添加到本地存储
+        addPlaylistId(idx)
         const song = res.songs && res.songs[0]
         if (!song) return
         // (1)添加到播放列表中
@@ -159,6 +162,8 @@ export const getLyricAction = id => {
 export const getAddSongDetailAction = id => {
   return (dispatch,getState) => {
     getSongDetail(id).then((res) => {
+      // (0)歌曲ID添加到本地存储
+      addPlaylistId(id)
       const playList = getState().getIn(['player', 'playList'])
       // 先判断是已经存在播放列表,如果不存在,再进行添加
       const songIndex = playList.findIndex(song => song.id === id)
