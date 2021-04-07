@@ -2,7 +2,7 @@ import * as actionType from './actionType'
 import { getSongDetail, getLyric,getHotComment } from '@/service/player'
 import { getRandomNumber } from '@/utils/math-utils'
 import { parseLyric } from '@/utils/parse-lyric'
-import { addPlaylistId } from '../../../utils/localstorage'
+import { addPlaylistId } from '@/utils/localstorage'
 // 歌曲详情Action
 const changeCurrentSongAction = currentSong => ({
   type: actionType.CHANGE_CURRENT_SONG,
