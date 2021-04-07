@@ -16,6 +16,7 @@ import {
   changeSongIndexAction
 } from '../../../store/actionCreator';
 import LyricContent from './c-cpns/lyric-content';
+import { removeAllSong } from '@/utils/localstorage';
 
 function SliderPlaylist(props) {
   // props/state
@@ -81,6 +82,7 @@ function SliderPlaylist(props) {
   // 清除全部歌曲
   const clearAllPlaylist = (e) => {
     e.preventDefault();
+    removeAllSong()
     playList.splice(0, playList.length);
     dispatch(changePlaylistAndCount(playList));
   };

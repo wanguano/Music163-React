@@ -43,3 +43,18 @@ export function removeSongId(id, key = 'playlistId') {
   }
   localStorage.setItem(key, JSON.stringify(songListId));
 }
+
+/**
+ * 清除全部歌曲
+ * @param {String} key 
+ */
+export function removeAllSong(key = 'playlistId') {
+  let songListId = localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key))
+    : [];
+    // 数组有值 & 查找到了要移除的id
+  if (songListId.length) {
+    songListId.length = 0
+  }
+  localStorage.setItem(key, JSON.stringify(songListId));
+}
