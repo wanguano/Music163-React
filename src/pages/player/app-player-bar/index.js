@@ -279,11 +279,12 @@ export default memo(function JMAppPlayerBar() {
             </Tooltip>
           </div>
           <div className="right sprite_player">
-            <button
-              className="sprite_player btn volume"
-              onClick={() => setIsShowBar(!isShowBar)}
-              onMouseOver={() => setIsShowBar(true)}
-            ></button>
+            <Tooltip title="调节音量">
+              <button
+                className="sprite_player btn volume"
+                onClick={() => setIsShowBar(!isShowBar)}
+              ></button>
+            </Tooltip>
             <Tooltip
               title={[
                 '顺序播放',
@@ -301,7 +302,7 @@ export default memo(function JMAppPlayerBar() {
             <button
               className="sprite_player btn playlist"
               // 阻止事件捕获,父元素点击事件,不希望点击子元素也触发该事件
-              onClick={(e) => setIsShowSlide(!isShowSlide)}
+              onClick={() => setIsShowSlide(!isShowSlide)}
             >
               <Tooltip title="播放列表">
                 <span>{playlistCount}</span>
