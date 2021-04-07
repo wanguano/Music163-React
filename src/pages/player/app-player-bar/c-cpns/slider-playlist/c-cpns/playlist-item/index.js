@@ -1,11 +1,13 @@
 import React, { memo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import propTypes from 'prop-types'
+
 import { formatDate } from '@/utils/format-utils.js'
+import { removeSongId } from '@/utils/localstorage'
 import { changePlaylistAndCount } from '@/pages/player/store/actionCreator.js'
+
 import { DownloadOutlined,DeleteOutlined,GithubOutlined,LikeOutlined } from '@ant-design/icons'
 import { PlaylistItemWrapper } from './style'
-import { useDispatch, useSelector } from 'react-redux'
-
 function PlaylistItem(props) {
   // props/state
   const {songName,singer, duration, isActive, clickItem, songId, nextMusic} = props
@@ -21,6 +23,8 @@ function PlaylistItem(props) {
   const clearCurrentSong = (e) => {
     // 从当前播放列表删除此音乐,然后派发action
     e.stopPropagation()
+    // 移除歌曲
+    removeSongId(songId)
     const currentSongIndex = playList.findIndex(song => song.id===songId)
     if(playList.length === 1) return
     playList.splice(currentSongIndex, 1)
