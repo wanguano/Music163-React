@@ -28,7 +28,7 @@ export default memo(function LyricContent() {
         {lyricList && lyricList.map((item, index) => {
           return (
             <div
-              key={item.totalTime}
+              key={index}
               className={
                 'lyric-item ' + (currentLyricIndex === index ? 'active' : '')
               }

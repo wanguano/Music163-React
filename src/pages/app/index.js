@@ -1,63 +1,61 @@
-import React, { memo, Suspense, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { renderRoutes } from 'react-router-config';
-import routes from '@/router';
-import { Button, Skeleton } from 'antd';
-import ThemeDialog from '@/components/theme-dialog/index';
-import initLoginInfo from '@/config/token.js';
-import { setLoginInfo, getLoginInfo } from '@/utils/secret-key';
-import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator';
-import { addPlaylistId, getPlaylistId } from '../../utils/localstorage';
-import { SONG_PLAYLIST_ID as songplaylistId } from '@/common/constants';
+import React, { memo, Suspense, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { renderRoutes } from 'react-router-config'
+import routes from '@/router'
+import { Button, Skeleton } from 'antd'
+import ThemeDialog from '@/components/theme-dialog/index'
+import initLoginInfo from '@/config/token.js'
+import { setLoginInfo, getLoginInfo } from '@/utils/secret-key'
+import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator'
+import { addPlaylistId, getPlaylistId } from '../../utils/localstorage'
+import { SONG_PLAYLIST_ID as songplaylistId } from '@/common/constants'
 import { getSongDetailAction } from '../player/store/index'
 
 export default memo(function APPWrapper() {
   // props/state
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(false)
 
   // redux hook
-  const dispatch = useDispatch();
-  console.log('初始化登录~~~');
+  const dispatch = useDispatch()
+  console.log('初始化登录~~~')
 
   // other handle
   // 初始化
   const initLogin = () => {
     // 存在登录信息
     if (localStorage.getItem('loginInfo') != null) {
-      const { username, password } = getLoginInfo('loginInfo');
+      const { username, password } = getLoginInfo('loginInfo')
       username && password
         ? dispatch(getLoginProfileInfo(username, password))
-        : console.log('当前登录的默认信息');
+        : console.log('当前登录的默认信息')
     }
     // 不存在登录信息
     else {
-      setLoginInfo('loginInfo', initLoginInfo);
+      setLoginInfo('loginInfo', initLoginInfo)
     }
-  };
-  initLogin();
+  }
+  initLogin()
 
   // 添加默认歌曲ID(本地存储默认歌曲id)
   useEffect(() => {
-    songplaylistId.forEach((id) => {
-      addPlaylistId(id);
-    });
-  }, []);
+    songplaylistId.forEach((id) => addPlaylistId(id))
+  }, [])
 
   // 本地存储读取歌曲列表ID
   useEffect(() => {
-    getPlaylistId().forEach(id => {
+    getPlaylistId().forEach((id) => {
       dispatch(getSongDetailAction(id))
     })
   }, [dispatch])
 
   // other function
   const handleOk = () => {
-    setIsShow(false);
-  };
+    setIsShow(false)
+  }
 
   const handleCancel = () => {
-    setIsShow(false);
-  };
+    setIsShow(false)
+  }
 
   return (
     <>
@@ -73,5 +71,5 @@ export default memo(function APPWrapper() {
       </ThemeDialog>
       <Button onClick={() => setIsShow(!isShow)}>点我</Button>
     </>
-  );
-});
+  )
+})
