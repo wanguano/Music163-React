@@ -2,7 +2,7 @@ import React, { memo, Suspense, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { renderRoutes } from 'react-router-config'
 import routes from '@/router'
-import { Button, Skeleton } from 'antd'
+import { Skeleton } from 'antd'
 import ThemeDialog from '@/components/theme-dialog/index'
 import initLoginInfo from '@/config/token.js'
 import { setLoginInfo, getLoginInfo } from '@/utils/secret-key'
@@ -69,7 +69,7 @@ export default memo(function APPWrapper() {
         <h2>hello dialog</h2>
         <h3>上传音乐</h3>
       </ThemeDialog>
-      <Button onClick={() => setIsShow(!isShow)}>点我</Button>
+      {/* <Button onClick={() => setIsShow(!isShow)}>点我</Button> */}
     </>
   )
 })
