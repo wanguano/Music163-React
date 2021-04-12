@@ -71,7 +71,7 @@ export const _throttle = (fn, wait, options = {}) => {
 
 /**
  * 根据数组对象的某个字段去重
- * item.name  是[{name:1}] 根据每条数据的name值来去重
+ * item.name  是[{name:1}] 根据每条数据name的"值"来去重
  * */
 export const unique = (arr, val) => {
   const res = new Map();
@@ -97,3 +97,5 @@ export function filterObjTrim(obj) {
   }
   return obj;
 }
+
+// export function diffArray/
