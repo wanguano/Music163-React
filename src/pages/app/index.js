@@ -9,7 +9,7 @@ import { setLoginInfo, getLoginInfo } from '@/utils/secret-key'
 import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator'
 import { addPlaylistId, getPlaylistId } from '../../utils/localstorage'
 import { SONG_PLAYLIST_ID as songplaylistId } from '@/common/constants'
-import { getSongDetailAction } from '../player/store/index'
+import { getSongDetailArrayAction } from '../player/store/index'
 
 export default memo(function APPWrapper() {
   // props/state
@@ -43,9 +43,9 @@ export default memo(function APPWrapper() {
 
   // 本地存储读取歌曲列表ID
   useEffect(() => {
-    getPlaylistId().forEach((id) => {
-      dispatch(getSongDetailAction(id))
-    })
+    // getPlaylistId().forEach((id) => {
+      dispatch(getSongDetailArrayAction(getPlaylistId()))
+    // })
   }, [dispatch])
 
   // other function
