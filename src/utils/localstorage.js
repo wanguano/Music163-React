@@ -1,4 +1,3 @@
-import { diffArray } from './util'
 /**
  * 本地存储添加歌曲id,如果存在就不再添加
  * @param {Number} id 歌曲id
