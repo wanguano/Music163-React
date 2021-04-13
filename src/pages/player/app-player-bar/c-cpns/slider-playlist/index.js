@@ -13,10 +13,10 @@ import {
   changePlaylistAndCount,
   getSongDetailAction,
   changePlayListAction,
-  changeSongIndexAction
+  // changeSongIndexAction
 } from '../../../store/actionCreator';
 import LyricContent from './c-cpns/lyric-content';
-import { removeAllSong } from '@/utils/localstorage';
+import { removeAllSong , resetPlaylistId} from '@/utils/localstorage';
 
 function SliderPlaylist(props) {
   // props/state
@@ -51,6 +51,7 @@ function SliderPlaylist(props) {
         // 拖拽结束发生该事件
         // tableData 改成自己的数组
         let tempPlayList = playList;
+        const musicsId = []
         tempPlayList.splice(
           evt.newIndex,
           0,
@@ -58,6 +59,9 @@ function SliderPlaylist(props) {
         );
         // 更改播放列表顺序
         dispatch(changePlayListAction(tempPlayList));
+        musicsId.push(...tempPlayList.map((item) => item.id))
+        // 重置歌曲列数组
+        resetPlaylistId(musicsId)
         // 更改播放索引 拖拽的顺序 有问题 
         // dispatch(changeSongIndexAction(evt.newIndex))
         /* 
@@ -73,7 +77,7 @@ function SliderPlaylist(props) {
         //   currentSongIndex,
         //   evt.oldIndex
         // );
-        console.log('currentSongIndex', currentSongIndex, changeSongIndexAction)
+        // console.log('currentSongIndex', currentSongIndex, changeSongIndexAction)
       },
     });
   }, [playList, dispatch, currentSongIndex]);
