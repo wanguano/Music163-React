@@ -160,7 +160,7 @@ export const getSongDetailArrayAction = (listId) => {
       （0）场景：在我们拿到歌曲列表数组id时，循环遍历发送网络请求时
       （1）首先如何控制这一次网络请求成功之后在进行，下一次网络请求呢？（获取异步操作的结果）
       （2）解决方案：promise + setinterval（定时器）
-      （3）可能有人会问，风老师为什么使用定时器呢？
+      （3）可能有人会问，为什么使用定时器呢？
       （4）这是因为在咱们发送ajax时，不能很好的进行控制，使用一个标识变量来进行控制ajax是否发送（默认为true）
       （5）在每次开始定时器时，首先判断标识变量是否为true如果为true就发送ajax，
           在本次请求ajax时设置标识变量为false（即在定时器中不会再发送网络请求），在本次ajax完成时（即异步操作成功时），改变标识变量为true
@@ -219,33 +219,6 @@ export const getSongDetailArrayAction = (listId) => {
         // dispatch(changePlayListCount(playList.length))
       }
     })
-
-    // debugger
-    // new Promise((resolve, reject) => {
-    //   getSongDetail(idx).then((res) => {
-    //     // console.log(res.songs[0])
-    //     // (0)歌曲ID添加到本地存储
-    //     addPlaylistId(idx)
-    //     const song = res.songs && res.songs[0]
-    //     // console.log(song)
-    //     if (!song) return
-    //     // (1)添加到播放列表中
-    //     playList.push(song)
-    //     dispatch(changePlayListAction(playList))
-    //     // (2)更改当前播放的索引
-    //     const songIndex = playList.length - 1
-    //     dispatch(changeSongIndexAction(songIndex))
-    //     // (3)更改当前播放歌曲
-    //     dispatch(changeCurrentSongAction(song))
-    //     // (4)请求歌曲的歌词
-    //     dispatch(getLyricAction(idx))
-    //     // (5)更新歌曲数量
-    //     dispatch(changePlayListCount(playList.length))
-    //     resolve(i)
-    //   })
-    // }).then((value) => {
-    //   console.log(value)
-    // })
   }
 }
 

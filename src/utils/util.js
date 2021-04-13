@@ -90,6 +90,7 @@ export function filterObjTrim(obj) {
   }
 
   for (var key in obj) {
+    // eslint-disable-next-line
     if (obj.hasOwnProperty(key) &&
       (obj[key] == null || obj[key] == undefined || obj[key] == 'undefined' || obj[key] === '')) {
       delete obj[key];
@@ -97,5 +98,3 @@ export function filterObjTrim(obj) {
   }
   return obj;
 }
-
-// export function diffArray/

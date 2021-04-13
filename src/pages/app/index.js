@@ -38,7 +38,8 @@ export default memo(function APPWrapper() {
 
   // 添加默认歌曲ID(本地存储默认歌曲id)
   useEffect(() => {
-    songplaylistId.forEach((id) => addPlaylistId(id))
+    // songplaylistId.forEach((id) => addPlaylistId(id))
+    addPlaylistId(songplaylistId)
   }, [])
 
   // 本地存储读取歌曲列表ID
