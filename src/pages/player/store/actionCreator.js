@@ -2,7 +2,7 @@ import * as actionType from './actionType'
 import { getSongDetail, getLyric, getHotComment } from '@/service/player'
 import { getRandomNumber } from '@/utils/math-utils'
 import { parseLyric } from '@/utils/parse-lyric'
-import { addPlaylistId } from '@/utils/localstorage'
+import { addPlaylistId, setCurrentSongIndex } from '@/utils/localstorage'
 // 歌曲详情Action
 const changeCurrentSongAction = (currentSong) => ({
   type: actionType.CHANGE_CURRENT_SONG,
@@ -10,10 +10,14 @@ const changeCurrentSongAction = (currentSong) => ({
 })
 
 // 更改歌曲索引Action
-export const changeSongIndexAction = (index) => ({
-  type: actionType.CHANGE_CURRENT_SONG_INDEX,
-  index,
-})
+export const changeSongIndexAction = (index) => {
+  // 设置本次存储Index
+  setCurrentSongIndex(index)
+  return {
+    type: actionType.CHANGE_CURRENT_SONG_INDEX,
+    index,
+  }
+}
 
 // 更改播放列表Action
 export const changePlayListAction = (playList) => ({
@@ -153,7 +157,7 @@ export const getSongDetailAction = (idx) => {
 }
 
 // 歌曲详情network request(只有首次加载才会触发 Action,所以不redux中的playlist肯定不存在歌曲)
-export const getSongDetailArrayAction = (listId) => {
+export const getSongDetailArrayAction = (listId, index) => {
   // 为什么单独抽离: (是根据listId来进行存储的)
   return (dispatch, getState) => {
     /* 
@@ -173,6 +177,36 @@ export const getSongDetailArrayAction = (listId) => {
     let i = 0
     let timer = null
     let excuteRun = true
+/*     listId.forEach(async (idx) => {
+      console.log(1)
+      await new Promise((resolve) => {
+        getSongDetail(idx).then((res) => {
+          console.log(2)
+        // (0)歌曲ID添加到本地存储
+          addPlaylistId(idx)
+          const song = res.songs && res.songs[0]
+          // console.log(song)
+          if (!song) return
+          // (1)添加到播放列表中
+          playList.push(song)
+          dispatch(changePlayListAction(playList))
+          // (2)更改当前播放的索引
+          const songIndex = index ?? playList.length - 1
+          dispatch(changeSongIndexAction(songIndex))
+          // (3)更改当前播放歌曲
+          let currentIndexSong = playList[songIndex] || song
+          // console.log(currentIndexSong)
+          dispatch(changeCurrentSongAction(currentIndexSong))
+          // (4)请求歌曲的歌词
+          dispatch(getLyricAction(idx))
+          // (5)更新歌曲数量
+          dispatch(changePlayListCount(playList.length))
+          resolve()
+        })
+      })
+      console.log(3)
+    }) */
+
     timer = setInterval(() => {
       let idx = listId[i]
       new Promise((resolve, reject) => {
@@ -189,10 +223,12 @@ export const getSongDetailArrayAction = (listId) => {
             playList.push(song)
             dispatch(changePlayListAction(playList))
             // (2)更改当前播放的索引
-            const songIndex = playList.length - 1
+            const songIndex = index ?? playList.length - 1
             dispatch(changeSongIndexAction(songIndex))
             // (3)更改当前播放歌曲
-            dispatch(changeCurrentSongAction(song))
+            let currentIndexSong = playList[songIndex] || song
+            // console.log(currentIndexSong)
+            dispatch(changeCurrentSongAction(currentIndexSong))
             // (4)请求歌曲的歌词
             dispatch(getLyricAction(idx))
             // (5)更新歌曲数量
