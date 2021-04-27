@@ -7,7 +7,7 @@ import ThemeDialog from '@/components/theme-dialog/index'
 import initLoginInfo from '@/config/token.js'
 import { setLoginInfo, getLoginInfo } from '@/utils/secret-key'
 import { getLoginProfileInfo } from '@/components/theme-login/store/actionCreator'
-import { addPlaylistId, getPlaylistId } from '../../utils/localstorage'
+import { addPlaylistId, getCurrentSongIndex, getPlaylistId, initCurrentSongIndex } from '../../utils/localstorage'
 import { SONG_PLAYLIST_ID as songplaylistId } from '@/common/constants'
 import { getSongDetailArrayAction } from '../player/store/index'
 
@@ -40,12 +40,16 @@ export default memo(function APPWrapper() {
   useEffect(() => {
     // songplaylistId.forEach((id) => addPlaylistId(id))
     addPlaylistId(songplaylistId)
+    // 初始化音乐索引
+    initCurrentSongIndex()
   }, [])
 
   // 本地存储读取歌曲列表ID
   useEffect(() => {
     // getPlaylistId().forEach((id) => {
-      dispatch(getSongDetailArrayAction(getPlaylistId()))
+      // 动态获取locals store音乐索引
+      const index = getCurrentSongIndex()
+      dispatch(getSongDetailArrayAction(getPlaylistId(), index))
     // })
   }, [dispatch])
 
