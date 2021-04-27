@@ -47,10 +47,12 @@ function SliderPlaylist(props) {
     new Sortable(el, {
       sort: true,
       animation: 200,
-      onEnd: function (evt) {
+      currentIndex: 0,
+      onEnd:  function (evt)  {
         // 拖拽结束发生该事件
         // tableData 改成自己的数组
         let tempPlayList = playList;
+        // 看看能否获取当前歌曲对象 👇
         const musicsId = []
         tempPlayList.splice(
           evt.newIndex,
@@ -62,6 +64,13 @@ function SliderPlaylist(props) {
         musicsId.push(...tempPlayList.map((item) => item.id))
         // 重置歌曲列数组
         resetPlaylistId(musicsId)
+        /* 
+          两个问题：
+            情况一：如果是拖拽当前播放的歌曲，直接改变索引
+            情况二：如果拖拽是其他歌曲，那么不改变索引
+        */
+        
+        // console.log(`当前播放的索引${currentSongIndex}  正在拖拽的索引${evt.newIndex}`, this)
         // 更改播放索引 拖拽的顺序 有问题 
         // dispatch(changeSongIndexAction(evt.newIndex))
         /* 
@@ -80,7 +89,8 @@ function SliderPlaylist(props) {
         // console.log('currentSongIndex', currentSongIndex, changeSongIndexAction)
       },
     });
-  }, [playList, dispatch, currentSongIndex]);
+    
+  }, [currentSongIndex, dispatch, playList, currentSong]);
 
   // other function
   // 清除全部歌曲
