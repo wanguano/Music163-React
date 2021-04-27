@@ -1,9 +1,11 @@
+import { LOCAL_PLAYLIST_ID_KEY } from '@/common/constants'
+import { LOCAL_CURRENT_SONG_INDEX_KEY } from '../common/constants'
 /**
  * 本地存储添加歌曲id,如果存在就不再添加
  * @param {Number} id 歌曲id
  * @param {String} key 本地存储key
  */
-export function addPlaylistId(id, key = 'playlistId') {
+export function addPlaylistId(id, key = LOCAL_PLAYLIST_ID_KEY) {
   const songListId = localStorage.getItem(key)
     ? JSON.parse(localStorage.getItem(key))
     : []
@@ -25,7 +27,7 @@ export function addPlaylistId(id, key = 'playlistId') {
  * @param {String} key
  * @returns {Array} 歌曲列表项id
  */
-export function getPlaylistId(key = 'playlistId') {
+export function getPlaylistId(key = LOCAL_PLAYLIST_ID_KEY) {
   const songListId = localStorage.getItem(key)
     ? JSON.parse(localStorage.getItem(key))
     : []
@@ -37,7 +39,7 @@ export function getPlaylistId(key = 'playlistId') {
  * @param {Number or String} id 要删除的歌曲ID
  * @param {String} key
  */
-export function removeSongId(id, key = 'playlistId') {
+export function removeSongId(id, key = LOCAL_PLAYLIST_ID_KEY) {
   const songListId = localStorage.getItem(key)
     ? JSON.parse(localStorage.getItem(key))
     : []
@@ -52,7 +54,7 @@ export function removeSongId(id, key = 'playlistId') {
  * 清除全部歌曲
  * @param {String} key
  */
-export function removeAllSong(key = 'playlistId') {
+export function removeAllSong(key = LOCAL_PLAYLIST_ID_KEY) {
   let songListId = localStorage.getItem(key)
     ? JSON.parse(localStorage.getItem(key))
     : []
@@ -70,4 +72,35 @@ export function removeAllSong(key = 'playlistId') {
 export function resetPlaylistId(idArr) {
   removeAllSong()
   idArr && idArr.forEach((id) => addPlaylistId(id))
+}
+
+// ------记忆当前播放歌曲Index------
+/**
+ * 更新音乐索引
+ * @param {Number} index 音乐索引
+ * @param {*} key 
+ */
+export function setCurrentSongIndex(index, key = LOCAL_CURRENT_SONG_INDEX_KEY) {
+    localStorage.setItem(key, index)
+}
+
+/**
+ * 初始存储
+ * @param {Numebr} index 音乐索引
+ * @param {String} key 
+ */
+export function initCurrentSongIndex(index = 0, key = LOCAL_CURRENT_SONG_INDEX_KEY) {
+  if (!localStorage.getItem(key)) {
+    localStorage.setItem(key, index)
+  }
+}
+
+/**
+ * 获取歌曲索引
+ * @param {String} key 
+ * @returns 获取歌曲索引
+ */
+export function getCurrentSongIndex(key = LOCAL_CURRENT_SONG_INDEX_KEY) {
+  const currentIndex = JSON.parse(localStorage.getItem(key)) || 0
+  return currentIndex
 }
