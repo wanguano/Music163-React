@@ -1,1 +1,0 @@
-export const CHANGEE_BANNERS = 'test/CHANGEE_BANNERS'
