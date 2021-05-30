@@ -168,20 +168,20 @@ export default memo(function JMAppHeader(props) {
               target="_blank"
               rel="noopener noreferrer"
               href="#/"
+              onClick={(e) => e.preventDefault()}
             >
               {profile.nickname}
             </a>
           </Menu.Item>
           <Menu.Item>
             <a
-              target="_blank"
               rel="noopener noreferrer"
-              href="#/"
+              href="#/user"
             >
-              个人信息
+              我的主页
             </a>
           </Menu.Item>
-          <Menu.Item>
+          {/* <Menu.Item>
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -189,7 +189,7 @@ export default memo(function JMAppHeader(props) {
             >
               没想好
             </a>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item danger onClick={() => clearLoginState()}>退出登录</Menu.Item>
         </Menu>
       ) : ''

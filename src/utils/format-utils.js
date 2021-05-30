@@ -1,3 +1,5 @@
+import { address } from "../common/local-data"
+
 /**
  * 对数字进行格式化
  * @param {number} count
@@ -92,19 +94,18 @@ export function getParseLoginState(loginState) {
   return loginMode
 }
 
-
 /**
  * 根据不同登录方式,返回匹配对应的正则
  * @param {String} loginState 登录状态
  */
-export function getMatchReg(loginState){
-  switch(loginState) {
+export function getMatchReg(loginState) {
+  switch (loginState) {
     case 'phone':
       return /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
     case 'email':
       return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    default: 
-      return '';
+    default:
+      return ''
   }
 }
 
@@ -125,4 +126,49 @@ export function getQueryObject(url) {
     return rs
   })
   return obj
+}
+
+/**
+ * 格式化时间
+ * @param str
+ * @returns {string}
+ * {y}-{m}-{d} {h}:{i}:{s}
+ */
+export function parseTime(time, cFormat) {
+  if (!time || arguments.length === 0) return null
+  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
+  let date
+  if (typeof time === 'object') {
+    date = time
+  } else {
+    if (`${time}`.length === 10) time = parseInt(time, 10) * 1000
+    date = new Date(time)
+  }
+  const formatObj = {
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+    h: date.getHours(),
+    i: date.getMinutes(),
+    s: date.getSeconds(),
+    a: date.getDay(),
+  }
+  // eslint-disable-next-line camelcase
+  const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+    let value = formatObj[key]
+    // Note: getDay() returns 0 on Sunday
+    if (key === 'a') {
+      return ['日', '一', '二', '三', '四', '五', '六'][value]
+    }
+    if (result.length > 0 && value < 10) {
+      value = `0${value}`
+    }
+    return value || 0
+  })
+  // eslint-disable-next-line camelcase
+  return time_str
+}
+
+export function getCity(id) {
+  return address[id]
 }

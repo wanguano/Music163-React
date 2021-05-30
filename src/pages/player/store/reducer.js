@@ -360,6 +360,7 @@ const defaultState = Map({
   addSongDetail: {},
   playListCount: 5,
   hotComments: [],
+  currentCommentTotal: 0
 });
 
 function reducer(state = defaultState, action) {
@@ -384,6 +385,8 @@ function reducer(state = defaultState, action) {
       return state.set('playListCount', action.count);
     case actionType.CHANGE_HOT_COMMENT:
       return state.set('hotComments', action.hotComments);
+      case actionType.CHANGE_CURRENT_TOTAL:
+        return state.set('currentCommentTotal', action.total);
     default:
       return state;
   }

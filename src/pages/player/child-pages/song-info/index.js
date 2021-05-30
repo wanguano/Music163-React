@@ -1,15 +1,16 @@
 import React, { memo } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
-import { getSizeImage } from '@/utils/format-utils.js'
-import { Collapse } from 'antd';
+import { getSizeImage, getPlayUrl } from '@/utils/format-utils.js'
+import { Collapse } from 'antd'
 import { SongInfoWrapper } from './style'
 
 export default memo(function SongInfo(props) {
   // redux hook
-  const { currentSong, lyricList } = useSelector(
-    state => ({
+  const { currentSong, lyricList, totalComment } = useSelector(
+    (state) => ({
       currentSong: state.getIn(['player', 'currentSong']),
-      lyricList: state.getIn(['player', 'lyricList'])
+      lyricList: state.getIn(['player', 'lyricList']),
+      totalComment: state.getIn(['player', 'currentCommentTotal']),
     }),
     shallowEqual
   )
@@ -19,7 +20,13 @@ export default memo(function SongInfo(props) {
   const songName = currentSong.name ? currentSong.name : ''
   const singer = currentSong.ar && currentSong.ar[0].name
   const album = currentSong.al && currentSong.al.name
-  
+
+  // funciton
+  const playMusic = () => {
+    // console.log(document.querySelector('#audio'))
+    document.querySelector('#audio').play()
+  }
+
   return (
     <SongInfoWrapper>
       <div className="album">
@@ -38,45 +45,57 @@ export default memo(function SongInfo(props) {
         </div>
         <div className="settle-album">
           <span>所属专辑：</span>
-          <a href="/discover/recommend" className="no-link">{album}</a>
+          <a href="/discover/recommend" className="no-link">
+            {album}
+          </a>
         </div>
         <div className="controls">
-          <div className="sprite_button play">
+          <div
+            className="sprite_button play pointer"
+            onClick={() => playMusic()}
+          >
             <i className="sprite_button inner">
               <em className="sprite_button play-icon"></em>
               播放
             </i>
           </div>
-          <div className="sprite_button favorite">
+          {/* <div className="sprite_button favorite">
             <i className="sprite_button inner">
               <em className="sprite_button favorite-icon"></em>
               收藏
             </i>
-          </div>
-          <div className="sprite_button share">
+          </div> */}
+          {/* <div className="sprite_button share">
             <i className="sprite_button inner">
               <em className="sprite_button favorite-icon"></em>
-              收藏
+              分享
             </i>
-          </div>
-          <div className="sprite_button download">
+          </div> */}
+          <div
+            className="sprite_button download pointer"
+            onClick={() => window.open(getPlayUrl(currentSong.id))}
+          >
             <i className="sprite_button inner">
               <em className="sprite_button favorite-icon"></em>
-              收藏
+              下载
             </i>
           </div>
           <div className="sprite_button comment">
             <i className="sprite_button inner">
-              <em className="sprite_button favorite-icon"></em>
-              (2026104)
+              <em className="sprite_button favorite-icon"></em>({totalComment})
             </i>
           </div>
         </div>
-        <Collapse >
+        <Collapse>
           <Panel header={`歌词展示`}>
-            {lyricList && lyricList.map((item) => {
-              return <div key={item.totalTime} className="lyric-item">{item.content}</div> 
-            })}
+            {lyricList &&
+              lyricList.map((item) => {
+                return (
+                  <div key={item.totalTime} className="lyric-item">
+                    {item.content}
+                  </div>
+                )
+              })}
           </Panel>
         </Collapse>
       </div>

@@ -7,10 +7,11 @@ function SingerItem(props) {
   // props/state
   const { coverPic, singer } = props
 
+  const picUrl = (coverPic && getSizeImage(coverPic, 130) ) || 'https://gitee.com/xmkm/cloudPic/raw/master/img/20210505140847.png'
   return (
     <AlbumItemWrapper>
       <div className="cover-pic">
-        <img src={getSizeImage(coverPic, 130)} alt="" />
+        <img src={picUrl} alt="" />
         <span className="image_cover"></span>
       </div>
       <p className="singer-info">

@@ -22,30 +22,47 @@ export const changeUserLoginState = (loginState) => ({
   isLogin: loginState
 })
 
+// 更改登录状态(token)
+export const changeUserLoginToken = (token) => ({
+  type: actionTypes.CHANGE_PROFILE_TOKEN,
+  token
+})
+
+
+// 更改登录状态(cookie)
+export const changeUserLoginCookie = (cookie) => ({
+  type: actionTypes.CHANGE_PROFILE_COOKIE,
+  cookie
+})
+
+
 
 // -------------获取登录信息-------------
 export const getLoginProfileInfo = (username, password, tip) => {
   return (dispatch) => {
     gotoPhoneLogin(username, undefined, md5(password)).then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.code !== 200) {
         message.error('账号或密码错误')
       }else {
         tip && message.success('登录成功')
-        console.log(res)
+        // console.log(res)
         // 登录成功
         document.cookie = res.cookie
         // 保存登录信息
         dispatch(changeUserProfile(res && res.profile))
         // 更改登录状态
         dispatch(changeUserLoginState(true))
+        dispatch(changeUserLoginToken(res.token))
+        dispatch(changeUserLoginCookie(res.cookie))
+        console.log(res)
         // 更改登录状态
         loginInfo.username = username
         loginInfo.password = password
         loginInfo.state = true
         let newLoginInfo = Object.assign(getLoginInfo('loginInfo'), loginInfo)
         setLoginInfo('loginInfo', newLoginInfo)
-        console.log(getLoginInfo('loginInfo'))
+        // console.log(getLoginInfo('loginInfo'))
         // 关闭模态框
         dispatch(changeIsVisible(false))
       }

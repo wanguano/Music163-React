@@ -6,9 +6,8 @@ import { RankingWrapper } from './style'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { getTopListAction } from '../../store/actionCreator'
 
-export default memo(function RecommendRanking() {
+export default memo(function RecommendRanking(props) {
   // state/props
-
   // redux hook
   const { upRanking = [], originRanking = [], newRanking = [] } = useSelector(state => ({
     upRanking: state.getIn(['recommend', 'upRanking']),
@@ -28,9 +27,9 @@ export default memo(function RecommendRanking() {
     <RankingWrapper>
       <ThemeHeaderRcm title="榜单" />
       <div className="ranking-info">
-        <TopList info={originRanking} />
-        <TopList info={upRanking} />
-        <TopList info={newRanking} />
+        <TopList info={originRanking} index={2} {...props} />
+        <TopList info={upRanking} index={0}  {...props}/>
+        <TopList info={newRanking} index={1} {...props}/>
       </div>
     </RankingWrapper>
   )

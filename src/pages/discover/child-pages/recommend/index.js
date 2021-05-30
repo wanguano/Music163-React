@@ -14,7 +14,8 @@ import HotArtist from './c-cpns/hot-artist'
 import UserLogin from './c-cpns/user-login'
 import SettleSinger from './c-cpns/settle-singer'
 
-function JMRecommend() {
+function JMRecommend(props) {
+  
   return (
     <RecommendWrapper>
       {/* 轮播图 */}
@@ -24,11 +25,11 @@ function JMRecommend() {
           {/* 主体推荐页左侧 */}
           <RecommendLeft>
             {/* 热门推荐 */}
-            <HotRecommend />
+            <HotRecommend history={props.history} />
             {/* 新碟上架 */}
             <NewAlbum />
             {/* 榜单 */}
-            <RecommendRanking />
+            <RecommendRanking to={props.history} />
           </RecommendLeft>
           {/* 主体推荐页右侧 */}
           <RecommendRight>

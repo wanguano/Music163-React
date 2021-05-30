@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import propTypes from 'prop-types'
 
-import { formatDate } from '@/utils/format-utils.js'
+import { formatDate, getPlayUrl } from '@/utils/format-utils.js'
 import { removeSongId } from '@/utils/localstorage'
 import { changePlaylistAndCount } from '@/pages/player/store/actionCreator.js'
 
@@ -39,7 +39,7 @@ function PlaylistItem(props) {
       <div className="control-and-singer">
         <LikeOutlined />
         <GithubOutlined />
-        <DownloadOutlined />
+        <DownloadOutlined onClick={() => window.open(getPlayUrl(songId))} />
         <DeleteOutlined onClick={(e) => clearCurrentSong(e)} />
         <span>{singer}</span>
       </div>

@@ -8,6 +8,8 @@ import { reducer as themeHeaderReducer } from '@/components/app-header/store';
 import { reducer as searchReducer } from '@/pages/search/store'
 import { reducer as songDetailRducer } from '@/pages/song-detail/store'
 import { reducer as loginReducer } from '@/components/theme-login/store'
+import { reducer as testReducer } from '@/pages/test/store/index'
+
 
 // 多个reducer合并
 const cRducer = combineReducers({
@@ -18,7 +20,8 @@ const cRducer = combineReducers({
   themeHeader: themeHeaderReducer,
   search: searchReducer,
   songDetail: songDetailRducer,
-  loginState: loginReducer
+  loginState: loginReducer,
+  testReducer
 });
 
 export default cRducer;

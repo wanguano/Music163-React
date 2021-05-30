@@ -19,14 +19,21 @@ export async function useGlobalKeyboardEvent() {
   const showDropBoxState = useChangeDropBoxState(true)
   const closeDropBoxState = useChangeDropBoxState(false)
   document.addEventListener('keydown', (e) => {
-    if(e.ctrlKey && e.key === 'k')  {
+    if (e.ctrlKey && e.key === 'k') {
       // 阻止默认事件
       e.preventDefault()
       showDropBoxState()
     }
-    if(e.key==='Escape') {
+    if (e.key === 'Escape') {
       closeDropBoxState()
     }
   })
 }
 
+/**
+ * 唤醒登录框
+ */
+// export async function useAwakenModal() {
+//   const dispatch = useDispatch()
+//   dispatch(changeIsVisible(true))
+// }
