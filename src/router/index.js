@@ -1,6 +1,5 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import Test from '@/pages/test'
 
 const JMDiscover = React.lazy(() => import('@/pages/discover'))
 const JMRecommend = React.lazy(() =>
@@ -93,11 +92,6 @@ const routes = [
     path: '/user',
     exact: true,
     component: JMUser,
-  },
-  {
-    path: '/test',
-    exact: true,
-    component: Test,
   },
   {
     component: JM404,
