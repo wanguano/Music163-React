@@ -32,7 +32,7 @@ const SingerCoverWrapper = styled.a`
 export default memo(function SingerCover(props) {
   const { info } = props
   return (
-    <SingerCoverWrapper>
+    <SingerCoverWrapper href={info.detail} target="_blank">
       <div className="image">
         <img src={getSizeImage(info.picUrl, 62)} alt="" />
       </div>

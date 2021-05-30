@@ -14,7 +14,7 @@ import ThemeLoginForm from '../theme-login-form'
 function ThemeLogin() {
   // state/props
   const [disabled, setDisabled] = useState(true)
-  const [loginState, setLoginState] = useState('default')// 默认状态显示
+  const [loginState, setLoginState] = useState('default') // 默认状态显示
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 })
   const draggleRef = useRef()
 
@@ -26,7 +26,7 @@ function ThemeLogin() {
     }),
     shallowEqual
   )
-  
+
   // 取消
   const handleCancel = (e) => {
     // 关闭模态框
@@ -58,6 +58,9 @@ function ThemeLogin() {
       case 'email':
         setLoginState('email')
         break
+      case 'register':
+        setLoginState('register')
+        break
       default:
     }
   }
@@ -69,7 +72,7 @@ function ThemeLogin() {
           <div className="login-bg"></div>
           <Button
             type="ghost"
-            onClick={() => message.warn('暂不做')}
+            onClick={() => handleLogin('register')}
             shape="round"
             icon={<PhoneOutlined />}
             className="gap"
@@ -120,6 +123,7 @@ function ThemeLogin() {
       </PhoneLoginModal>
     )
   }
+
   return (
     <Draggable>
       <Modal
@@ -145,7 +149,7 @@ function ThemeLogin() {
             onBlur={() => {}}
             // end
           >
-            登录
+            {loginState === 'register' ? '注册' : '登录'}
           </div>
         }
         visible={isVisible}
@@ -164,6 +168,7 @@ function ThemeLogin() {
         {loginState === 'default' ? defaultWrapperContent : null}
         {loginState === 'phone' ? phoneLogin() : undefined}
         {loginState === 'email' ? phoneLogin('email') : undefined}
+        {loginState === 'register' ? phoneLogin('register') : undefined}
       </Modal>
     </Draggable>
   )

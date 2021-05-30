@@ -10,12 +10,13 @@ import {
   changeFirstLoad,
 } from '@/pages/player/store/actionCreator'
 import { useAddPlaylist } from '../../hooks/change-music'
+import { changeCurrentIndexAction } from '../../pages/discover/child-pages/toplist/store/actionCreator'
 
 export default memo(function TopRanking(props) {
   // ranking-list排行列表效果需求:
   // 鼠标放到一行item身上hover效果 播放按钮和添加播放列表和收藏的icons
   // props/state
-  const { info } = props
+  const { info, index } = props
   const { tracks = [] } = info
   // let localPlayList = [] // 本地存储(暂时不做)
 
@@ -45,27 +46,13 @@ export default memo(function TopRanking(props) {
 
   // 添加到播放列表(使用自定义hook)
   const addPlaylist = useAddPlaylist(playList,message)
-  //#region 原始写法
-  // const addPlayList = (e, item) => {
-    // 阻止超链接跳转
-    // e.preventDefault && e.preventDefault()
-    // // 获取歌曲详情,添加到播放列表
-    // dispatch(getAddSongDetailAction(item.id))
-    // // 提示添加成功或失败
-    // const index = getFindIdIndex(playList, item.id)
-    // switch (index) {
-    //   case -1:
-    //     message.success({ content: '添加成功' })
-    //   //#region 设置本地存储(暂时先不做)
-    //   // localPlayList.push(item.id)
-    //   // localStorage.setItem('localPlayList', JSON.stringify(localPlayList))
-    //   //#endregion
-    //     break
-    //   default:
-    //     message.success({ content: '不能添加重复的歌曲' })
-    // }
-  // }
-  //#endregion
+
+  // function
+  const toLink = (e) => {
+    e.preventDefault()
+    dispatch(changeCurrentIndexAction(index))
+    props.to.push(`/discover/ranking?id=${info.id}`)
+  }
 
   return (
     <TopRankingWrapper>
@@ -124,7 +111,7 @@ export default memo(function TopRanking(props) {
           })}
       </div>
       <div className="ranking-footer">
-        <a href="/all" className="no-link show-all">
+        <a href="/all" className="show-all" onClick={(e) => toLink(e)}>
           查看全部&gt;
         </a>
       </div>

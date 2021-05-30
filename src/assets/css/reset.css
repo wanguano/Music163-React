@@ -186,4 +186,35 @@ button {
 
 .theme-logo {
   background: url(../img/logo.png) repeat 0 9999px;;
+  /* background: url(../img/music.svg) repeat 0 9999px;; */
+}
+
+.new-logo {
+  background: url(../img/music.svg) no-repeat ;
+  background-size: contain;
+}
+
+.date {
+  background: url(../img/date.png) no-repeat 0 9999px;;
+}
+
+/* .mask{
+  background:url(../img/date2_mask.png) no-repeat 0 9999px;
+} */
+
+.icons {
+  background: url(../img/icon.png) no-repeat 0 9999px;
+}
+
+main.content {
+  width: 980px;
+  min-height: 700px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-width: 0 1px;
+}
+
+.icon-small {
+  background: url(../img/icon2.png) no-repeat 0 9999px;
 }

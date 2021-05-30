@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { RcmHeaderLeft, RcmHeaderRight, RcmHeaderWrapper } from './style'
 
 const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
-  const { title, keywords, showIcon, right } = props
+  const { title, keywords, showIcon, right, keywordsClick } = props
   return (
     <RcmHeaderWrapper showIcon={showIcon}>
       <RcmHeaderLeft>
@@ -16,7 +16,7 @@ const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
           {keywords.map(item => {
             return (
               <li className="item" key={item}>
-                <a href="/">{item}</a>
+                <a href="/" onClick={(e) => {e.preventDefault();keywordsClick(item)}}>{item}</a>
                 <span className="line">|</span>
               </li>
             )
@@ -36,7 +36,8 @@ ThemeHeaderRmc.propTypes = {
   title: propTypes.string.isRequired,
   keywords: propTypes.array,
   showIcon: propTypes.bool,
-  right: propTypes.any
+  right: propTypes.any,
+  keywordsClick: propTypes.func,
 }
 
 ThemeHeaderRmc.defaultProps  = {

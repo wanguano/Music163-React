@@ -5,7 +5,7 @@ import AppNavBar from '@/components/nav-bar/index'
 import {SonglistContent, SonglistWrapper} from './style'
 import {getSongDeailAction} from './store/actionCreator'
 import SongDetailLeft from './child-pages/song-detail-left'
-import SongDetailRight from './child-pages/song-detail-right'
+// import SongDetailRight from './child-pages/song-detail-right'
 import { useGlobalKeyboardEvent } from '../../hooks/change-state'
 
 export default memo(function JMSonglist(props) {
@@ -32,7 +32,7 @@ export default memo(function JMSonglist(props) {
         {/* 歌单左部 */}
         <SongDetailLeft/>
         {/* 歌单右部 */}
-        <SongDetailRight/>
+        {/* <SongDetailRight/> */}
       </SonglistContent>
     </SonglistWrapper>
   )

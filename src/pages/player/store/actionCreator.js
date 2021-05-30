@@ -61,6 +61,13 @@ export const changePlaySequenceAction = (sequence) => ({
   sequence,
 })
 
+// 更改播放顺序Action
+export const changeCurrentCommentTotal = (total) => ({
+  type: actionType.CHANGE_CURRENT_TOTAL,
+  total,
+})
+
+
 // 切换歌曲Action
 export const changeCurrentIndexAndSongAction = (tag) => {
   return (dispatch, getState) => {

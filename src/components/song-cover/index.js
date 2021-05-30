@@ -5,11 +5,10 @@ import { SongCoverWrapper } from './style'
 // 歌曲封面组件
 function SongCover(props) {
   const { info, songList, width = 140 } = props
-
   // pic
-  const picUrl = (info && info.picUrl) || (songList && songList.coverImgUrl) 
+  const picUrl = (info && (info.picUrl || info.coverImgUrl)) || (songList && songList.coverImgUrl) 
   // playCount 播放次数 
-  const playCount = (info && info.playCount) || (songList && songList.playCount) 
+  const playCount = (info && info.playCount) || (songList && songList.playCount) || 0
   // name
   const name = (info && info.name) || (songList && songList.name) 
   // nickname

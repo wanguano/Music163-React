@@ -8,8 +8,8 @@ export function gotoPhoneLogin(phone, password, md5_password, countrycode) {
       phone,
       password,
       countrycode,
-      md5_password
-    }
+      md5_password,
+    },
   })
 }
 
@@ -19,9 +19,34 @@ export function gotoEmailLogin(email, password, md5_password) {
     url: '/login',
     method: 'get',
     params: {
-      email, 
+      email,
       password,
-      md5_password
-    }
+      md5_password,
+    },
+  })
+}
+
+// 发送验证码
+export function sendRegisterCode(phone) {
+  return request({
+    url: '/captcha/sent',
+    method: 'get',
+    params: {
+      phone,
+    },
+  })
+}
+
+/* 注册 */
+export function sendRegister(captcha, phone, password, nickname) {
+  return request({
+    url: '/register/cellphone',
+    method: 'get',
+    params: {
+      captcha,
+      phone,
+      password,
+      nickname,
+    },
   })
 }

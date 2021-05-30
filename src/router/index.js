@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import Test from '@/pages/test'
 
 const JMDiscover = React.lazy(() => import('@/pages/discover'))
 const JMRecommend = React.lazy(() =>
@@ -22,8 +23,11 @@ const JMMine = React.lazy(() => import('@/pages/mine'))
 const JMSearch = React.lazy(() => import('@/pages/search'))
 const JMSingle = React.lazy(() => import('@/pages/search/child-pages/single'))
 const JMSinger = React.lazy(() => import('@/pages/search/child-pages/singer'))
-const JMSearchAlbum = React.lazy(() => import('@/pages/search/child-pages/album'))
+const JMSearchAlbum = React.lazy(() =>
+  import('@/pages/search/child-pages/album')
+)
 const JMSonglist = React.lazy(() => import('@/pages/song-detail'))
+const JMUser = React.lazy(() => import('@/pages/profile'))
 
 const JM404 = React.lazy(() => import('@/pages/404'))
 
@@ -76,18 +80,28 @@ const routes = [
         render: () => <Redirect to="/search/single?song=&type=1" />,
       },
       { path: '/search/single', component: JMSingle },
-      { path: '/search/singer', component: JMSinger},
-      { path: '/search/album/', component: JMSearchAlbum}
-    ]
+      { path: '/search/singer', component: JMSinger },
+      { path: '/search/album/', component: JMSearchAlbum },
+    ],
   },
   {
     path: '/songlist',
     exact: true,
-    component: JMSonglist
+    component: JMSonglist,
   },
   {
-    component: JM404
-  }
+    path: '/user',
+    exact: true,
+    component: JMUser,
+  },
+  {
+    path: '/test',
+    exact: true,
+    component: Test,
+  },
+  {
+    component: JM404,
+  },
 ]
 
 export default routes

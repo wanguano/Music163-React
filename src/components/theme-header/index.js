@@ -1,9 +1,19 @@
 import React, { memo } from 'react'
 import propTypes from 'prop-types'
 import { RcmHeaderLeft,  RcmHeaderWrapper } from './style'
+import { shallowEqual, useSelector } from 'react-redux'
 
 const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
   const { title } = props
+
+  // redux
+  const { commentTotal } = useSelector(
+    state => ({
+      commentTotal: state.getIn(['player', 'currentCommentTotal'])
+    }),
+    shallowEqual
+  )
+
   return (
     <RcmHeaderWrapper>
       <RcmHeaderLeft>
@@ -12,7 +22,7 @@ const ThemeHeaderRmc = function ThemeHeaderRmc(props) {
             {title}
           </a>
         </h2>
-        <span>共170851条评论</span>
+        {commentTotal && <span>共{commentTotal}条评论</span>}
       </RcmHeaderLeft>
     </RcmHeaderWrapper>
   )
