@@ -43,7 +43,7 @@ instance.interceptors.response.use(
           console.log('其他错误信息')
       }
     }
-    return err.response.data
+    return err
   }
 )
 
