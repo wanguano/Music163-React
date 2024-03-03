@@ -25,7 +25,6 @@ export const HeaderLeft = styled.div`
     display: inline-block;
     width: 176px;
     height: 69px;
-    background-position: 0 0;
     text-indent: -9999px;
   }
 
@@ -94,7 +93,7 @@ export const HeaderRight = styled.div`
       width: 221px;
       height: 32px;
       border-radius: 16px;
-      
+
       input {
         font-size: 14px;
         font-family: '微软雅黑';

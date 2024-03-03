@@ -8,10 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ThemeRecommendRcm from '@/components/theme-header-rcm'
 import Authentication from '../../components/Authentication'
 import SongCover from '@/components/song-cover'
-import {
-  getUserSongList,
-  setCreateUserSongList,
-} from '@/service/user'
+import { getUserSongList, setCreateUserSongList } from '@/service/user'
 import { changeIsVisible } from '../../components/theme-login/store/actionCreator'
 import { getCity, getSizeImage } from '../../utils/format-utils'
 import { ProfileWrapper } from './style'
@@ -60,6 +57,7 @@ export default memo(function Profile(props) {
   // other hook
   useEffect(() => {
     getUserSongList(userId).then((res) => {
+      console.log(res)
       setPlaylist(res.playlist)
     })
   }, [userId])

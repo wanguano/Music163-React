@@ -1,27 +1,27 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { NavLink, Redirect } from 'react-router-dom'
 
-import { debounce } from '@/utils/format-utils.js';
+import { debounce } from '@/utils/format-utils.js'
 import {
   getSearchSongListAction,
   changeFocusStateAction,
-} from './store/actionCreator';
-import { headerLinks } from '@/common/local-data';
-import { getSongDetailAction } from '@/pages/player/store';
-import ThemeLogin from '@/components/theme-login';
-import { changeIsVisible } from '@/components/theme-login/store';
+} from './store/actionCreator'
+import { headerLinks } from '@/common/local-data'
+import { getSongDetailAction } from '@/pages/player/store'
+import ThemeLogin from '@/components/theme-login'
+import { changeIsVisible } from '@/components/theme-login/store'
 
-import { Dropdown, Input, Menu } from 'antd';
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
-import { clearLoginState } from '../../utils/secret-key';
+import { Dropdown, Input, Menu } from 'antd'
+import { DownOutlined, SearchOutlined } from '@ant-design/icons'
+import { HeaderLeft, HeaderRight, HeaderWrapper } from './style'
+import { clearLoginState } from '../../utils/secret-key'
 
 export default memo(function JMAppHeader(props) {
   // props/state
-  const [isRedirect, setIsRedirect] = useState(false);
-  const [value, setValue] = useState('');
-  const [recordActive, setRecordActive] = useState(-1);
+  const [isRedirect, setIsRedirect] = useState(false)
+  const [value, setValue] = useState('')
+  const [recordActive, setRecordActive] = useState(-1)
   /* 
     登录标识
   */
@@ -39,18 +39,18 @@ export default memo(function JMAppHeader(props) {
           <em>{item.title}</em>
           <i className="icon"></i>
         </NavLink>
-      );
+      )
     } else {
       return (
         <a href={item.link} key={item.title} className="header-item">
           {item.title}
         </a>
-      );
+      )
     }
-  };
+  }
 
   // redux hook
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { searchSongList, focusState, isLogin, profile } = useSelector(
     (state) => ({
       searchSongList: state.getIn(['themeHeader', 'searchSongList']),
@@ -59,38 +59,38 @@ export default memo(function JMAppHeader(props) {
       profile: state.getIn(['loginState', 'profile']),
     }),
     shallowEqual
-  );
+  )
 
   // other hook
-  const inputRef = useRef();
+  const inputRef = useRef()
   // (根据当前焦点状态设置input焦点)
   useEffect(() => {
     // 获取焦点
-    if (focusState) inputRef.current.focus();
+    if (focusState) inputRef.current.focus()
     // 失去焦点
-    else inputRef.current.blur();
-  }, [focusState]);
+    else inputRef.current.blur()
+  }, [focusState])
 
   // other function debounce()  函数防抖进行优化
   const changeInput = debounce((target) => {
-    let value = target.value.trim();
-    if (value.length < 1) return;
+    let value = target.value.trim()
+    if (value.length < 1) return
     // 显示下拉框
-    dispatch(changeFocusStateAction(true));
+    dispatch(changeFocusStateAction(true))
     // 发送网络请求
-    dispatch(getSearchSongListAction(value));
-  }, 400);
+    dispatch(getSearchSongListAction(value))
+  }, 400)
   // 点击当前item歌曲项
   const changeCurrentSong = (id, item) => {
     // 放到搜索文本框
-    setValue(item.name + '-' + item.artists[0].name);
+    setValue(item.name + '-' + item.artists[0].name)
     //派发action
-    dispatch(getSongDetailAction(id));
+    dispatch(getSongDetailAction(id))
     // 隐藏下拉框
-    dispatch(changeFocusStateAction(false));
+    dispatch(changeFocusStateAction(false))
     // 播放音乐
-    document.getElementById('audio').autoplay = true;
-  };
+    document.getElementById('audio').autoplay = true
+  }
 
   // 表单回车:跳转到搜索详情
   const handleEnter = useCallback(
@@ -102,43 +102,42 @@ export default memo(function JMAppHeader(props) {
           searchSongList[recordActive].name +
             '-' +
             searchSongList[recordActive].artists[0].name
-        );
+        )
       }
-      dispatch(changeFocusStateAction(false));
+      dispatch(changeFocusStateAction(false))
       // 只要在搜索框回车: 都进行跳转
-      setIsRedirect(true);
+      setIsRedirect(true)
     },
     [dispatch, recordActive, searchSongList]
-  );
+  )
 
   // 获取焦点
   const handleFocus = useCallback(() => {
     // 当文本获取焦点时,文本被选中状态
-    inputRef.current.select();
+    inputRef.current.select()
     // 更改为获取焦点状态
-    dispatch(changeFocusStateAction(true));
+    dispatch(changeFocusStateAction(true))
     // 修改状态重定向状态
-    setIsRedirect(false);
-  }, [dispatch]);
+    setIsRedirect(false)
+  }, [dispatch])
 
   // 监控用户是否按: "上"或"下"键
   const watchKeyboard = useCallback(
     (even) => {
-      let activeNumber = recordActive;
+      let activeNumber = recordActive
       if (even.keyCode === 38) {
-        activeNumber--;
+        activeNumber--
         activeNumber =
-          activeNumber < 0 ? searchSongList?.length - 1 : activeNumber;
-        setRecordActive(activeNumber);
+          activeNumber < 0 ? searchSongList?.length - 1 : activeNumber
+        setRecordActive(activeNumber)
       } else if (even.keyCode === 40) {
-        activeNumber++;
-        activeNumber =
-          activeNumber >= searchSongList?.length ? 0 : activeNumber;
-        setRecordActive(activeNumber);
+        activeNumber++
+        activeNumber = activeNumber >= searchSongList?.length ? 0 : activeNumber
+        setRecordActive(activeNumber)
       }
     },
     [recordActive, setRecordActive, searchSongList]
-  );
+  )
 
   // icons键盘图标
   const icons = (
@@ -156,32 +155,28 @@ export default memo(function JMAppHeader(props) {
       </div>
       <div className="k-wrapper">k</div>
     </div>
-  );
+  )
 
   // 用户下拉JSX
   const profileDwonMenu = () => {
-    return (
-      isLogin ? (
-        <Menu>
-          <Menu.Item>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="#/"
-              onClick={(e) => e.preventDefault()}
-            >
-              {profile.nickname}
-            </a>
-          </Menu.Item>
-          <Menu.Item>
-            <a
-              rel="noopener noreferrer"
-              href="#/user"
-            >
-              我的主页
-            </a>
-          </Menu.Item>
-          {/* <Menu.Item>
+    return isLogin ? (
+      <Menu>
+        <Menu.Item>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="#/"
+            onClick={(e) => e.preventDefault()}
+          >
+            {profile.nickname}
+          </a>
+        </Menu.Item>
+        <Menu.Item>
+          <a rel="noopener noreferrer" href="#/user">
+            我的主页
+          </a>
+        </Menu.Item>
+        {/* <Menu.Item>
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -190,11 +185,14 @@ export default memo(function JMAppHeader(props) {
               没想好
             </a>
           </Menu.Item> */}
-          <Menu.Item danger onClick={() => clearLoginState()}>退出登录</Menu.Item>
-        </Menu>
-      ) : ''
-    );
-  };
+        <Menu.Item danger onClick={() => clearLoginState()}>
+          退出登录
+        </Menu.Item>
+      </Menu>
+    ) : (
+      ''
+    )
+  }
 
   const showProfileContent = () => {
     return (
@@ -218,7 +216,7 @@ export default memo(function JMAppHeader(props) {
           </h1>
           <div className="header-group">
             {headerLinks.map((item, index) => {
-              return showSelectItem(item, index);
+              return showSelectItem(item, index)
             })}
           </div>
         </HeaderLeft>
@@ -273,13 +271,13 @@ export default memo(function JMAppHeader(props) {
                         >
                           <span>{item.name}</span>-{item.artists[0].name}
                         </div>
-                      );
+                      )
                     })}
                 </span>
               </div>
             </div>
           </div>
-          <div className="center">创作者中心</div>
+          {/* <div className="center">创作者中心</div> */}
           <Dropdown overlay={profileDwonMenu}>
             <div
               className="login"
@@ -300,5 +298,5 @@ export default memo(function JMAppHeader(props) {
       <div className="red-line"></div>
       <ThemeLogin />
     </HeaderWrapper>
-  );
-});
+  )
+})

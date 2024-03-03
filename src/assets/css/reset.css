@@ -105,7 +105,9 @@ button {
 }
 
 .sprite_01 {
-  background: url(../img/sprite_01.png) no-repeat 0 9999px;
+  background: url(../img/header-logo.png) no-repeat;
+  background-position-y: -14px;
+  background-size: 197px 100px;
 }
 
 .sprite_02 {
@@ -185,17 +187,17 @@ button {
 }
 
 .theme-logo {
-  background: url(../img/logo.png) repeat 0 9999px;;
+  background: url(../img/logo.png) repeat 0 9999px;
   /* background: url(../img/music.svg) repeat 0 9999px;; */
 }
 
 .new-logo {
-  background: url(../img/music.svg) no-repeat ;
+  background: url(../img/music.svg) no-repeat;
   background-size: contain;
 }
 
 .date {
-  background: url(../img/date.png) no-repeat 0 9999px;;
+  background: url(../img/date.png) no-repeat 0 9999px;
 }
 
 /* .mask{

@@ -18,6 +18,7 @@ const JMAlbum = React.lazy(() => import('@/pages/discover/child-pages/album'))
 const JMSongDetail = React.lazy(() => import('@/pages/player'))
 const JMFriend = React.lazy(() => import('@/pages/friend'))
 const JMMine = React.lazy(() => import('@/pages/mine'))
+const JMAi = React.lazy(() => import('@/pages/ai'))
 
 const JMSearch = React.lazy(() => import('@/pages/search'))
 const JMSingle = React.lazy(() => import('@/pages/search/child-pages/single'))
@@ -27,21 +28,9 @@ const JMSearchAlbum = React.lazy(() =>
 )
 const JMSonglist = React.lazy(() => import('@/pages/song-detail'))
 const JMUser = React.lazy(() => import('@/pages/profile'))
+const JMVip = React.lazy(() => import('@/pages/vip'))
 
 const JM404 = React.lazy(() => import('@/pages/404'))
-
-// import JMDiscover from '@/pages/discover'
-// import JMRecommend from '../pages/discover/child-pages/recommend'
-// import JMToplist from '../pages/discover/child-pages/toplist'
-// import JMSongs from '../pages/discover/child-pages/songs'
-// import JMDjradio from '../pages/discover/child-pages/djradio'
-// import JMArtist from '../pages/discover/child-pages/artist'
-// import JMAlbum from '../pages/discover/child-pages/album'
-// import JMSongDetail from '../pages/player'
-
-// import JMFriend from '@/pages/friend'
-// import JMMine from '@/pages/mine'
-// import { Redirect } from 'react-router-dom'
 
 const routes = [
   { path: '/', exact: true, render: () => <Redirect to="/discover" /> },
@@ -68,7 +57,13 @@ const routes = [
     ],
   },
   { path: '/mine', component: JMMine },
+  { path: '/ai', component: JMAi },
   { path: '/friend', component: JMFriend },
+  {
+    path: '/vip',
+    exact: true,
+    component: JMVip,
+  },
   {
     path: '/search',
     component: JMSearch,
@@ -93,6 +88,7 @@ const routes = [
     exact: true,
     component: JMUser,
   },
+
   {
     component: JM404,
   },

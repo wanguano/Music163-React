@@ -5,7 +5,7 @@ import { footerLinks, footerImages } from '@/common/local-data'
 
 export default memo(function JMAppFooter() {
   // 底部左侧
-  const showCopys = item => {
+  const showCopys = (item) => {
     return (
       <Fragment key={item.title}>
         <a href={item.link}>{item.title}</a>
@@ -14,10 +14,17 @@ export default memo(function JMAppFooter() {
     )
   }
   // 底部右侧
-  const showUnits = item => {
+  const showUnits = (item) => {
     return (
       <li key={item.link} className="item">
-        <a href={item.link} rel="noopener noreferrer" target="_blank" className="link"> </a>
+        <a
+          href={item.link}
+          rel="noopener noreferrer"
+          target="_blank"
+          className="link"
+        >
+          {' '}
+        </a>
         <span className="title">{item.title}</span>
       </li>
     )
@@ -26,9 +33,9 @@ export default memo(function JMAppFooter() {
     <FooterWrapper>
       <div className="footer-content w980">
         <FooterLeft>
-          <p className="copy">{footerLinks.map(item => showCopys(item))}</p>
+          <p className="copy">{footerLinks.map((item) => showCopys(item))}</p>
           <p>
-            <span className="footer-company">网易公司版权所有©1997-2020</span>
+            <span className="footer-company">云音乐公司版权所有©1997-2024</span>
             <span>杭州乐读科技有限公司运营：浙网文[2018]3506-263号</span>
           </p>
           <p>
@@ -45,7 +52,7 @@ export default memo(function JMAppFooter() {
             <span>浙公网安备 33010902002564号</span>
           </p>
         </FooterLeft>
-        <FooterRight>{footerImages.map(item => showUnits(item))}</FooterRight>
+        <FooterRight>{footerImages.map((item) => showUnits(item))}</FooterRight>
       </div>
     </FooterWrapper>
   )

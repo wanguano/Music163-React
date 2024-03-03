@@ -54,7 +54,8 @@ const ThemeLoginForm = (props) => {
     sendRegister(code, phone, password, nickname).then((res) => {
       console.log(res)
       if (res.code === 200) message.success('注册成功')
-      else message.warn(res.message)
+      else if(res.code === 400) message.error('昵称不符合规范')
+      else message.error('验证码错误')
     })
   }
   const onRegisterFinishFailed = () => {}
@@ -123,7 +124,7 @@ const ThemeLoginForm = (props) => {
           <Checkbox className={loginFormStyle.mr80} defaultChecked={true}>
             自动登录
           </Checkbox>
-          <span className={loginFormStyle.forgetPwd}>忘记密码?</span>
+          {/* <span className={loginFormStyle.forgetPwd}>忘记密码?</span> */}
         </div>
         <Form.Item {...tailLayout}>
           <Button
@@ -185,7 +186,10 @@ const ThemeLoginForm = (props) => {
           className={loginFormStyle.gap}
           label="验证码"
           name="code"
-          rules={[{ pattern: codeReg, message: '验证码最短4位' }, { required: true, message: '请输入你的验证码' }]}
+          rules={[
+            { pattern: codeReg, message: '验证码最短4位' },
+            { required: true, message: '请输入你的验证码' },
+          ]}
         >
           <Input disabled={!isSendSatte} />
         </Form.Item>
