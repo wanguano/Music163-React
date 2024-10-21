@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @Author: 吴建明
+ * @Date: 2023-05-03 19:05:31
+ * @LastEditors: 吴建明
+ * @LastEditTime: 2024-05-29 19:04:37
+ * @FilePath: \music163-react\src\pages\search\index.js
+ * 
+ */
 import React, { memo, useState, useEffect } from 'react'
 
 import qs from 'query-string'

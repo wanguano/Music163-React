@@ -1,7 +1,14 @@
 import React, { memo } from 'react'
+import { VipWrapper } from './style'
 
 const Vip = memo(() => {
-  return <div className="w980">Vip</div>
+  return (
+    <VipWrapper className="w980">
+      <div className="box">
+        <div className="inner"></div>
+      </div>
+    </VipWrapper>
+  )
 })
 
 export default Vip
