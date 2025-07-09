@@ -177,6 +177,8 @@ yarn build  |  npm build
 - 非常感谢[王红元](https://github.com/coderwhy)老师的，React核心技术实战让我学习到很多 react 的知识。
 - 非常感谢后台提供者[Binaryify](https://github.com/Binaryify/NeteaseCloudMusicApi), 接口很稳定，文档很完善
 
+- ["本项目 CDN 加速及安全防护由 Tencent EdgeOne 赞助"](https://edgeone.ai/)
+
 
 ## 最后
 如果觉得项目还不错的话 👏，就给个 star ⭐ 鼓励一下吧~
